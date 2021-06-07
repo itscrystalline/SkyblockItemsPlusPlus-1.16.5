@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "skyblockitemsplusplus:blocks/concentrated_refined_mithril_block"
+  }
+}

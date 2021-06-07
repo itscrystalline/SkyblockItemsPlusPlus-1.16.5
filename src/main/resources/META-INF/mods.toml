@@ -1,0 +1,37 @@
+
+modLoader="javafml" #mandatory
+
+loaderVersion="[36,)"
+
+license="All rights reserved"
+
+[[mods]]
+
+modId="skyblockitemsplusplus"
+
+version="1.0"
+
+displayName="SkyblockItems++"
+
+#logoFile="examplemod.png"
+
+credits="IWant2TryHard for the mod And Hypxel for the gamemode!"
+
+authors="IWant2TryHard"
+
+description='''
+    Adds Hypixel Skyblock's Items and systems to Minecraft.
+'''
+
+[[dependencies.skyblockitemsplusplus]]
+    modId="forge"
+    mandatory=true
+    versionRange="[36,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.skyblockitemsplusplus]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.16.5,1.17)"
+    ordering="NONE"
+    side="BOTH"
