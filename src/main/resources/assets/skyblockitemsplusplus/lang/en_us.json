@@ -9,11 +9,17 @@
     "item.skyblockitemsplusplus.concentrated_refined_mithril": "\u00A79Concentrated Refined Mithril",
     "item.skyblockitemsplusplus.titanium": "\u00a79Titanium",
     "item.skyblockitemsplusplus.refined_titanium": "\u00a75Refined Titanium",
+    "item.skyblockitemsplusplus.refined_ender_pearl": "\u00a7aRefined Ender Pearl",
     "item.skyblockitemsplusplus.aspect_of_the_jerry": "Aspect of The Jerry",
     "item.skyblockitemsplusplus.rogue_sword": "Rogue Sword",
     "item.skyblockitemsplusplus.hardened_refined_netherite_sword": "\u00a7cHardened Refined Netherite Sword",
     "item.skyblockitemsplusplus.aspect_of_the_end": "\u00a79Aspect of The End",
     "item.skyblockitemsplusplus.undead_sword": "Undead Sword",
+
+    "item.skyblockitemsplusplus.farm_suit_helmet": "Farm Suit Helmet",
+    "item.skyblockitemsplusplus.farm_suit_chestplate": "Farm Suit Chestplate",
+    "item.skyblockitemsplusplus.farm_suit_leggings": "Farm Suit Leggings",
+    "item.skyblockitemsplusplus.farm_suit_boots": "Farm Suit Boots",
 
     "block.skyblockitemsplusplus.refined_netherite_block": "\u00A7cRefined Block of Netherite",
     "block.skyblockitemsplusplus.refined_diamond_block": "\u00A79Refined Block of Diamond",
@@ -26,5 +32,9 @@
     "block.skyblockitemsplusplus.concentrated_refined_mithril_block": "\u00a79Concentrated Refined Block of Mithril",
     "block.skyblockitemsplusplus.titanium_ore": "\u00a79Titanium Ore",
     "block.skyblockitemsplusplus.titanium_block": "\u00a79Block of Titanium",
-    "block.skyblockitemsplusplus.refined_titanium_block": "\u00a75Refined Block of Titanium"
+    "block.skyblockitemsplusplus.refined_titanium_block": "\u00a75Refined Block of Titanium",
+
+    "itemGroup.SkyblockItems_Combat": "Skyblock Items: Combat",
+    "itemGroup.SkyblockItems_Materials": "Skyblock Items: Materials",
+    "itemGroup.SkyblockItems_Armors": "Skyblock Items: Armory"
 }

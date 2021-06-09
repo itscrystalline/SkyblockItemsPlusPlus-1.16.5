@@ -1,22 +1,37 @@
 package com.iwant2tryhard.skyblockitemsplusplus.core.event;
 
+import com.google.common.annotations.Beta;
 import com.iwant2tryhard.skyblockitemsplusplus.SkyblockItemsPlusPlus;
+import com.iwant2tryhard.skyblockitemsplusplus.client.util.ColorText;
 import com.iwant2tryhard.skyblockitemsplusplus.common.entities.MobStats;
 import com.iwant2tryhard.skyblockitemsplusplus.common.entities.PlayerStats;
-import com.iwant2tryhard.skyblockitemsplusplus.common.items.Aspect_Of_The_End;
-import com.iwant2tryhard.skyblockitemsplusplus.common.items.Aspect_Of_The_Jerry;
-import com.iwant2tryhard.skyblockitemsplusplus.common.items.Undead_Sword;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.farm_suit.Farm_Suit_Boots;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.farm_suit.Farm_Suit_Chestplate;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.farm_suit.Farm_Suit_Helmet;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.farm_suit.Farm_Suit_Leggings;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.weapons.Aspect_Of_The_End;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.weapons.Aspect_Of_The_Jerry;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.weapons.Undead_Sword;
+import com.iwant2tryhard.skyblockitemsplusplus.core.init.ItemInit;
+import net.minecraft.block.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
+import net.minecraft.entity.item.ArmorStandEntity;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.monster.*;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -27,11 +42,15 @@ public class EventHandler {
     @SubscribeEvent
     public static void onLivingEntityHurt(final LivingHurtEvent event)
     {
+        World worldIn = event.getEntity().getCommandSenderWorld();
+
         //System.out.println("Hit " + target + " " + event.getSource());
         if (event.getSource().getEntity() instanceof PlayerEntity)
         {
             LivingEntity target = event.getEntityLiving();
             PlayerEntity player = (PlayerEntity) event.getSource().getEntity();
+
+            float initialDamage = event.getAmount();
 
             if (PlayerStats.debugLogging) { Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("initialDamage : " + event.getAmount()), false); }
 
@@ -78,9 +97,62 @@ public class EventHandler {
                 else if (target instanceof WitherSkeletonEntity) { if (player.getMainHandItem().getItem() instanceof Undead_Sword) { event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.WITHER_SKELETON.defense, target.getMaxHealth()))); }else{ event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.WITHER_SKELETON.defense, target.getMaxHealth())); }  }
                 else if (target instanceof WitherEntity) { if (player.getMainHandItem().getItem() instanceof Undead_Sword) { event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.WITHER.defense, target.getMaxHealth()))); }else{ event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.WITHER.defense, target.getMaxHealth())); }  }
                 else if (target instanceof EnderDragonEntity) { event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.ENDER_DRAGON.defense, target.getMaxHealth())); }
+
+                else if (target instanceof PlayerEntity) { event.setAmount(event.getAmount()); }
             }
 
+            ArmorStandEntity dmgTag = new ArmorStandEntity(worldIn, event.getEntity().position().x, event.getEntity().position().y + 0.25, event.getEntity().position().z);
+            //dmgTag.forceAddEffect(new EffectInstance(Effects.INVISIBILITY, 1000, 1));
+            dmgTag.setCustomName(ITextComponent.nullToEmpty(ColorText.YELLOW.toString() + (initialDamage * 5)));
+            dmgTag.setCustomNameVisible(true);
+            dmgTag.setInvulnerable(true);
+            dmgTag.noPhysics = true;
+            dmgTag.setInvisible(true);
+            worldIn.addFreshEntity(dmgTag);
+            dmgTag.kill();
+
             if (PlayerStats.debugLogging) { Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("calculatedDamage : " + event.getAmount()), false); }
+        }
+        if (event.getEntity() instanceof PlayerEntity)
+        {
+            PlayerEntity target = (PlayerEntity) event.getEntity();
+            float EHP = (target.getMaxHealth() * 5) * ((PlayerStats.getDefense() / 100) + 1);
+            Item head = target.getItemBySlot(EquipmentSlotType.HEAD).getItem();
+            Item chest = target.getItemBySlot(EquipmentSlotType.CHEST).getItem();
+            Item legs = target.getItemBySlot(EquipmentSlotType.LEGS).getItem();
+            Item boot = target.getItemBySlot(EquipmentSlotType.FEET).getItem();
+            if (((head == Items.NETHERITE_HELMET) &
+                    (chest == Items.NETHERITE_CHESTPLATE) &
+                    (legs == Items.NETHERITE_LEGGINGS) &
+                    (boot == Items.NETHERITE_BOOTS)) |
+                    ((head == Items.DIAMOND_HELMET) &
+                    (chest == Items.DIAMOND_CHESTPLATE) &
+                    (legs == Items.DIAMOND_LEGGINGS) &
+                    (boot == Items.DIAMOND_BOOTS)) |
+                    ((head == Items.GOLDEN_HELMET) &
+                    (chest == Items.GOLDEN_CHESTPLATE) &
+                    (legs == Items.GOLDEN_LEGGINGS) &
+                    (boot == Items.GOLDEN_BOOTS)) |
+                    ((head == Items.IRON_HELMET) &
+                    (chest == Items.IRON_CHESTPLATE) &
+                    (legs == Items.IRON_LEGGINGS) &
+                    (boot == Items.IRON_BOOTS)) |
+                    ((head == Items.LEATHER_HELMET) &
+                    (chest == Items.LEATHER_CHESTPLATE) &
+                    (legs == Items.LEATHER_LEGGINGS) &
+                    (boot == Items.LEATHER_BOOTS)))
+            {
+                event.setAmount(event.getAmount());
+            }
+            else
+            {
+                //Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("initialDamage: " + event.getAmount()), false);
+                event.setAmount((((event.getAmount() * 5) / EHP) * target.getMaxHealth()) * 5);
+                //Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("defense: " + PlayerStats.getDefense()), false);
+                //Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("ehp: " + EHP), false);
+                //Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("targetMaxHealth: " + target.getMaxHealth()), false);
+                //Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("damageTaken : " + event.getAmount()), false);
+            }
         }
 
     }
@@ -97,11 +169,55 @@ public class EventHandler {
             //System.out.println(PlayerStats.getStrength());
 
             PlayerStats.setStrength(player.experienceLevel + 100);
-            PlayerStats.setManaReductionPercent(player.experienceLevel + 0);
+            if (PlayerStats.getManaReductionPercent() > 90) {
+                PlayerStats.setManaReductionPercent(90);
+            } else {
+                PlayerStats.setManaReductionPercent(player.experienceLevel);
+            }
 
             if (player.getMainHandItem().getItem() instanceof Aspect_Of_The_End || player.getOffhandItem().getItem() instanceof Aspect_Of_The_End)
             {
                 PlayerStats.addStrength(100);
+            }
+
+            int headDefense;
+            int chestDefense;
+            int legsDefense;
+            int feetDefense;
+
+            if (player.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof ArmorItem) { ArmorItem head = (ArmorItem) player.getItemBySlot(EquipmentSlotType.HEAD).getItem();headDefense = head.getDefense(); }else { headDefense = 0; }
+
+            if (player.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof ArmorItem) { ArmorItem chest = (ArmorItem) player.getItemBySlot(EquipmentSlotType.CHEST).getItem();chestDefense = chest.getDefense(); }else { chestDefense = 0; }
+
+            if (player.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof ArmorItem) { ArmorItem legs = (ArmorItem) player.getItemBySlot(EquipmentSlotType.LEGS).getItem();legsDefense = legs.getDefense(); }else { legsDefense = 0; }
+
+            if (player.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof ArmorItem) { ArmorItem feet = (ArmorItem) player.getItemBySlot(EquipmentSlotType.FEET).getItem();feetDefense = feet.getDefense(); }else { feetDefense = 0; }
+
+            PlayerStats.setDefense((headDefense + chestDefense + legsDefense + feetDefense) / 2);
+
+
+            //Armor abilities
+            //farm suit
+            //Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("armor: " + player.getItemBySlot(EquipmentSlotType.HEAD).getItem() + " ," + player.getItemBySlot(EquipmentSlotType.CHEST).getItem() + " ," + player.getItemBySlot(EquipmentSlotType.LEGS).getItem() + " ," + player.getItemBySlot(EquipmentSlotType.FEET).getItem()), false);
+            if (player.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof Farm_Suit_Helmet
+            & player.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Farm_Suit_Chestplate
+            & player.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Farm_Suit_Leggings
+            & player.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Farm_Suit_Boots)
+            {
+                Block feetBlock = event.getEntity().getCommandSenderWorld()
+                        .getBlockState(new BlockPos(player.position().x, player.position().y, player.position().z))
+                        .getBlock();
+                Block belowFeetBlock = event.getEntity().getCommandSenderWorld()
+                        .getBlockState(new BlockPos(player.position().x, player.position().y - 1, player.position().z))
+                        .getBlock();
+                //Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("block: " + feetBlock + " ," + belowFeetBlock), false);
+                if (feetBlock instanceof BushBlock || belowFeetBlock instanceof BushBlock ||
+                        feetBlock instanceof SugarCaneBlock || belowFeetBlock instanceof SugarCaneBlock ||
+                    feetBlock instanceof FarmlandBlock || belowFeetBlock instanceof FarmlandBlock)
+                {
+                    //Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("on cropblock!"), false);
+                    player.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, 60, 2));
+                }
             }
         }
     }

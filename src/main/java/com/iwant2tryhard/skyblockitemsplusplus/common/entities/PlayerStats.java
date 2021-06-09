@@ -6,6 +6,7 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 public class PlayerStats {
     private static int manaReductionPercent = 0;
     private static int strengthPercent = 100;
+    private static int defense = 0;
     public static boolean debugLogging = true;
 
     public static int getManaReductionPercent() {
@@ -32,6 +33,13 @@ public class PlayerStats {
     }
     public static void removeStrength(int strengthPercentToRemove) {
         PlayerStats.strengthPercent -= strengthPercentToRemove;
+    }
+
+    public static int getDefense() {
+        return defense;
+    }
+    public static void setDefense(int defense) {
+        PlayerStats.defense = defense;
     }
 
     public static float damageEntity(float srcDamage, float targetDefense, float targetMaxHealth)
