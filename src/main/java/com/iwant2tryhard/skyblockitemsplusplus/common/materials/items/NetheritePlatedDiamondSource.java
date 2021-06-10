@@ -3,12 +3,13 @@ package com.iwant2tryhard.skyblockitemsplusplus.common.materials.items;
 import com.iwant2tryhard.skyblockitemsplusplus.core.init.ItemInit;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 
-public class HardenedRefinedNetheriteSwordSorce implements IItemTier {
+public class NetheritePlatedDiamondSource implements IItemTier {
     @Override
     public int getUses() {
-        return 7000;
+        return 2031;
     }
 
     @Override
@@ -23,16 +24,16 @@ public class HardenedRefinedNetheriteSwordSorce implements IItemTier {
 
     @Override
     public int getLevel() {
-        return 4;
+        return 3;
     }
 
     @Override
     public int getEnchantmentValue() {
-        return 30;
+        return 25;
     }
 
     @Override
     public Ingredient getRepairIngredient() {
-        return null/*Ingredient.of(ItemInit.REFINED_NETHERITE_BLOCK)*/;
+        return Ingredient.of(Items.NETHERITE_SCRAP);
     }
 }

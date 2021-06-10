@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "skyblockitemsplusplus:items/netherite_plated_diamond_leggings"
+  }
+}

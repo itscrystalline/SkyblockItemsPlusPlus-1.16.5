@@ -1,4 +1,4 @@
-package com.iwant2tryhard.skyblockitemsplusplus.common.materials.items;
+package com.iwant2tryhard.skyblockitemsplusplus.common.materials.tools.swords;
 
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.crafting.Ingredient;

@@ -1,14 +1,14 @@
-package com.iwant2tryhard.skyblockitemsplusplus.common.materials.items;
+package com.iwant2tryhard.skyblockitemsplusplus.common.materials.tools.swords;
 
+import com.iwant2tryhard.skyblockitemsplusplus.core.init.ItemInit;
 import net.minecraft.item.IItemTier;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 
-public class RogueSwordSource implements IItemTier {
-
-    //ASPECT_OF_THE_JERRY_SOURCE(4000, 1.6, 5, 2, 17, null);
+public class HardenedRefinedNetheriteSwordSorce implements IItemTier {
     @Override
     public int getUses() {
-        return 4000;
+        return 7000;
     }
 
     @Override
@@ -23,16 +23,16 @@ public class RogueSwordSource implements IItemTier {
 
     @Override
     public int getLevel() {
-        return 1;
+        return 4;
     }
 
     @Override
     public int getEnchantmentValue() {
-        return 17;
+        return 30;
     }
 
     @Override
     public Ingredient getRepairIngredient() {
-        return null;
+        return null/*Ingredient.of(ItemInit.REFINED_NETHERITE_BLOCK)*/;
     }
 }

@@ -35,6 +35,7 @@ public class SkyblockItemsPlusPlus
     public static final ItemGroup SkyblockItems_Combat = new SkyblockItemsCombat();
     public static final ItemGroup SkyblockItems_Materials = new SkyblockItemsMaterials();
     public static final ItemGroup SkyblockItems_Armors = new SkyblockItemsArmors();
+    public static final ItemGroup SkyblockItems_Tools = new SkyblockItemsTools();
 
     public SkyblockItemsPlusPlus() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -86,6 +87,18 @@ public class SkyblockItemsPlusPlus
         @Override
         public ItemStack makeIcon() {
             return ItemInit.FARM_SUIT_HELMET.get().getDefaultInstance();
+        }
+    }
+    public static class SkyblockItemsTools extends ItemGroup
+    {
+        public SkyblockItemsTools()
+        {
+            super("SkyblockItems_Tools");
+        }
+
+        @Override
+        public ItemStack makeIcon() {
+            return ItemInit.NETHERITE_PLATED_DIAMOND_PICKAXE.get().getDefaultInstance();
         }
     }
 }

@@ -5,11 +5,21 @@ import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.farm_suit
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.farm_suit.Farm_Suit_Chestplate;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.farm_suit.Farm_Suit_Helmet;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.farm_suit.Farm_Suit_Leggings;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.netherite_plated_diamond_armor.Netherite_Plated_Diamond_Boots;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.netherite_plated_diamond_armor.Netherite_Plated_Diamond_Chestplate;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.netherite_plated_diamond_armor.Netherite_Plated_Diamond_Helmet;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.netherite_plated_diamond_armor.Netherite_Plated_Diamond_Leggings;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.axes.Netherite_Plated_Diamond_Axe;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.hoes.Netherite_Plated_Diamond_Hoe;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.pickaxes.Netherite_Plated_Diamond_Pickaxe;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.shovels.Netherite_Plated_Diamond_Shovel;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.swords.*;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.materials.blockitems.*;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.materials.items.*;
-import com.iwant2tryhard.skyblockitemsplusplus.common.items.weapons.*;
 import com.iwant2tryhard.skyblockitemsplusplus.common.materials.armor.FarmSuitSource;
-import com.iwant2tryhard.skyblockitemsplusplus.common.materials.items.*;
+import com.iwant2tryhard.skyblockitemsplusplus.common.materials.armor.NetheritePlatedDiamondArmorSource;
+import com.iwant2tryhard.skyblockitemsplusplus.common.materials.items.NetheritePlatedDiamondSource;
+import com.iwant2tryhard.skyblockitemsplusplus.common.materials.tools.swords.*;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.RegistryObject;
@@ -56,6 +66,28 @@ public class ItemInit {
             () -> new Aspect_Of_The_End(new AspectOfTheEndSource(), 100, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat)));
     public static final RegistryObject<Undead_Sword> UNDEAD_SWORD = ITEMS.register("undead_sword",
             () -> new Undead_Sword(new UndeadSwordSource(), 30, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat)));
+    public static final RegistryObject<Netherite_Plated_Diamond_Sword> NETHERITE_PLATED_DIAMOND_SWORD = ITEMS.register("netherite_plated_diamond_sword",
+            () -> new Netherite_Plated_Diamond_Sword(new NetheritePlatedDiamondSource(), 7, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat)));
+    public static final RegistryObject<End_Sword> END_SWORD = ITEMS.register("end_sword",
+            () -> new End_Sword(new EndSwordSource(), 35, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat)));
+    public static final RegistryObject<Flame_Sword> FLAME_SWORD = ITEMS.register("flame_sword",
+            () -> new Flame_Sword(new FlameSwordSource(), 50, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat)));
+
+    //pickaxes
+    public static final RegistryObject<Netherite_Plated_Diamond_Pickaxe> NETHERITE_PLATED_DIAMOND_PICKAXE = ITEMS.register("netherite_plated_diamond_pickaxe",
+            () -> new Netherite_Plated_Diamond_Pickaxe(new NetheritePlatedDiamondSource(), 5, -2.6f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Tools)));
+
+    //axes
+    public static final RegistryObject<Netherite_Plated_Diamond_Axe> NETHERITE_PLATED_DIAMOND_AXE = ITEMS.register("netherite_plated_diamond_axe",
+            () -> new Netherite_Plated_Diamond_Axe(new NetheritePlatedDiamondSource(), 9, -3f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Tools)));
+
+    //shovels
+    public static final RegistryObject<Netherite_Plated_Diamond_Shovel> NETHERITE_PLATED_DIAMOND_SHOVEL = ITEMS.register("netherite_plated_diamond_shovel",
+            () -> new Netherite_Plated_Diamond_Shovel(new NetheritePlatedDiamondSource(), (int) 5.5f, -3f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Tools)));
+
+    //hoes
+    public static final RegistryObject<Netherite_Plated_Diamond_Hoe> NETHERITE_PLATED_DIAMOND_HOE = ITEMS.register("netherite_plated_diamond_hoe",
+            () -> new Netherite_Plated_Diamond_Hoe(new NetheritePlatedDiamondSource(), 1, 0f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Tools)));
 
     //armor
     public static final RegistryObject<Farm_Suit_Helmet> FARM_SUIT_HELMET = ITEMS.register("farm_suit_helmet",
@@ -66,6 +98,15 @@ public class ItemInit {
             () -> new Farm_Suit_Leggings(new FarmSuitSource(), EquipmentSlotType.LEGS, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Armors)));
     public static final RegistryObject<Farm_Suit_Boots> FARM_SUIT_BOOTS = ITEMS.register("farm_suit_boots",
             () -> new Farm_Suit_Boots(new FarmSuitSource(), EquipmentSlotType.FEET, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Armors)));
+
+    public static final RegistryObject<Netherite_Plated_Diamond_Helmet> NETHERITE_PLATED_DIAMOND_HELMET = ITEMS.register("netherite_plated_diamond_helmet",
+            () -> new Netherite_Plated_Diamond_Helmet(new NetheritePlatedDiamondArmorSource(), EquipmentSlotType.HEAD, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Armors)));
+    public static final RegistryObject<Netherite_Plated_Diamond_Chestplate> NETHERITE_PLATED_DIAMOND_CHESTPLATE = ITEMS.register("netherite_plated_diamond_chestplate",
+            () -> new Netherite_Plated_Diamond_Chestplate(new NetheritePlatedDiamondArmorSource(), EquipmentSlotType.CHEST, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Armors)));
+    public static final RegistryObject<Netherite_Plated_Diamond_Leggings> NETHERITE_PLATED_DIAMOND_LEGGINGS = ITEMS.register("netherite_plated_diamond_leggings",
+            () -> new Netherite_Plated_Diamond_Leggings(new NetheritePlatedDiamondArmorSource(), EquipmentSlotType.LEGS, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Armors)));
+    public static final RegistryObject<Netherite_Plated_Diamond_Boots> NETHERITE_PLATED_DIAMOND_BOOTS = ITEMS.register("netherite_plated_diamond_boots",
+            () -> new Netherite_Plated_Diamond_Boots(new NetheritePlatedDiamondArmorSource(), EquipmentSlotType.FEET, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Armors)));
 
 
     //Block items

@@ -3,6 +3,7 @@ package com.iwant2tryhard.skyblockitemsplusplus.common.entities;
 public enum MobStats {
     ZOMBIE(0),
     SKELETON(0),
+    ENDERMITE(0),
     ENDERMAN(10),
     CREEPER(5),
     SLIME(5),

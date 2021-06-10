@@ -15,11 +15,26 @@
     "item.skyblockitemsplusplus.hardened_refined_netherite_sword": "\u00a7cHardened Refined Netherite Sword",
     "item.skyblockitemsplusplus.aspect_of_the_end": "\u00a79Aspect of The End",
     "item.skyblockitemsplusplus.undead_sword": "Undead Sword",
+    "item.skyblockitemsplusplus.end_sword": "End Sword",
+    "item.skyblockitemsplusplus.flame_sword": "\u00A7aFlame Sword",
+    "item.skyblockitemsplusplus.netherite_plated_diamond_sword": "\u00a79Netherite Plated Diamond Sword",
+
+    "item.skyblockitemsplusplus.netherite_plated_diamond_pickaxe": "\u00a79Netherite Plated Diamond Pickaxe",
+
+    "item.skyblockitemsplusplus.netherite_plated_diamond_axe": "\u00a79Netherite Plated Diamond Axe",
+
+    "item.skyblockitemsplusplus.netherite_plated_diamond_shovel": "\u00a79Netherite Plated Diamond Shovel",
+
+    "item.skyblockitemsplusplus.netherite_plated_diamond_hoe": "\u00a79Netherite Plated Diamond Hoe",
 
     "item.skyblockitemsplusplus.farm_suit_helmet": "Farm Suit Helmet",
     "item.skyblockitemsplusplus.farm_suit_chestplate": "Farm Suit Chestplate",
     "item.skyblockitemsplusplus.farm_suit_leggings": "Farm Suit Leggings",
     "item.skyblockitemsplusplus.farm_suit_boots": "Farm Suit Boots",
+    "item.skyblockitemsplusplus.netherite_plated_diamond_helmet": "\u00a79Netherite Plated Diamond Helmet",
+    "item.skyblockitemsplusplus.netherite_plated_diamond_chestplate": "\u00a79Netherite Plated Diamond Chestplate",
+    "item.skyblockitemsplusplus.netherite_plated_diamond_leggings": "\u00a79Netherite Plated Diamond Leggings",
+    "item.skyblockitemsplusplus.netherite_plated_diamond_boots": "\u00a79Netherite Plated Diamond Boots",
 
     "block.skyblockitemsplusplus.refined_netherite_block": "\u00A7cRefined Block of Netherite",
     "block.skyblockitemsplusplus.refined_diamond_block": "\u00A79Refined Block of Diamond",
@@ -36,5 +51,6 @@
 
     "itemGroup.SkyblockItems_Combat": "Skyblock Items: Combat",
     "itemGroup.SkyblockItems_Materials": "Skyblock Items: Materials",
-    "itemGroup.SkyblockItems_Armors": "Skyblock Items: Armory"
+    "itemGroup.SkyblockItems_Armors": "Skyblock Items: Armory",
+    "itemGroup.SkyblockItems_Tools": "Skyblock Items: Tools"
 }
