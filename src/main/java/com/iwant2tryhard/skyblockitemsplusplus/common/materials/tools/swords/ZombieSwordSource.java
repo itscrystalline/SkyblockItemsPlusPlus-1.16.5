@@ -1,15 +1,16 @@
 package com.iwant2tryhard.skyblockitemsplusplus.common.materials.tools.swords;
 
+import com.iwant2tryhard.skyblockitemsplusplus.core.init.ItemInit;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 
-public class EndSwordSource implements IItemTier {
+public class ZombieSwordSource implements IItemTier {
 
     //ASPECT_OF_THE_JERRY_SOURCE(4000, 1.6, 5, 2, 17, null);
     @Override
     public int getUses() {
-        return 1000;
+        return 1250;
     }
 
     @Override
@@ -29,11 +30,11 @@ public class EndSwordSource implements IItemTier {
 
     @Override
     public int getEnchantmentValue() {
-        return 15;
+        return 14;
     }
 
     @Override
     public Ingredient getRepairIngredient() {
-        return Ingredient.of(Items.END_STONE);
+        return Ingredient.of(ItemInit.REFINED_ROTTEN_FLESH.get().asItem());
     }
 }

@@ -1,5 +1,6 @@
 package com.iwant2tryhard.skyblockitemsplusplus.common.materials.tools.swords;
 
+import com.iwant2tryhard.skyblockitemsplusplus.core.init.ItemInit;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.crafting.Ingredient;
 
@@ -33,6 +34,6 @@ public class AspectOfTheEndSource implements IItemTier {
 
     @Override
     public Ingredient getRepairIngredient() {
-        return null;
+        return Ingredient.of(ItemInit.REFINED_ENDER_PEARL.get().asItem());
     }
 }

@@ -54,6 +54,8 @@ public class ItemInit {
             () -> new RefinedTitanium(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Materials)));
     public static final RegistryObject<RefinedEnderpearl> REFINED_ENDER_PEARL = ITEMS.register("refined_ender_pearl",
             () -> new RefinedEnderpearl(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Materials)));
+    public static final RegistryObject<RefinedRottenFlesh> REFINED_ROTTEN_FLESH = ITEMS.register("refined_rotten_flesh",
+            () -> new RefinedRottenFlesh(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Materials)));
 
     //swords
     public static final RegistryObject<Aspect_Of_The_Jerry> ASPECT_OF_THE_JERRY = ITEMS.register("aspect_of_the_jerry",
@@ -71,7 +73,14 @@ public class ItemInit {
     public static final RegistryObject<End_Sword> END_SWORD = ITEMS.register("end_sword",
             () -> new End_Sword(new EndSwordSource(), 35, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat)));
     public static final RegistryObject<Flame_Sword> FLAME_SWORD = ITEMS.register("flame_sword",
-            () -> new Flame_Sword(new FlameSwordSource(), 50, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat)));
+            () -> new Flame_Sword(new FlameSwordSource(), 50, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat)
+                    .fireResistant()));
+    public static final RegistryObject<Zombie_Sword> ZOMBIE_SWORD = ITEMS.register("zombie_sword",
+            () -> new Zombie_Sword(new ZombieSwordSource(), 100, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat)));
+    public static final RegistryObject<Ornate_Zombie_Sword> ORNATE_ZOMBIE_SWORD = ITEMS.register("ornate_zombie_sword",
+            () -> new Ornate_Zombie_Sword(new ZombieSwordSource(), 110, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat)));
+    public static final RegistryObject<Florid_Zombie_Sword> FLORID_ZOMBIE_SWORD = ITEMS.register("florid_zombie_sword",
+            () -> new Florid_Zombie_Sword(new ZombieSwordSource(), 150, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat)));
 
     //pickaxes
     public static final RegistryObject<Netherite_Plated_Diamond_Pickaxe> NETHERITE_PLATED_DIAMOND_PICKAXE = ITEMS.register("netherite_plated_diamond_pickaxe",

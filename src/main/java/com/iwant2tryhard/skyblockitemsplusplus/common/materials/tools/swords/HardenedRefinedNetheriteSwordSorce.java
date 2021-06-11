@@ -33,6 +33,6 @@ public class HardenedRefinedNetheriteSwordSorce implements IItemTier {
 
     @Override
     public Ingredient getRepairIngredient() {
-        return null/*Ingredient.of(ItemInit.REFINED_NETHERITE_BLOCK)*/;
+        return Ingredient.of(ItemInit.REFINED_NETHERITE_BLOCK.get().asItem());
     }
 }

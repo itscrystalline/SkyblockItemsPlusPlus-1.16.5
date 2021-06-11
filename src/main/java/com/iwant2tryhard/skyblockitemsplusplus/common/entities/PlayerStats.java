@@ -7,7 +7,7 @@ public class PlayerStats {
     private static int manaReductionPercent = 0;
     private static int strengthPercent = 100;
     private static int defense = 0;
-    public static boolean debugLogging = true;
+    public static boolean debugLogging = false;
 
     public static int getManaReductionPercent() {
         return manaReductionPercent;

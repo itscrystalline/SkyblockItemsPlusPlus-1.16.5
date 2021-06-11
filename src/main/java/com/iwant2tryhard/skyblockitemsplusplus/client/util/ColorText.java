@@ -18,12 +18,12 @@ public enum ColorText {
     YELLOW("\u00A7e"),
     WHITE("\u00A7f"),
 
-    OBFUSCATED("\u00A76"),
-    BOLD("\u00A76"),
-    STRIKETHROUGH("\u00A76"),
-    UNDERLINE("\u00A76"),
-    ITALIC("\u00A76"),
-    RESET("\u00A76");
+    OBFUSCATED("\u00A7k"),
+    BOLD("\u00A7l"),
+    STRIKETHROUGH("\u00A7m"),
+    UNDERLINE("\u00A7n"),
+    ITALIC("\u00A7o"),
+    RESET("\u00A7r");
 
 
     private final String color;

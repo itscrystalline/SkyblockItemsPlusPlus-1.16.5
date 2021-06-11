@@ -166,12 +166,46 @@ public class EventHandler {
                 dmgTag.noPhysics = true;
                 dmgTag.setInvisible(true);
                 worldIn.addFreshEntity(dmgTag);
-                //Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("initialDamage: " + event.getAmount()), false);
-                event.setAmount((((event.getAmount() * 5) / EHP) * target.getMaxHealth()) * 4);
-                //Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("defense: " + PlayerStats.getDefense()), false);
-                //Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("ehp: " + EHP), false);
-                //Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("targetMaxHealth: " + target.getMaxHealth()), false);
-                //Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("damageTaken : " + event.getAmount()), false);
+                if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("initialDamage: " + event.getAmount()), false);}
+                event.setAmount(((event.getAmount() / EHP) * target.getMaxHealth()) * 4);
+                if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("defense: " + PlayerStats.getDefense()), false);}
+                if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("ehp: " + EHP), false);}
+                if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("targetMaxHealth: " + target.getMaxHealth()), false);}
+                if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("damageTaken : " + event.getAmount()), false);}
+            }
+        }
+        if (!(event.getEntityLiving() instanceof PlayerEntity))
+        {
+            LivingEntity target =  event.getEntityLiving();
+            Item head = target.getItemBySlot(EquipmentSlotType.HEAD).getItem();
+            Item chest = target.getItemBySlot(EquipmentSlotType.CHEST).getItem();
+            Item legs = target.getItemBySlot(EquipmentSlotType.LEGS).getItem();
+            Item boot = target.getItemBySlot(EquipmentSlotType.FEET).getItem();
+            if (((head == Items.NETHERITE_HELMET) &
+                    (chest == Items.NETHERITE_CHESTPLATE) &
+                    (legs == Items.NETHERITE_LEGGINGS) &
+                    (boot == Items.NETHERITE_BOOTS)) |
+                    ((head == Items.DIAMOND_HELMET) &
+                            (chest == Items.DIAMOND_CHESTPLATE) &
+                            (legs == Items.DIAMOND_LEGGINGS) &
+                            (boot == Items.DIAMOND_BOOTS)) |
+                    ((head == Items.GOLDEN_HELMET) &
+                            (chest == Items.GOLDEN_CHESTPLATE) &
+                            (legs == Items.GOLDEN_LEGGINGS) &
+                            (boot == Items.GOLDEN_BOOTS)) |
+                    ((head == Items.IRON_HELMET) &
+                            (chest == Items.IRON_CHESTPLATE) &
+                            (legs == Items.IRON_LEGGINGS) &
+                            (boot == Items.IRON_BOOTS)) |
+                    ((head == Items.LEATHER_HELMET) &
+                            (chest == Items.LEATHER_CHESTPLATE) &
+                            (legs == Items.LEATHER_LEGGINGS) &
+                            (boot == Items.LEATHER_BOOTS)))
+            {
+                event.setAmount(event.getAmount());
+            }else
+            {
+                event.setAmount(event.getAmount() * 3);
             }
         }
 
@@ -202,6 +236,30 @@ public class EventHandler {
             if (player.getMainHandItem().getItem() instanceof Flame_Sword || player.getOffhandItem().getItem() instanceof Flame_Sword)
             {
                 PlayerStats.addStrength(20);
+            }
+            if (player.getMainHandItem().getItem() instanceof Zombie_Sword || player.getOffhandItem().getItem() instanceof Zombie_Sword)
+            {
+                PlayerStats.addStrength(50);
+                if (player.experienceLevel > 65)
+                { PlayerStats.setManaReductionPercent(90); }
+                else
+                { PlayerStats.addManaReductionPercent(25); }
+            }
+            if (player.getMainHandItem().getItem() instanceof Ornate_Zombie_Sword || player.getOffhandItem().getItem() instanceof Ornate_Zombie_Sword)
+            {
+                PlayerStats.addStrength(60);
+                if (player.experienceLevel > 65)
+                { PlayerStats.setManaReductionPercent(90); }
+                else
+                { PlayerStats.addManaReductionPercent(25); }
+            }
+            if (player.getMainHandItem().getItem() instanceof Florid_Zombie_Sword || player.getOffhandItem().getItem() instanceof Florid_Zombie_Sword)
+            {
+                PlayerStats.addStrength(80);
+                if (player.experienceLevel > 40)
+                { PlayerStats.setManaReductionPercent(90); }
+                else
+                { PlayerStats.addManaReductionPercent(50); }
             }
 
             int headDefense;

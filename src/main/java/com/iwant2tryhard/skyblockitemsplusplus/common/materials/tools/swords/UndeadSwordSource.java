@@ -1,6 +1,7 @@
 package com.iwant2tryhard.skyblockitemsplusplus.common.materials.tools.swords;
 
 import net.minecraft.item.IItemTier;
+import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 
 public class UndeadSwordSource implements IItemTier {
@@ -33,6 +34,6 @@ public class UndeadSwordSource implements IItemTier {
 
     @Override
     public Ingredient getRepairIngredient() {
-        return null;
+        return Ingredient.of(Items.ROTTEN_FLESH);
     }
 }
