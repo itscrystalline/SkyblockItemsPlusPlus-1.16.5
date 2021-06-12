@@ -10,6 +10,7 @@ import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.netherite
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.netherite_plated_diamond_armor.Netherite_Plated_Diamond_Helmet;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.netherite_plated_diamond_armor.Netherite_Plated_Diamond_Leggings;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.axes.Netherite_Plated_Diamond_Axe;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.bows.Wither_Bow;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.hoes.Netherite_Plated_Diamond_Hoe;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.pickaxes.Netherite_Plated_Diamond_Pickaxe;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.shovels.Netherite_Plated_Diamond_Shovel;
@@ -81,6 +82,8 @@ public class ItemInit {
             () -> new Ornate_Zombie_Sword(new ZombieSwordSource(), 110, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat)));
     public static final RegistryObject<Florid_Zombie_Sword> FLORID_ZOMBIE_SWORD = ITEMS.register("florid_zombie_sword",
             () -> new Florid_Zombie_Sword(new ZombieSwordSource(), 150, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat)));
+    public static final RegistryObject<Hunter_Knife> HUNTER_KNIFE = ITEMS.register("hunter_knife",
+            () -> new Hunter_Knife(new HunterKnifeSource(), 50, -2f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat)));
 
     //pickaxes
     public static final RegistryObject<Netherite_Plated_Diamond_Pickaxe> NETHERITE_PLATED_DIAMOND_PICKAXE = ITEMS.register("netherite_plated_diamond_pickaxe",
@@ -97,6 +100,10 @@ public class ItemInit {
     //hoes
     public static final RegistryObject<Netherite_Plated_Diamond_Hoe> NETHERITE_PLATED_DIAMOND_HOE = ITEMS.register("netherite_plated_diamond_hoe",
             () -> new Netherite_Plated_Diamond_Hoe(new NetheritePlatedDiamondSource(), 1, 0f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Tools)));
+
+    //bows
+    //public static final RegistryObject<Wither_Bow> WITHER_BOW = ITEMS.register("wither_bow",
+            //() -> new Wither_Bow(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat)));
 
     //armor
     public static final RegistryObject<Farm_Suit_Helmet> FARM_SUIT_HELMET = ITEMS.register("farm_suit_helmet",

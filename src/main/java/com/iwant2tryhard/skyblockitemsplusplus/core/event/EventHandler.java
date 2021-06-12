@@ -261,6 +261,10 @@ public class EventHandler {
                 else
                 { PlayerStats.addManaReductionPercent(50); }
             }
+            if (player.getMainHandItem().getItem() instanceof Hunter_Knife || player.getOffhandItem().getItem() instanceof Hunter_Knife)
+            {
+                player.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, 20, 2));
+            }
 
             int headDefense;
             int chestDefense;
