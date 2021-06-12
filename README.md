@@ -1,4 +1,4 @@
-# SkyblockItemsPlusPlus (for Minecraft 1.16.5)
+# SkyblockItems++ (for Minecraft 1.16.5)
 
 By IWant2TryHard
 
