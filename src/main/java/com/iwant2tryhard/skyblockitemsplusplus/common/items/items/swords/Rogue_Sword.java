@@ -33,7 +33,7 @@ public class Rogue_Sword extends SwordItem {
         tooltip.add(new TranslationTextComponent("\u00A77" + "Damage: " + "\u00A7c" + "+20"));
         tooltip.add(new TranslationTextComponent(""));
         tooltip.add(new TranslationTextComponent("\u00A76" + "Item Ablity: Speed Boost " + "\u00A7e" + "\u00A7l" + "RIGHT CLICK"));
-        tooltip.add(new TranslationTextComponent("\u00A77" + "Gain " + "\u00A7a" +"Speed 1 " + "\u00A77" + "for"));
+        tooltip.add(new TranslationTextComponent("\u00A77" + "Gain " + "\u00A7a" +"Speed 3 " + "\u00A77" + "for"));
         tooltip.add(new TranslationTextComponent("\u00A7f" +"30 " + "\u00A77" + "seconds."));
         tooltip.add(new TranslationTextComponent("\u00A77" + "Mana Cost: " + "\u00A7b" + "50" + "\u00A77" + " (Mana Reduction: -" + PlayerStats.getManaReductionPercent() + "\u00A77" + "%)"));
         tooltip.add(new TranslationTextComponent(""));

@@ -263,7 +263,7 @@ public class EventHandler {
             }
             if (player.getMainHandItem().getItem() instanceof Hunter_Knife || player.getOffhandItem().getItem() instanceof Hunter_Knife)
             {
-                player.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, 20, 2));
+                player.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, 20, 0));
             }
 
             int headDefense;

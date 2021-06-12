@@ -22,6 +22,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class Florid_Zombie_Sword extends SwordItem {
+    private static int timesSinceDelay = 0;
     private static float manaUsage = 14f;
     private static float displayManaUsage = 70f;
     public Florid_Zombie_Sword(IItemTier itemTier, int damage, float attackSpeed, Properties properties) {
@@ -39,6 +40,7 @@ public class Florid_Zombie_Sword extends SwordItem {
         tooltip.add(new TranslationTextComponent(ColorText.GOLD.toString() + "Item Ability: Instant Heal " + ColorText.YELLOW.toString() + ColorText.BOLD.toString() + "RIGHT CLICK"));
         tooltip.add(new TranslationTextComponent(ColorText.GRAY.toString() + "Heal for " + ColorText.RED.toString() + "2 + 15% Health"));
         tooltip.add(new TranslationTextComponent(ColorText.GRAY.toString() + "Mana Cost: " + ColorText.AQUA.toString() + "70 " + ColorText.GRAY.toString() + "(Mana Reduction: -" + PlayerStats.getManaReductionPercent() + "%)"));
+        tooltip.add(new TranslationTextComponent(ColorText.GRAY.toString() + "Charges: " + ColorText.YELLOW.toString() + "5  " + ColorText.GRAY.toString() + "/ " + ColorText.GREEN.toString() + "15s"));
         tooltip.add(new TranslationTextComponent(""));
         tooltip.add(new TranslationTextComponent("\u00A77" + "This item can be reforged!"));
         tooltip.add(new TranslationTextComponent(ColorText.GOLD.toString() + "\u00A7l" +"LEGENDARY SWORD"));
@@ -50,14 +52,29 @@ public class Florid_Zombie_Sword extends SwordItem {
         {
             if (!player.getCooldowns().isOnCooldown(this))
             {
-                player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - Math.round(manaUsage * ((100f - PlayerStats.getManaReductionPercent()) / 100f)));
-                float healAmmt = 2f + (player.getMaxHealth() * 0.15f);
-                player.heal(2f + (player.getMaxHealth() * 0.15f));
+                if (timesSinceDelay >= 6)
+                {
+                    player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - Math.round(manaUsage * ((100f - PlayerStats.getManaReductionPercent()) / 100f)));
+                    float healAmmt = 2f + (player.getMaxHealth() * 0.15f);
+                    player.heal(2f + (player.getMaxHealth() * 0.15f));
 
-                Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty(ColorText.BOLD.toString() + ColorText.GREEN + "You healed yourself for " + healAmmt + " health! (" + Math.round(displayManaUsage * ((100f - PlayerStats.getManaReductionPercent()) / 100f)) + " Mana)"), false);
-                worldIn.playSound(player, player, SoundEvents.NOTE_BLOCK_BIT, SoundCategory.NEUTRAL, 1.0f, 1.0f);
-                player.getCooldowns().addCooldown(this, 0);
-                return ActionResult.success(player.getItemInHand(hand));
+                    Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty(ColorText.BOLD.toString() + ColorText.GREEN.toString() + "You used your " + ColorText.GOLD.toString() + "Florid Zombie Sword " + ColorText.GREEN.toString() + "to heal yourself for " + healAmmt + " health! (" + Math.round(displayManaUsage * ((100f - PlayerStats.getManaReductionPercent()) / 100f)) + " Mana)"), false);
+                    worldIn.playSound(player, player, SoundEvents.NOTE_BLOCK_BIT, SoundCategory.NEUTRAL, 1.0f, 1.0f);
+                    timesSinceDelay = 0;
+                    player.getCooldowns().addCooldown(this, 300);
+                    return ActionResult.success(player.getItemInHand(hand));
+                }
+                else
+                {
+                    player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - Math.round(manaUsage * ((100f - PlayerStats.getManaReductionPercent()) / 100f)));
+                    float healAmmt = 2f + (player.getMaxHealth() * 0.15f);
+                    player.heal(2f + (player.getMaxHealth() * 0.15f));
+
+                    Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty(ColorText.BOLD.toString() + ColorText.GREEN.toString() + "You used your " + ColorText.GOLD.toString() + "Florid Zombie Sword " + ColorText.GREEN.toString() + "to heal yourself for " + healAmmt + " health! (" + Math.round(displayManaUsage * ((100f - PlayerStats.getManaReductionPercent()) / 100f)) + " Mana)"), false);
+                    worldIn.playSound(player, player, SoundEvents.NOTE_BLOCK_BIT, SoundCategory.NEUTRAL, 1.0f, 1.0f);
+                    timesSinceDelay++;
+                    return ActionResult.success(player.getItemInHand(hand));
+                }
             }
         }
         return ActionResult.fail(player.getItemInHand(hand));

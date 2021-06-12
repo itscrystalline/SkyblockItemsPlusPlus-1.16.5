@@ -32,7 +32,7 @@ public class Aspect_Of_The_End extends SwordItem {
         tooltip.add(new TranslationTextComponent(""));
         tooltip.add(new TranslationTextComponent("\u00A76" + "Item Ablity: Instant Transmission " + "\u00A7e" + "\u00A7l" + "RIGHT CLICK"));
         tooltip.add(new TranslationTextComponent("\u00A77" + "Teleport " + ColorText.GREEN.toString() + "8 blocks " + ColorText.GRAY.toString() + "ahead of"));
-        tooltip.add(new TranslationTextComponent(ColorText.GRAY.toString() + "you and gain +50 " + ColorText.WHITE.toString() + "Speed"));
+        tooltip.add(new TranslationTextComponent(ColorText.GRAY.toString() + "you and gain " + ColorText.WHITE.toString() + "Speed 5"));
         tooltip.add(new TranslationTextComponent(ColorText.GRAY.toString() + "for " + ColorText.GREEN.toString() + "3 seconds."));
         tooltip.add(new TranslationTextComponent(ColorText.GRAY.toString() + "Mana Cost: " + ColorText.AQUA.toString() + "50 " + ColorText.GRAY.toString() + "(Mana Reduction: -" + PlayerStats.getManaReductionPercent() + "%)"));
         tooltip.add(new TranslationTextComponent("\u00A77" + "This item can be reforged!"));
