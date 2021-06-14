@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " # ",
+    " # ",
+    " / "
+  ],
+  "key": {
+    "#": {
+      "item": "skyblockitemsplusplus:refined_ender_pearl"
+    },
+    "/": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "skyblockitemsplusplus:aspect_of_the_end",
+    "count": 1
+  }
+}

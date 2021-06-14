@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " # ",
+    " # ",
+    " / "
+  ],
+  "key": {
+    "#": {
+      "item": "skyblockitemsplusplus:refined_ink_sack",
+      "count": 32
+    },
+    "/": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "skyblockitemsplusplus:ink_wand",
+    "count": 1
+  }
+}

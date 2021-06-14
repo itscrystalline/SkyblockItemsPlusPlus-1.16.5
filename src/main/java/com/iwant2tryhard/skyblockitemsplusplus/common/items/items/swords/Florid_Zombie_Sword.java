@@ -52,7 +52,7 @@ public class Florid_Zombie_Sword extends SwordItem {
         {
             if (!player.getCooldowns().isOnCooldown(this))
             {
-                if (timesSinceDelay >= 6)
+                if (timesSinceDelay >= 8)
                 {
                     player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - Math.round(manaUsage * ((100f - PlayerStats.getManaReductionPercent()) / 100f)));
                     float healAmmt = 2f + (player.getMaxHealth() * 0.15f);
@@ -76,6 +76,7 @@ public class Florid_Zombie_Sword extends SwordItem {
                     return ActionResult.success(player.getItemInHand(hand));
                 }
             }
+            return ActionResult.fail(player.getItemInHand(hand));
         }
         return ActionResult.fail(player.getItemInHand(hand));
     }

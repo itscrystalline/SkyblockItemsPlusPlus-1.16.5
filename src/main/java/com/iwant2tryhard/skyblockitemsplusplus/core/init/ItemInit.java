@@ -10,7 +10,6 @@ import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.netherite
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.netherite_plated_diamond_armor.Netherite_Plated_Diamond_Helmet;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.netherite_plated_diamond_armor.Netherite_Plated_Diamond_Leggings;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.axes.Netherite_Plated_Diamond_Axe;
-import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.bows.Wither_Bow;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.hoes.Netherite_Plated_Diamond_Hoe;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.pickaxes.Netherite_Plated_Diamond_Pickaxe;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.shovels.Netherite_Plated_Diamond_Shovel;
@@ -57,6 +56,8 @@ public class ItemInit {
             () -> new RefinedEnderpearl(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Materials)));
     public static final RegistryObject<RefinedRottenFlesh> REFINED_ROTTEN_FLESH = ITEMS.register("refined_rotten_flesh",
             () -> new RefinedRottenFlesh(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Materials)));
+    public static final RegistryObject<RefinedInkSack> REFINED_INK_SACK = ITEMS.register("refined_ink_sack",
+            () -> new RefinedInkSack(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Materials)));
 
     //swords
     public static final RegistryObject<Aspect_Of_The_Jerry> ASPECT_OF_THE_JERRY = ITEMS.register("aspect_of_the_jerry",
@@ -84,6 +85,8 @@ public class ItemInit {
             () -> new Florid_Zombie_Sword(new ZombieSwordSource(), 150, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat)));
     public static final RegistryObject<Hunter_Knife> HUNTER_KNIFE = ITEMS.register("hunter_knife",
             () -> new Hunter_Knife(new HunterKnifeSource(), 50, -2f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat)));
+    public static final RegistryObject<Ink_Wand> INK_WAND = ITEMS.register("ink_wand",
+            () -> new Ink_Wand(new InkWandSource(), 130, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat)));
 
     //pickaxes
     public static final RegistryObject<Netherite_Plated_Diamond_Pickaxe> NETHERITE_PLATED_DIAMOND_PICKAXE = ITEMS.register("netherite_plated_diamond_pickaxe",

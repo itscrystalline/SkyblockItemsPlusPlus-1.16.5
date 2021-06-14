@@ -20,7 +20,7 @@ public class Netherite_Plated_Diamond_Chestplate extends ArmorItem {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        tooltip.add(new TranslationTextComponent("\u00A77" + "Defense: " + ColorText.GREEN.toString() + "+176"));
+        tooltip.add(new TranslationTextComponent("\u00A77" + "Defense: " + ColorText.GREEN.toString() + "+45"));
         tooltip.add(new TranslationTextComponent(""));
         tooltip.add(new TranslationTextComponent("\u00A77" + "This item can be reforged!"));
         tooltip.add(new TranslationTextComponent(ColorText.BLUE.toString() + "\u00A7l" +"RARE CHESTPLATE"));

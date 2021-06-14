@@ -10,7 +10,7 @@ import net.minecraft.util.SoundEvents;
 public class FarmSuitSource implements IArmorMaterial {
     private static final int[] baseDurability = {128, 144, 160, 112};
     private final int durabilityMultiplier = 2;
-    private final int[] baseDefense = {10, 40, 35, 15};
+    private final int[] baseDefense = {1, 3, 2, 1};
 
     @Override
     public int getDurabilityForSlot(EquipmentSlotType slotType) {

@@ -15,6 +15,7 @@ import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.shovels.Nether
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.swords.*;
 import net.minecraft.block.*;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
@@ -27,13 +28,17 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.minecraft.particles.IParticleData;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
@@ -167,7 +172,7 @@ public class EventHandler {
                 dmgTag.setInvisible(true);
                 worldIn.addFreshEntity(dmgTag);
                 if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("initialDamage: " + event.getAmount()), false);}
-                event.setAmount(((event.getAmount() / EHP) * target.getMaxHealth()) * 4);
+                event.setAmount(((event.getAmount() / EHP) * target.getMaxHealth()) * 6);
                 if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("defense: " + PlayerStats.getDefense()), false);}
                 if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("ehp: " + EHP), false);}
                 if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("targetMaxHealth: " + target.getMaxHealth()), false);}
@@ -205,7 +210,7 @@ public class EventHandler {
                 event.setAmount(event.getAmount());
             }else
             {
-                event.setAmount(event.getAmount() * 3);
+                event.setAmount(event.getAmount() * 2);
             }
         }
 
@@ -265,6 +270,10 @@ public class EventHandler {
             {
                 player.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, 20, 0));
             }
+            if (player.getMainHandItem().getItem() instanceof Ink_Wand || player.getOffhandItem().getItem() instanceof Ink_Wand)
+            {
+                PlayerStats.addStrength(90);
+            }
 
             int headDefense;
             int chestDefense;
@@ -279,7 +288,7 @@ public class EventHandler {
 
             if (player.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof ArmorItem) { ArmorItem feet = (ArmorItem) player.getItemBySlot(EquipmentSlotType.FEET).getItem();feetDefense = feet.getDefense(); }else { feetDefense = 0; }
 
-            PlayerStats.setDefense((headDefense + chestDefense + legsDefense + feetDefense) / 2);
+            PlayerStats.setDefense((headDefense + chestDefense + legsDefense + feetDefense) / 5);
 
 
             //Armor abilities
@@ -310,4 +319,23 @@ public class EventHandler {
             }
         }
     }
+
+    @SubscribeEvent
+    public static void playerInteractEntity(final PlayerInteractEvent.EntityInteract event)
+    {
+        PlayerEntity player = event.getPlayer();
+        LivingEntity target = (LivingEntity) event.getTarget();
+        if (player.getMainHandItem().getItem() instanceof Ink_Wand)
+        {
+            Ink_Wand wand = (Ink_Wand) player.getMainHandItem().getItem();
+            if (!player.getCooldowns().isOnCooldown(wand))
+            {
+                target.hurt(DamageSource.playerAttack(player), ((10000 + (PlayerStats.getManaReductionPercent() * 10) + 100) / 100));
+                target.addEffect(new EffectInstance(Effects.BLINDNESS, 200, 0));
+                target.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 200, 11));
+                target.addEffect(new EffectInstance(Effects.WITHER, 60, 2));
+            }
+        }
+    }
+
 }

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " # ",
+    " # ",
+    " / "
+  ],
+  "key": {
+    "#": {
+      "item": "skyblockitemsplusplus:refined_rotten_flesh"
+    },
+    "/": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "skyblockitemsplusplus:zombie_sword",
+    "count": 1
+  }
+}
