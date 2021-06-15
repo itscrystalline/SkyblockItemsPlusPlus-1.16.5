@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.util.*;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -24,14 +24,14 @@ public class Aspect_Of_The_Jerry extends SwordItem {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        tooltip.add(new TranslationTextComponent("\u00A77" + "True Damage: " + "\u00A7c" + "+1"));
-        tooltip.add(new TranslationTextComponent(""));
-        tooltip.add(new TranslationTextComponent("\u00A76" + "Item Ablity: Parley " + "\u00A7e" + "\u00A7l" + "RIGHT CLICK"));
-        tooltip.add(new TranslationTextComponent("\u00A77" + "Channel your Inner Jerry!"));
-        tooltip.add(new TranslationTextComponent("\u00A77" + "Mana Cost: " + "\u00A7b" + "50"));
-        tooltip.add(new TranslationTextComponent(""));
-        tooltip.add(new TranslationTextComponent("\u00A77" + "This item can be reforged!"));
-        tooltip.add(new TranslationTextComponent("\u00A7l" +"COMMON SWORD"));
+        tooltip.add(new StringTextComponent("\u00A77" + "True Damage: " + "\u00A7c" + "+1"));
+        tooltip.add(new StringTextComponent(""));
+        tooltip.add(new StringTextComponent("\u00A76" + "Item Ablity: Parley " + "\u00A7e" + "\u00A7l" + "RIGHT CLICK"));
+        tooltip.add(new StringTextComponent("\u00A77" + "Channel your Inner Jerry!"));
+        tooltip.add(new StringTextComponent("\u00A77" + "Mana Cost: " + "\u00A7b" + "50"));
+        tooltip.add(new StringTextComponent(""));
+        tooltip.add(new StringTextComponent("\u00A77" + "This item can be reforged!"));
+        tooltip.add(new StringTextComponent("\u00A7l" +"COMMON SWORD"));
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
     }
 

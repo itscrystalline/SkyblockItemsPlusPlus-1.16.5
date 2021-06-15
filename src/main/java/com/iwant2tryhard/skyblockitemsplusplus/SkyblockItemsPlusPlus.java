@@ -1,6 +1,7 @@
 package com.iwant2tryhard.skyblockitemsplusplus;
 
 import com.iwant2tryhard.skyblockitemsplusplus.core.init.BlockInit;
+import com.iwant2tryhard.skyblockitemsplusplus.core.init.EnchantmentInit;
 import com.iwant2tryhard.skyblockitemsplusplus.core.init.ItemInit;
 import com.iwant2tryhard.skyblockitemsplusplus.world.OreGeneration;
 import net.minecraft.block.Block;
@@ -41,6 +42,7 @@ public class SkyblockItemsPlusPlus
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         bus.addListener(this::setup);
 
+        EnchantmentInit.ENCHANTMENTS.register(bus);
         ItemInit.ITEMS.register(bus);
         BlockInit.BLOCKS.register(bus);
 

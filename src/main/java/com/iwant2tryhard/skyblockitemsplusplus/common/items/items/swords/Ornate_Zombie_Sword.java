@@ -15,7 +15,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -32,18 +32,18 @@ public class Ornate_Zombie_Sword extends SwordItem {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new TranslationTextComponent("\u00A77" + "Damage: " + "\u00A7c" + "+110"));
-        tooltip.add(new TranslationTextComponent("\u00A77" + "Strength: " + "\u00A7c" + "+60"));
-        tooltip.add(new TranslationTextComponent(""));
-        tooltip.add(new TranslationTextComponent("\u00A77" + "Mana Reduction: " + ColorText.GREEN.toString() + "+25%"));
-        tooltip.add(new TranslationTextComponent(""));
-        tooltip.add(new TranslationTextComponent(ColorText.GOLD.toString() + "Item Ability: Instant Heal " + ColorText.YELLOW.toString() + ColorText.BOLD.toString() + "RIGHT CLICK"));
-        tooltip.add(new TranslationTextComponent(ColorText.GRAY.toString() + "Heal for " + ColorText.RED.toString() + "1.5 + 10% Health"));
-        tooltip.add(new TranslationTextComponent(ColorText.GRAY.toString() + "Mana Cost: " + ColorText.AQUA.toString() + "70 " + ColorText.GRAY.toString() + "(Mana Reduction: -" + PlayerStats.getManaReductionPercent() + "%)"));
-        tooltip.add(new TranslationTextComponent(ColorText.GRAY.toString() + "Charges: " + ColorText.YELLOW.toString() + "5  " + ColorText.GRAY.toString() + "/ " + ColorText.GREEN.toString() + "15s"));
-        tooltip.add(new TranslationTextComponent(""));
-        tooltip.add(new TranslationTextComponent("\u00A77" + "This item can be reforged!"));
-        tooltip.add(new TranslationTextComponent(ColorText.DARK_PURPLE.toString() + "\u00A7l" +"EPIC SWORD"));
+        tooltip.add(new StringTextComponent("\u00A77" + "Damage: " + "\u00A7c" + "+110"));
+        tooltip.add(new StringTextComponent("\u00A77" + "Strength: " + "\u00A7c" + "+60"));
+        tooltip.add(new StringTextComponent(""));
+        tooltip.add(new StringTextComponent("\u00A77" + "Mana Reduction: " + ColorText.GREEN.toString() + "+25%"));
+        tooltip.add(new StringTextComponent(""));
+        tooltip.add(new StringTextComponent(ColorText.GOLD.toString() + "Item Ability: Instant Heal " + ColorText.YELLOW.toString() + ColorText.BOLD.toString() + "RIGHT CLICK"));
+        tooltip.add(new StringTextComponent(ColorText.GRAY.toString() + "Heal for " + ColorText.RED.toString() + "1.5 + 10% Health"));
+        tooltip.add(new StringTextComponent(ColorText.GRAY.toString() + "Mana Cost: " + ColorText.AQUA.toString() + "70 " + ColorText.GRAY.toString() + "(Mana Reduction: -" + PlayerStats.getManaReductionPercent() + "%)"));
+        tooltip.add(new StringTextComponent(ColorText.GRAY.toString() + "Charges: " + ColorText.YELLOW.toString() + "5  " + ColorText.GRAY.toString() + "/ " + ColorText.GREEN.toString() + "15s"));
+        tooltip.add(new StringTextComponent(""));
+        tooltip.add(new StringTextComponent("\u00A77" + "This item can be reforged!"));
+        tooltip.add(new StringTextComponent(ColorText.DARK_PURPLE.toString() + "\u00A7l" +"EPIC SWORD"));
     }
 
     @Override

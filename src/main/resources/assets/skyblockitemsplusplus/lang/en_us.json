@@ -60,5 +60,7 @@
     "itemGroup.SkyblockItems_Combat": "Skyblock Items: Combat",
     "itemGroup.SkyblockItems_Materials": "Skyblock Items: Materials",
     "itemGroup.SkyblockItems_Armors": "Skyblock Items: Armory",
-    "itemGroup.SkyblockItems_Tools": "Skyblock Items: Tools"
+    "itemGroup.SkyblockItems_Tools": "Skyblock Items: Tools",
+
+    "enchantment.skyblockitemsplusplus.telekinesis": "Telekinesis"
 }

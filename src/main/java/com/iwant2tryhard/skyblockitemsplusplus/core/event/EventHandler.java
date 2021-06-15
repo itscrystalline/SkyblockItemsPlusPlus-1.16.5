@@ -13,34 +13,42 @@ import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.hoes.Netherite
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.pickaxes.Netherite_Plated_Diamond_Pickaxe;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.shovels.Netherite_Plated_Diamond_Shovel;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.swords.*;
+import com.iwant2tryhard.skyblockitemsplusplus.core.init.EnchantmentInit;
 import net.minecraft.block.*;
 import net.minecraft.client.Minecraft;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.item.ArmorStandEntity;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.monster.*;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
+import net.minecraft.item.*;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+
+import javax.tools.Tool;
+import java.util.Arrays;
 
 @EventBusSubscriber(modid = SkyblockItemsPlusPlus.MOD_ID, bus = EventBusSubscriber.Bus.FORGE)
 public class EventHandler {
@@ -336,6 +344,56 @@ public class EventHandler {
                 target.addEffect(new EffectInstance(Effects.WITHER, 60, 2));
             }
         }
+    }
+
+    //TODO:Fix drops
+    @SubscribeEvent
+    public static void OnKillTelekinesis(final LivingDeathEvent event)
+    {
+
+        if (PlayerStats.debugLogging) { Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("Event fired!"), false); }
+
+        if (event.getSource().getEntity() instanceof PlayerEntity)
+        {
+            if (PlayerStats.debugLogging) { Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("Event is player"), false); }
+
+            PlayerEntity player = (PlayerEntity) event.getSource().getEntity();
+            LivingEntity target = event.getEntityLiving();
+            player.getCommandSenderWorld().playSound(player, player, SoundEvents.PLAYER_ATTACK_STRONG, SoundCategory.NEUTRAL, 1.0f, 1.0f);
+            if (EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.TELEKINESIS.get(), player.getMainHandItem()) > 0)
+            {
+                if (PlayerStats.debugLogging) { Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("Event detected telekinesis"), false); }
+
+
+
+                if (PlayerStats.debugLogging) { Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("Event Array: " + target.captureDrops()), false); }
+
+                /*for (int i = 0; i < Arrays.stream(collection).count(); ++i)
+                {
+                    if (PlayerStats.debugLogging) { Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("Event Item: " + collection[i].getItem()), false); }
+
+                    player.addItem(collection[i].getItem());
+
+                    if (PlayerStats.debugLogging) { Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("Event Item added"), false); }
+                }*/
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void OnBreakTelekinesis(final BlockEvent.BreakEvent event)
+    {
+       /* PlayerEntity player = event.getPlayer();
+        if (player.getMainHandItem().getItem() instanceof ToolItem)
+        {
+            ToolItem tool = (ToolItem) player.getMainHandItem().getItem();
+            ItemStack toolStack = player.getMainHandItem();
+            if (EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.TELEKINESIS.get(), toolStack) > 0)
+            {
+                event.getState().getDrops()
+            }
+        }*/
+
     }
 
 }

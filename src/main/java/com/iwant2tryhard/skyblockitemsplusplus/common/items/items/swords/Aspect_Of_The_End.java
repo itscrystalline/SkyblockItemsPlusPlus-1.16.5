@@ -12,7 +12,7 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.*;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -27,16 +27,16 @@ public class Aspect_Of_The_End extends SwordItem {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        tooltip.add(new TranslationTextComponent("\u00A77" + "Damage: " + "\u00A7c" + "+100"));
-        tooltip.add(new TranslationTextComponent("\u00A77" + "Strength: " + "\u00A7c" + "+100"));
-        tooltip.add(new TranslationTextComponent(""));
-        tooltip.add(new TranslationTextComponent("\u00A76" + "Item Ablity: Instant Transmission " + "\u00A7e" + "\u00A7l" + "RIGHT CLICK"));
-        tooltip.add(new TranslationTextComponent("\u00A77" + "Teleport " + ColorText.GREEN.toString() + "8 blocks " + ColorText.GRAY.toString() + "ahead of"));
-        tooltip.add(new TranslationTextComponent(ColorText.GRAY.toString() + "you and gain " + ColorText.WHITE.toString() + "Speed 5"));
-        tooltip.add(new TranslationTextComponent(ColorText.GRAY.toString() + "for " + ColorText.GREEN.toString() + "3 seconds."));
-        tooltip.add(new TranslationTextComponent(ColorText.GRAY.toString() + "Mana Cost: " + ColorText.AQUA.toString() + "50 " + ColorText.GRAY.toString() + "(Mana Reduction: -" + PlayerStats.getManaReductionPercent() + "%)"));
-        tooltip.add(new TranslationTextComponent("\u00A77" + "This item can be reforged!"));
-        tooltip.add(new TranslationTextComponent(ColorText.BLUE + "\u00A7l" +"RARE SWORD"));
+        tooltip.add(new StringTextComponent("\u00A77" + "Damage: " + "\u00A7c" + "+100"));
+        tooltip.add(new StringTextComponent("\u00A77" + "Strength: " + "\u00A7c" + "+100"));
+        tooltip.add(new StringTextComponent(""));
+        tooltip.add(new StringTextComponent("\u00A76" + "Item Ablity: Instant Transmission " + "\u00A7e" + "\u00A7l" + "RIGHT CLICK"));
+        tooltip.add(new StringTextComponent("\u00A77" + "Teleport " + ColorText.GREEN.toString() + "8 blocks " + ColorText.GRAY.toString() + "ahead of"));
+        tooltip.add(new StringTextComponent(ColorText.GRAY.toString() + "you and gain " + ColorText.WHITE.toString() + "Speed 5"));
+        tooltip.add(new StringTextComponent(ColorText.GRAY.toString() + "for " + ColorText.GREEN.toString() + "3 seconds."));
+        tooltip.add(new StringTextComponent(ColorText.GRAY.toString() + "Mana Cost: " + ColorText.AQUA.toString() + "50 " + ColorText.GRAY.toString() + "(Mana Reduction: -" + PlayerStats.getManaReductionPercent() + "%)"));
+        tooltip.add(new StringTextComponent("\u00A77" + "This item can be reforged!"));
+        tooltip.add(new StringTextComponent(ColorText.BLUE + "\u00A7l" +"RARE SWORD"));
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
     }
 

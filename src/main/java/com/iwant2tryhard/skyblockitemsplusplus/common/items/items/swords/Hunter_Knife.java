@@ -6,7 +6,7 @@ import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -20,11 +20,11 @@ public class Hunter_Knife extends SwordItem {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new TranslationTextComponent("\u00A77" + "Damage: " + "\u00A7c" + "+50"));
-        tooltip.add(new TranslationTextComponent(""));
-        tooltip.add(new TranslationTextComponent(ColorText.GRAY.toString() + "Gain " + ColorText.WHITE.toString() + "Speed 2 " + ColorText.GRAY.toString() + "when held."));
-        tooltip.add(new TranslationTextComponent(""));
-        tooltip.add(new TranslationTextComponent("\u00A77" + "This item can be reforged!"));
-        tooltip.add(new TranslationTextComponent(ColorText.GREEN.toString() + "\u00A7l" +"UNCOMMON SWORD"));
+        tooltip.add(new StringTextComponent("\u00A77" + "Damage: " + "\u00A7c" + "+50"));
+        tooltip.add(new StringTextComponent(""));
+        tooltip.add(new StringTextComponent(ColorText.GRAY.toString() + "Gain " + ColorText.WHITE.toString() + "Speed 2 " + ColorText.GRAY.toString() + "when held."));
+        tooltip.add(new StringTextComponent(""));
+        tooltip.add(new StringTextComponent("\u00A77" + "This item can be reforged!"));
+        tooltip.add(new StringTextComponent(ColorText.GREEN.toString() + "\u00A7l" +"UNCOMMON SWORD"));
     }
 }

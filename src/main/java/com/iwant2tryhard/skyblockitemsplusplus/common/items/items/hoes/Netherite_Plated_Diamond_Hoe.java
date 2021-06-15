@@ -6,7 +6,7 @@ import net.minecraft.item.HoeItem;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -19,10 +19,10 @@ public class Netherite_Plated_Diamond_Hoe extends HoeItem {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        tooltip.add(new TranslationTextComponent("\u00A77" + "True Damage: " + "\u00A7c" + "+1"));
-        tooltip.add(new TranslationTextComponent(""));
-        tooltip.add(new TranslationTextComponent("\u00A77" + "This item can be reforged!"));
-        tooltip.add(new TranslationTextComponent(ColorText.BLUE.toString() + "\u00A7l" + "RARE HOE"));
+        tooltip.add(new StringTextComponent("\u00A77" + "True Damage: " + "\u00A7c" + "+1"));
+        tooltip.add(new StringTextComponent(""));
+        tooltip.add(new StringTextComponent("\u00A77" + "This item can be reforged!"));
+        tooltip.add(new StringTextComponent(ColorText.BLUE.toString() + "\u00A7l" + "RARE HOE"));
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
     }
 }

@@ -14,7 +14,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -30,15 +30,15 @@ public class Rogue_Sword extends SwordItem {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new TranslationTextComponent("\u00A77" + "Damage: " + "\u00A7c" + "+20"));
-        tooltip.add(new TranslationTextComponent(""));
-        tooltip.add(new TranslationTextComponent("\u00A76" + "Item Ablity: Speed Boost " + "\u00A7e" + "\u00A7l" + "RIGHT CLICK"));
-        tooltip.add(new TranslationTextComponent("\u00A77" + "Gain " + "\u00A7a" +"Speed 3 " + "\u00A77" + "for"));
-        tooltip.add(new TranslationTextComponent("\u00A7f" +"30 " + "\u00A77" + "seconds."));
-        tooltip.add(new TranslationTextComponent("\u00A77" + "Mana Cost: " + "\u00A7b" + "50" + "\u00A77" + " (Mana Reduction: -" + PlayerStats.getManaReductionPercent() + "\u00A77" + "%)"));
-        tooltip.add(new TranslationTextComponent(""));
-        tooltip.add(new TranslationTextComponent("\u00A77" + "This item can be reforged!"));
-        tooltip.add(new TranslationTextComponent("\u00A7l" +"COMMON SWORD"));
+        tooltip.add(new StringTextComponent("\u00A77" + "Damage: " + "\u00A7c" + "+20"));
+        tooltip.add(new StringTextComponent(""));
+        tooltip.add(new StringTextComponent("\u00A76" + "Item Ablity: Speed Boost " + "\u00A7e" + "\u00A7l" + "RIGHT CLICK"));
+        tooltip.add(new StringTextComponent("\u00A77" + "Gain " + "\u00A7a" +"Speed 3 " + "\u00A77" + "for"));
+        tooltip.add(new StringTextComponent("\u00A7f" +"30 " + "\u00A77" + "seconds."));
+        tooltip.add(new StringTextComponent("\u00A77" + "Mana Cost: " + "\u00A7b" + "50" + "\u00A77" + " (Mana Reduction: -" + PlayerStats.getManaReductionPercent() + "\u00A77" + "%)"));
+        tooltip.add(new StringTextComponent(""));
+        tooltip.add(new StringTextComponent("\u00A77" + "This item can be reforged!"));
+        tooltip.add(new StringTextComponent("\u00A7l" +"COMMON SWORD"));
     }
 
     @Override
