@@ -1,11 +1,11 @@
 package com.iwant2tryhard.skyblockitemsplusplus;
 
-import com.iwant2tryhard.skyblockitemsplusplus.core.init.BlockInit;
-import com.iwant2tryhard.skyblockitemsplusplus.core.init.EnchantmentInit;
-import com.iwant2tryhard.skyblockitemsplusplus.core.init.ItemInit;
+import com.iwant2tryhard.skyblockitemsplusplus.client.gui.ElectricCraftingTableScreen;
+import com.iwant2tryhard.skyblockitemsplusplus.core.init.*;
 import com.iwant2tryhard.skyblockitemsplusplus.world.OreGeneration;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
@@ -43,8 +43,10 @@ public class SkyblockItemsPlusPlus
         bus.addListener(this::setup);
 
         EnchantmentInit.ENCHANTMENTS.register(bus);
-        ItemInit.ITEMS.register(bus);
         BlockInit.BLOCKS.register(bus);
+        ItemInit.ITEMS.register(bus);
+        TileEntityTypeInit.TILE_ENTITY_TYPES.register(bus);
+        ContainerInit.CONTAINER_TYPES.register(bus);
 
         MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH, OreGeneration::generateOres);
         MinecraftForge.EVENT_BUS.register(this);
@@ -52,7 +54,7 @@ public class SkyblockItemsPlusPlus
 
     private void setup(final FMLCommonSetupEvent event)
     {
-
+        //ScreenManager.register(ContainerInit.ELECTRIC_CRFATING_TABLE.get(), ElectricCraftingTableScreen::new);
     }
 
     public static class SkyblockItemsCombat extends ItemGroup

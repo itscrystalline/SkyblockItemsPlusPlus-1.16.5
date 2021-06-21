@@ -2,8 +2,10 @@ package com.iwant2tryhard.skyblockitemsplusplus.common.items.items.swords;
 
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ColorText;
 import com.iwant2tryhard.skyblockitemsplusplus.common.entities.PlayerStats;
+import com.iwant2tryhard.skyblockitemsplusplus.core.init.EnchantmentInit;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
@@ -25,6 +27,8 @@ import java.util.List;
 public class Ink_Wand extends SwordItem {
     private static float manaUsage = 12f;
     private static float displayManaUsage = 60f;
+    //private static String oneForAllText = ColorText.LIGHT_PURPLE.toString() + "(+20)";
+    //boolean hasOneForAll = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ONE_FOR_ALL.get(), this.asItem().getDefaultInstance()) > 0;
     public Ink_Wand(IItemTier itemTier, int damage, float attackSpeed, Properties properties) {
         super(itemTier, damage, attackSpeed, properties);
     }
@@ -48,13 +52,14 @@ public class Ink_Wand extends SwordItem {
 
     @Override
     public ActionResult<ItemStack> use(World worldIn, PlayerEntity player, Hand hand) {
-        if (Math.round(player.getFoodData().getFoodLevel() - manaUsage * ((100f - PlayerStats.getManaReductionPercent()) / 100f)) >= 0f)
+        if (PlayerStats.isEnoughMana(manaUsage, player))
         {
+            int foodLevel = PlayerStats.calcManaUsage(manaUsage, player);
             if (!player.getCooldowns().isOnCooldown(this))
             {
-                player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - Math.round(manaUsage * ((100f - PlayerStats.getManaReductionPercent()) / 100f)));
+                player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - foodLevel);
 
-                Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("\u00A73" + "Used " + "\u00A76" + "Ink Bomb! " + "\u00A73" + "(" + Math.round(displayManaUsage * ((100f - PlayerStats.getManaReductionPercent()) / 100f)) + " Mana)"), false);
+                Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("\u00A73" + "Used " + "\u00A76" + "Ink Bomb! " + "\u00A73" + "(" + (foodLevel * 5) + " Mana)"), false);
                 worldIn.playSound(player, player, SoundEvents.SQUID_SQUIRT, SoundCategory.NEUTRAL, 1.0f, 1.0f);
                 player.getCooldowns().addCooldown(this, 600);
                 damageItem(this.getItem().getDefaultInstance(), 1, player, null);

@@ -58,6 +58,8 @@ public class ItemInit {
             () -> new RefinedRottenFlesh(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Materials)));
     public static final RegistryObject<RefinedInkSack> REFINED_INK_SACK = ITEMS.register("refined_ink_sack",
             () -> new RefinedInkSack(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Materials)));
+    public static final RegistryObject<RefinedGhastTear> REFINED_GHAST_TEAR = ITEMS.register("refined_ghast_tear",
+            () -> new RefinedGhastTear(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Materials)));
 
     //swords
     public static final RegistryObject<Aspect_Of_The_Jerry> ASPECT_OF_THE_JERRY = ITEMS.register("aspect_of_the_jerry",
@@ -87,6 +89,8 @@ public class ItemInit {
             () -> new Hunter_Knife(new HunterKnifeSource(), 50, -2f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat)));
     public static final RegistryObject<Ink_Wand> INK_WAND = ITEMS.register("ink_wand",
             () -> new Ink_Wand(new InkWandSource(), 130, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat)));
+    public static final RegistryObject<Silver_Fang> SILVER_FANG = ITEMS.register("silver_fang",
+            () -> new Silver_Fang(new SilverFangSource(), 100, -2.5f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat)));
 
     //pickaxes
     public static final RegistryObject<Netherite_Plated_Diamond_Pickaxe> NETHERITE_PLATED_DIAMOND_PICKAXE = ITEMS.register("netherite_plated_diamond_pickaxe",
@@ -150,6 +154,8 @@ public class ItemInit {
             () -> new TitaniumBlockItem(BlockInit.TITANIUM_BLOCK.get(), new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Materials)));
     public static final RegistryObject<RefinedTitaniumBlockItem> REFINED_TITANIUM_BLOCK = ITEMS.register("refined_titanium_block",
             () -> new RefinedTitaniumBlockItem(BlockInit.REFINED_TITANIUM_BLOCK.get(), new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Materials)));
+    public static final RegistryObject<ElectricCraftingTableBlockItem> ELECTRIC_CRAFTING_TABLE_BLOCK = ITEMS.register("electric_crafting_table",
+            () -> new ElectricCraftingTableBlockItem(BlockInit.ELECTRIC_CRAFTING_TABLE.get(), new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Tools)));
 
         //Ore Blocks
         public static final RegistryObject<MithrilOreBlockItem> MITHRIL_ORE = ITEMS.register("mithril_ore",

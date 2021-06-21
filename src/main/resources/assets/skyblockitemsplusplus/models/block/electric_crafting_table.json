@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "skyblockitemsplusplus:blocks/electric_crafting_table_side_up"
+  }
+}

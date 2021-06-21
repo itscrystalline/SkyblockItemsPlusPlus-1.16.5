@@ -13,8 +13,8 @@ public enum MobStats {
     VILLAGER(5),
     IRON_GOLEM(50),
     WITHER_SKELETON(5),
-    WITHER(100),
-    ENDER_DRAGON(500);
+    WITHER(300),
+    ENDER_DRAGON(450);
 
     public final int defense;
 

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " # ",
+    "###",
+    " # "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:ghast_tear"
+    }
+  },
+  "result": {
+    "item": "skyblockitemsplusplus:refined_ghast_tear",
+    "count": 1
+  }
+}

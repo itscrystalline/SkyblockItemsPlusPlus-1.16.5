@@ -37,11 +37,12 @@ public class Aspect_Of_The_Jerry extends SwordItem {
 
     @Override
     public ActionResult<ItemStack> use(World worldIn, PlayerEntity player, Hand hand) {
-        if (Math.round(player.getFoodData().getFoodLevel() - manaUsage * ((100f - PlayerStats.getManaReductionPercent()) / 100f)) >= 0f)
+        if (PlayerStats.isEnoughMana(manaUsage, player))
         {
-            Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("\u00A73" + "Used " + "\u00A76" + "Parley! " + "\u00A73" + "(" + Math.round(displayManaUsage * ((100f - PlayerStats.getManaReductionPercent()) / 100f)) + " Mana)"), false);
+            int foodLevel = PlayerStats.calcManaUsage(manaUsage, player);
+            Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("\u00A73" + "Used " + "\u00A76" + "Parley! " + "\u00A73" + "(" + (foodLevel * 5) + " Mana)"), false);
 
-            player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - Math.round(manaUsage * ((100f - PlayerStats.getManaReductionPercent()) / 100f)));
+            player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - foodLevel);
             worldIn.playSound(player, player, SoundEvents.VILLAGER_AMBIENT,SoundCategory.NEUTRAL, 1.0f, 1.0f);
         }
         //return super.use(worldIn, player, hand);

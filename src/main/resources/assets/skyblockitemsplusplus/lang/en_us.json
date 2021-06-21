@@ -26,6 +26,7 @@
     "item.skyblockitemsplusplus.netherite_plated_diamond_sword": "\u00a79Netherite Plated Diamond Sword",
     "item.skyblockitemsplusplus.hunter_knife": "\u00A7aHunter Knife",
     "item.skyblockitemsplusplus.ink_wand": "\u00A75Ink Wand",
+    "item.skyblockitemsplusplus.silver_fang": "\u00A7aSilver Fang",
 
     "item.skyblockitemsplusplus.netherite_plated_diamond_pickaxe": "\u00a79Netherite Plated Diamond Pickaxe",
 
@@ -56,11 +57,15 @@
     "block.skyblockitemsplusplus.titanium_ore": "\u00a79Titanium Ore",
     "block.skyblockitemsplusplus.titanium_block": "\u00a79Block of Titanium",
     "block.skyblockitemsplusplus.refined_titanium_block": "\u00a75Refined Block of Titanium",
+    "block.skyblockitemsplusplus.electric_crafting_table": "\u00a7aElectric Crafting Table",
 
     "itemGroup.SkyblockItems_Combat": "Skyblock Items: Combat",
     "itemGroup.SkyblockItems_Materials": "Skyblock Items: Materials",
     "itemGroup.SkyblockItems_Armors": "Skyblock Items: Armory",
     "itemGroup.SkyblockItems_Tools": "Skyblock Items: Tools",
 
-    "enchantment.skyblockitemsplusplus.telekinesis": "Telekinesis"
+    "enchantment.skyblockitemsplusplus.telekinesis": "Telekinesis",
+    "enchantment.skyblockitemsplusplus.one_for_all": "\u00A7d\u00A7lOne For All",
+    "enchantment.skyblockitemsplusplus.ultimate_wise": "\u00A7d\u00A7lUltimate Wise",
+    "enchantment.skyblockitemsplusplus.life_steal": "Life Steal"
 }

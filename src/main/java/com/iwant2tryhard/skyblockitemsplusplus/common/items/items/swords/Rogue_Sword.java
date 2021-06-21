@@ -1,8 +1,11 @@
 package com.iwant2tryhard.skyblockitemsplusplus.common.items.items.swords;
 
+import com.iwant2tryhard.skyblockitemsplusplus.client.util.ColorText;
 import com.iwant2tryhard.skyblockitemsplusplus.common.entities.PlayerStats;
+import com.iwant2tryhard.skyblockitemsplusplus.core.init.EnchantmentInit;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
@@ -23,6 +26,8 @@ import java.util.List;
 public class Rogue_Sword extends SwordItem {
     private static float manaUsage = 10f;
     private static float displayManaUsage = 50f;
+    //private static String oneForAllText = ColorText.LIGHT_PURPLE.toString() + "(+20)";
+    //boolean hasOneForAll = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ONE_FOR_ALL.get(), this.asItem().getDefaultInstance()) > 0;
     public Rogue_Sword(IItemTier itemTier, int damage, float attackSpeed, Properties properties) {
         super(itemTier, damage, attackSpeed, properties);
     }
@@ -43,15 +48,15 @@ public class Rogue_Sword extends SwordItem {
 
     @Override
     public ActionResult<ItemStack> use(World worldIn, PlayerEntity player, Hand hand) {
-        System.out.println(player.getMainHandItem().getMaxDamage());
-        if (Math.round(player.getFoodData().getFoodLevel() - 10f * ((100f - PlayerStats.getManaReductionPercent()) / 100f)) >= 0f)
+        if (PlayerStats.isEnoughMana(manaUsage, player))
         {
+            int foodLevel = PlayerStats.calcManaUsage(manaUsage, player);
             //Minecraft.getInstance().player.chat("reducedHunger : " + (10f * ((100f - PlayerStats.getManaReductionPercent()) / 100f)));
             //Minecraft.getInstance().player.chat("currentHunger : " + player.getFoodData().getFoodLevel());
 
-            player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - Math.round(10f * ((100f - PlayerStats.getManaReductionPercent()) / 100f)));
+            player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - foodLevel);
 
-            Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("\u00A73" + "Used " + "\u00A76" + "Speed Boost! " + "\u00A73" + "(" + Math.round(displayManaUsage * ((100f - PlayerStats.getManaReductionPercent()) / 100f)) + " Mana)"), false);
+            Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("\u00A73" + "Used " + "\u00A76" + "Speed Boost! " + "\u00A73" + "(" + (foodLevel * 5) + " Mana)"), false);
             worldIn.playSound(player, player, SoundEvents.LAVA_POP,SoundCategory.NEUTRAL, 1.0f, 1.0f);
             if (player.hasEffect(Effects.MOVEMENT_SPEED))
             {

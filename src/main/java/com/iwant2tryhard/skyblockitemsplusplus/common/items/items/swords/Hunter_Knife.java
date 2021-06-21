@@ -1,7 +1,9 @@
 package com.iwant2tryhard.skyblockitemsplusplus.common.items.items.swords;
 
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ColorText;
+import com.iwant2tryhard.skyblockitemsplusplus.core.init.EnchantmentInit;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
@@ -13,6 +15,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class Hunter_Knife extends SwordItem {
+    //private static String oneForAllText = ColorText.LIGHT_PURPLE.toString() + "(+20)";
+    //boolean hasOneForAll = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ONE_FOR_ALL.get(), this.asItem().getDefaultInstance()) > 0;
     public Hunter_Knife(IItemTier itemTier, int damage, float attackSpeed, Properties properties) {
         super(itemTier, damage, attackSpeed, properties);
     }

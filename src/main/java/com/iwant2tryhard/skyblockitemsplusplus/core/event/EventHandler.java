@@ -1,6 +1,7 @@
 package com.iwant2tryhard.skyblockitemsplusplus.core.event;
 
 import com.iwant2tryhard.skyblockitemsplusplus.SkyblockItemsPlusPlus;
+import com.iwant2tryhard.skyblockitemsplusplus.client.util.ClientUtils;
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ColorText;
 import com.iwant2tryhard.skyblockitemsplusplus.common.entities.MobStats;
 import com.iwant2tryhard.skyblockitemsplusplus.common.entities.PlayerStats;
@@ -17,10 +18,12 @@ import com.iwant2tryhard.skyblockitemsplusplus.core.init.EnchantmentInit;
 import net.minecraft.block.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
+import net.minecraft.entity.boss.dragon.EnderDragonPartEntity;
 import net.minecraft.entity.item.ArmorStandEntity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
@@ -32,10 +35,13 @@ import net.minecraft.item.*;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.Potions;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -49,6 +55,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
 import javax.tools.Tool;
 import java.util.Arrays;
+import java.util.Random;
 
 @EventBusSubscriber(modid = SkyblockItemsPlusPlus.MOD_ID, bus = EventBusSubscriber.Bus.FORGE)
 public class EventHandler {
@@ -63,6 +70,8 @@ public class EventHandler {
         {
             LivingEntity target = event.getEntityLiving();
             PlayerEntity player = (PlayerEntity) event.getSource().getEntity();
+            boolean hasOneForAll = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ONE_FOR_ALL.get(), player.getMainHandItem()) > 0;
+            int lifeStealLvl = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.LIFE_STEAL.get(), player.getMainHandItem());
 
 
             if (PlayerStats.debugLogging) { Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("initialDamage : " + event.getAmount()), false); }
@@ -101,25 +110,53 @@ public class EventHandler {
               (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Hoe))
             {
                 event.setAmount(event.getAmount());
+                if (lifeStealLvl > 0)
+                {
+                    int rnd = MathHelper.nextInt(new Random(), 1, 40 - (lifeStealLvl * 10));
+                    if (rnd == 1 && PlayerStats.isEnoughMana(6f, player))
+                    {
+                        float healAmnt = target.getHealth() * (lifeStealLvl * 0.05f);
+                        player.heal(healAmnt);
+                        target.setHealth(target.getHealth() - (healAmnt / 2f));
+                        int mana = PlayerStats.calcManaUsage(6f, player);
+                        player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - mana);
+                        ClientUtils.SendPrivateMessage(ColorText.GREEN.toString() + "Your " + ColorText.GRAY.toString() + "Life Steal " + lifeStealLvl + ColorText.GREEN.toString() + " Stole " + ColorText.RED.toString() + Math.round(healAmnt / 2) + " health " + ColorText.GREEN.toString() + "from " + ColorText.GOLD.toString() + "placeholder entity name" + ColorText.GREEN.toString() + "! " + ColorText.AQUA.toString() + "(" + (mana * 5) + " Mana)");
+                    }
+                }
             }
             else
             {
-                if      (target instanceof ZombieEntity) { if (player.getMainHandItem().getItem() instanceof Undead_Sword) { event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.ZOMBIE.defense, target.getMaxHealth()))); initialDamage *= 2; }else{ event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.ZOMBIE.defense, target.getMaxHealth())); } }
-                else if (target instanceof SkeletonEntity) { if (player.getMainHandItem().getItem() instanceof Undead_Sword) { event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.SKELETON.defense, target.getMaxHealth()))); initialDamage *= 2; }else{ event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.SKELETON.defense, target.getMaxHealth())); }  }
-                else if (target instanceof EndermanEntity) { if (player.getMainHandItem().getItem() instanceof End_Sword) { event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.ENDERMAN.defense, target.getMaxHealth()))); initialDamage *= 2; }else { event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.ENDERMAN.defense, target.getMaxHealth())); } }
-                else if (target instanceof EndermiteEntity) { if (player.getMainHandItem().getItem() instanceof End_Sword) { event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.ENDERMITE.defense, target.getMaxHealth()))); initialDamage *= 2; }else { event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.ENDERMITE.defense, target.getMaxHealth())); } }
-                else if (target instanceof CreeperEntity) { event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.CREEPER.defense, target.getMaxHealth())); }
-                else if (target instanceof SlimeEntity) { event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.SLIME.defense, target.getMaxHealth())); }
-                else if (target instanceof SpiderEntity) { event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.SPIDER.defense, target.getMaxHealth())); }
-                else if (target instanceof CaveSpiderEntity) { event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.CAVE_SPIDER.defense, target.getMaxHealth())); }
-                else if (target instanceof VillagerEntity) { event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.VILLAGER.defense, target.getMaxHealth())); }
-                else if (target instanceof IronGolemEntity) { event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.IRON_GOLEM.defense, target.getMaxHealth())); }
-                else if (target instanceof ZombifiedPiglinEntity) { if (player.getMainHandItem().getItem() instanceof Undead_Sword) { event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.ZOMBIE_PIGMAN.defense, target.getMaxHealth()))); initialDamage *= 2; }else{ event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.ZOMBIE_PIGMAN.defense, target.getMaxHealth())); }  }
-                else if (target instanceof WitherSkeletonEntity) { if (player.getMainHandItem().getItem() instanceof Undead_Sword) { event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.WITHER_SKELETON.defense, target.getMaxHealth()))); initialDamage *= 2; }else{ event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.WITHER_SKELETON.defense, target.getMaxHealth())); }  }
-                else if (target instanceof WitherEntity) { if (player.getMainHandItem().getItem() instanceof Undead_Sword) { event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.WITHER.defense, target.getMaxHealth()))); initialDamage *= 2; }else{ event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.WITHER.defense, target.getMaxHealth())); }  }
-                else if (target instanceof EnderDragonEntity) { if (player.getMainHandItem().getItem() instanceof End_Sword) { event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.ENDER_DRAGON.defense, target.getMaxHealth()))); initialDamage *= 2; }else { event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.ENDER_DRAGON.defense, target.getMaxHealth())); } }
+                if      (target instanceof ZombieEntity) { if (player.getMainHandItem().getItem() instanceof Undead_Sword) { event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.ZOMBIE.defense, target.getMaxHealth(), hasOneForAll))); initialDamage *= 2; }else{ event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.ZOMBIE.defense, target.getMaxHealth(), hasOneForAll)); } }
+                else if (target instanceof SkeletonEntity) { if (player.getMainHandItem().getItem() instanceof Undead_Sword) { event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.SKELETON.defense, target.getMaxHealth(), hasOneForAll))); initialDamage *= 2; }else{ event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.SKELETON.defense, target.getMaxHealth(), hasOneForAll)); }  }
+                else if (target instanceof EndermanEntity) { if (player.getMainHandItem().getItem() instanceof End_Sword) { event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.ENDERMAN.defense, target.getMaxHealth(), hasOneForAll))); initialDamage *= 2; }else { event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.ENDERMAN.defense, target.getMaxHealth(), hasOneForAll)); } }
+                else if (target instanceof EndermiteEntity) { if (player.getMainHandItem().getItem() instanceof End_Sword) { event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.ENDERMITE.defense, target.getMaxHealth(), hasOneForAll))); initialDamage *= 2; }else { event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.ENDERMITE.defense, target.getMaxHealth(), hasOneForAll)); } }
+                else if (target instanceof CreeperEntity) { event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.CREEPER.defense, target.getMaxHealth(), hasOneForAll)); }
+                else if (target instanceof SlimeEntity) { event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.SLIME.defense, target.getMaxHealth(), hasOneForAll)); }
+                else if (target instanceof SpiderEntity) { event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.SPIDER.defense, target.getMaxHealth(), hasOneForAll)); }
+                else if (target instanceof CaveSpiderEntity) { event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.CAVE_SPIDER.defense, target.getMaxHealth(), hasOneForAll)); }
+                else if (target instanceof VillagerEntity) { event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.VILLAGER.defense, target.getMaxHealth(), hasOneForAll)); }
+                else if (target instanceof IronGolemEntity) { event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.IRON_GOLEM.defense, target.getMaxHealth(), hasOneForAll)); }
+                else if (target instanceof ZombifiedPiglinEntity) { if (player.getMainHandItem().getItem() instanceof Undead_Sword) { event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.ZOMBIE_PIGMAN.defense, target.getMaxHealth(), hasOneForAll))); initialDamage *= 2; }else{ event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.ZOMBIE_PIGMAN.defense, target.getMaxHealth(), hasOneForAll)); }  }
+                else if (target instanceof WitherSkeletonEntity) { if (player.getMainHandItem().getItem() instanceof Undead_Sword) { event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.WITHER_SKELETON.defense, target.getMaxHealth(), hasOneForAll))); initialDamage *= 2; }else{ event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.WITHER_SKELETON.defense, target.getMaxHealth(), hasOneForAll)); }  }
+                else if (target instanceof WitherEntity) { if (player.getMainHandItem().getItem() instanceof Undead_Sword) { event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.WITHER.defense, target.getMaxHealth(), hasOneForAll))); initialDamage *= 2; }else{ event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.WITHER.defense, target.getMaxHealth(), hasOneForAll)); }  }
+                else if (target instanceof EnderDragonEntity) { if (player.getMainHandItem().getItem() instanceof End_Sword) { event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.ENDER_DRAGON.defense, target.getMaxHealth(), hasOneForAll))); initialDamage *= 2; }else { event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.ENDER_DRAGON.defense, target.getMaxHealth(), hasOneForAll)); } }
 
                 else if (target instanceof PlayerEntity) { event.setAmount(event.getAmount()); }
+
+                if (lifeStealLvl > 0)
+                {
+                    int rnd = MathHelper.nextInt(new Random(), 1, 40 - (lifeStealLvl * 10));
+                    if (rnd == 1 && PlayerStats.isEnoughMana(6f, player))
+                    {
+                        float healAmnt = target.getHealth() * (lifeStealLvl * 0.05f);
+                        ClientUtils.SendPrivateMessage("healAmnt: " + healAmnt);
+                        player.heal(healAmnt);
+                        target.setHealth(target.getHealth() - (healAmnt / 2f));
+                        int mana = PlayerStats.calcManaUsage(6f, player);
+                        player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - mana);
+                        ClientUtils.SendPrivateMessage(ColorText.GREEN.toString() + "Your " + ColorText.GRAY.toString() + "Life Steal " + lifeStealLvl + ColorText.GREEN.toString() + " Stole " + ColorText.RED.toString() + Math.round(healAmnt / 2) + " health " + ColorText.GREEN.toString() + "from " + ColorText.GOLD.toString() + "placeholder entity name" + ColorText.GREEN.toString() + "! " + ColorText.AQUA.toString() + "(" + (mana * 5) + " Mana)");
+                    }
+                }
             }
             if (player.getMainHandItem().getItem() instanceof Flame_Sword)
             {
@@ -180,7 +217,7 @@ public class EventHandler {
                 dmgTag.setInvisible(true);
                 worldIn.addFreshEntity(dmgTag);
                 if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("initialDamage: " + event.getAmount()), false);}
-                event.setAmount(((event.getAmount() / EHP) * target.getMaxHealth()) * 6);
+                event.setAmount(((event.getAmount() / EHP) * target.getMaxHealth()) * 4);
                 if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("defense: " + PlayerStats.getDefense()), false);}
                 if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("ehp: " + EHP), false);}
                 if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("targetMaxHealth: " + target.getMaxHealth()), false);}
@@ -240,6 +277,16 @@ public class EventHandler {
                 PlayerStats.setManaReductionPercent(90);
             } else {
                 PlayerStats.setManaReductionPercent(player.experienceLevel);
+            }
+            if (EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ULTIMATE_WISE.get(), player.getOffhandItem()) > 0)
+            {
+                PlayerStats.setUltWiseLvl(EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ULTIMATE_WISE.get(), player.getOffhandItem()));
+            }else if (EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ULTIMATE_WISE.get(), player.getMainHandItem()) > 0)
+            {
+                PlayerStats.setUltWiseLvl(EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ULTIMATE_WISE.get(), player.getMainHandItem()));
+            }else
+            {
+                PlayerStats.setUltWiseLvl(0);
             }
 
             if (player.getMainHandItem().getItem() instanceof Aspect_Of_The_End || player.getOffhandItem().getItem() instanceof Aspect_Of_The_End)
@@ -332,7 +379,7 @@ public class EventHandler {
     public static void playerInteractEntity(final PlayerInteractEvent.EntityInteract event)
     {
         PlayerEntity player = event.getPlayer();
-        LivingEntity target = (LivingEntity) event.getTarget();
+        LivingEntity target = event.getTarget() instanceof EnderDragonPartEntity ? ((EnderDragonPartEntity) event.getTarget()).getParent() : (LivingEntity) event.getTarget();
         if (player.getMainHandItem().getItem() instanceof Ink_Wand)
         {
             Ink_Wand wand = (Ink_Wand) player.getMainHandItem().getItem();
@@ -341,7 +388,14 @@ public class EventHandler {
                 target.hurt(DamageSource.playerAttack(player), ((10000 + (PlayerStats.getManaReductionPercent() * 10) + 100) / 100));
                 target.addEffect(new EffectInstance(Effects.BLINDNESS, 200, 0));
                 target.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 200, 11));
-                target.addEffect(new EffectInstance(Effects.WITHER, 60, 2));
+                target.addEffect(new EffectInstance(Effects.WITHER, 200, 2));
+                AreaEffectCloudEntity effect = new AreaEffectCloudEntity(event.getWorld(), target.position().x, target.position().y, target.position().z);
+                effect.setRadius(1f);
+                effect.setDuration(200);
+                effect.setPotion(new Potion(new EffectInstance(Effects.BLINDNESS, 200, 0),
+                                            new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 200, 11),
+                                            new EffectInstance(Effects.WITHER, 200, 2)));
+                event.getWorld().addFreshEntity(effect);
             }
         }
     }

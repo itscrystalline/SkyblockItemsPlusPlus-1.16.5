@@ -1,10 +1,12 @@
 package com.iwant2tryhard.skyblockitemsplusplus.core.init;
 
 import com.iwant2tryhard.skyblockitemsplusplus.SkyblockItemsPlusPlus;
+import com.iwant2tryhard.skyblockitemsplusplus.common.blocks.ElectricCraftingTableBlock;
 import com.iwant2tryhard.skyblockitemsplusplus.common.blocks.MithrilOreBlock;
 import com.iwant2tryhard.skyblockitemsplusplus.common.blocks.TitaniumOreBlock;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
@@ -103,4 +105,12 @@ public class BlockInit {
                     .harvestLevel(3)
                     .sound(SoundType.NETHERITE_BLOCK)
                     .requiresCorrectToolForDrops()));
+
+    //Tile Entities
+    public static final RegistryObject<Block> ELECTRIC_CRAFTING_TABLE = BLOCKS.register("electric_crafting_table",
+            () -> new ElectricCraftingTableBlock(AbstractBlock.Properties.of(Material.STONE, MaterialColor.STONE)
+                    .strength(5f, 10f)
+                    .harvestTool(ToolType.PICKAXE)
+                    .harvestLevel(2)
+                    .sound(SoundType.STONE)));
 }
