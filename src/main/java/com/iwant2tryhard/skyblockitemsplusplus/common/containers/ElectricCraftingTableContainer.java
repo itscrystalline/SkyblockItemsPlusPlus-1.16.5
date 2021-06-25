@@ -27,8 +27,8 @@ import javax.annotation.Nonnull;
 import java.util.Objects;
 
 public class ElectricCraftingTableContainer extends Container {
-    private ElectricCraftingTableTileEntity tileEntity;
-    private IWorldPosCallable canInteractWithCallable;
+    private final ElectricCraftingTableTileEntity tileEntity;
+    private final IWorldPosCallable canInteractWithCallable;
     public FunctionalIntReferenceHolder currentSmeltTime;
 
     //Server

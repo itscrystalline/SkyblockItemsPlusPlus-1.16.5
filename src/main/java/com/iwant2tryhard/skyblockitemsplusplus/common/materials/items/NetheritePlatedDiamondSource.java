@@ -14,12 +14,12 @@ public class NetheritePlatedDiamondSource implements IItemTier {
 
     @Override
     public float getSpeed() {
-        return 0f;
+        return 8f;
     }
 
     @Override
     public float getAttackDamageBonus() {
-        return 0;
+        return 0f;
     }
 
     @Override

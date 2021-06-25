@@ -25,8 +25,8 @@ import java.util.List;
 
 public class Zombie_Sword extends SwordItem {
     private static int timesSinceDelay = 0;
-    private static float manaUsage = 14f;
-    private static float displayManaUsage = 70f;
+    private static final float manaUsage = 14f;
+    private static final float displayManaUsage = 70f;
     //private static String oneForAllText = ColorText.LIGHT_PURPLE.toString() + "(+20)";
     //boolean hasOneForAll = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ONE_FOR_ALL.get(), this.asItem().getDefaultInstance()) > 0;
     public Zombie_Sword(IItemTier itemTier, int damage, float attackSpeed, Properties properties) {
@@ -39,15 +39,15 @@ public class Zombie_Sword extends SwordItem {
         tooltip.add(new StringTextComponent("\u00A77" + "Damage: " + "\u00A7c" + "+100"));
         tooltip.add(new StringTextComponent("\u00A77" + "Strength: " + "\u00A7c" + "+50"));
         tooltip.add(new StringTextComponent(""));
-        tooltip.add(new StringTextComponent("\u00A77" + "Mana Reduction: " + ColorText.GREEN.toString() + "+25%"));
+        tooltip.add(new StringTextComponent("\u00A77" + "Mana Reduction: " + ColorText.GREEN + "+25%"));
         tooltip.add(new StringTextComponent(""));
-        tooltip.add(new StringTextComponent(ColorText.GOLD.toString() + "Item Ability: Instant Heal " + ColorText.YELLOW.toString() + ColorText.BOLD.toString() + "RIGHT CLICK"));
-        tooltip.add(new StringTextComponent(ColorText.GRAY.toString() + "Heal for " + ColorText.RED.toString() + "1 + 5% Health"));
-        tooltip.add(new StringTextComponent(ColorText.GRAY.toString() + "Mana Cost: " + ColorText.AQUA.toString() + "70 " + ColorText.GRAY.toString() + "(Mana Reduction: -" + PlayerStats.getManaReductionPercent() + "%)"));
-        tooltip.add(new StringTextComponent(ColorText.GRAY.toString() + "Charges: " + ColorText.YELLOW.toString() + "4  " + ColorText.GRAY.toString() + "/ " + ColorText.GREEN.toString() + "15s"));
+        tooltip.add(new StringTextComponent(ColorText.GOLD + "Item Ability: Instant Heal " + ColorText.YELLOW + ColorText.BOLD + "RIGHT CLICK"));
+        tooltip.add(new StringTextComponent(ColorText.GRAY + "Heal for " + ColorText.RED + "1 + 5% Health"));
+        tooltip.add(new StringTextComponent(ColorText.GRAY + "Mana Cost: " + ColorText.AQUA + "70 " + ColorText.GRAY + "(Mana Reduction: -" + PlayerStats.getManaReductionPercent() + "%)"));
+        tooltip.add(new StringTextComponent(ColorText.GRAY + "Charges: " + ColorText.YELLOW + "4  " + ColorText.GRAY + "/ " + ColorText.GREEN + "15s"));
         tooltip.add(new StringTextComponent(""));
         tooltip.add(new StringTextComponent("\u00A77" + "This item can be reforged!"));
-        tooltip.add(new StringTextComponent(ColorText.BLUE.toString() + "\u00A7l" +"RARE SWORD"));
+        tooltip.add(new StringTextComponent(ColorText.BLUE + "\u00A7l" +"RARE SWORD"));
     }
 
     @Override
@@ -63,7 +63,7 @@ public class Zombie_Sword extends SwordItem {
                     float healAmmt = 1f + (player.getMaxHealth() * 0.05f);
                     player.heal(1f + (player.getMaxHealth() * 0.05f));
 
-                    Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty(ColorText.BOLD.toString() + ColorText.GREEN.toString() + "You used your " + ColorText.BLUE.toString() + "Zombie Sword " + ColorText.GREEN.toString() + "to heal yourself for " + healAmmt + " health! (" + (foodLevel * 5) + " Mana)"), false);
+                    Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty(ColorText.BOLD.toString() + ColorText.GREEN + "You used your " + ColorText.BLUE + "Zombie Sword " + ColorText.GREEN + "to heal yourself for " + healAmmt + " health! (" + (foodLevel * 5) + " Mana)"), false);
                     worldIn.playSound(player, player, SoundEvents.NOTE_BLOCK_BIT, SoundCategory.NEUTRAL, 1.0f, 1.0f);
                     timesSinceDelay = 0;
                     player.getCooldowns().addCooldown(this, 300);
@@ -75,7 +75,7 @@ public class Zombie_Sword extends SwordItem {
                     float healAmmt = 1f + (player.getMaxHealth() * 0.05f);
                     player.heal(1f + (player.getMaxHealth() * 0.05f));
 
-                    Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty(ColorText.BOLD.toString() + ColorText.GREEN.toString() + "You used your " + ColorText.BLUE.toString() + "Zombie Sword " + ColorText.GREEN.toString() + "to heal yourself for " + healAmmt + " health! (" + (foodLevel * 5) + " Mana)"), false);
+                    Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty(ColorText.BOLD.toString() + ColorText.GREEN + "You used your " + ColorText.BLUE + "Zombie Sword " + ColorText.GREEN + "to heal yourself for " + healAmmt + " health! (" + (foodLevel * 5) + " Mana)"), false);
                     worldIn.playSound(player, player, SoundEvents.NOTE_BLOCK_BIT, SoundCategory.NEUTRAL, 1.0f, 1.0f);
                     timesSinceDelay++;
                     return ActionResult.success(player.getItemInHand(hand));

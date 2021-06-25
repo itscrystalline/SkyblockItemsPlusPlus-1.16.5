@@ -1,5 +1,6 @@
 package com.iwant2tryhard.skyblockitemsplusplus.common.entities;
 
+import com.iwant2tryhard.skyblockitemsplusplus.client.util.ClientUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.MathHelper;
@@ -85,6 +86,19 @@ public class PlayerStats {
     public static boolean isEnoughMana(float manaUsage, PlayerEntity player)
     {
         return player.getFoodData().getFoodLevel() - PlayerStats.calcManaUsage(manaUsage, player) >= 0f;
+    }
+
+    public static float getLifeStealDamageMultiplier(float armorDamageReductionPercent)
+    {
+        int fullRoundedPercent = Math.round((armorDamageReductionPercent / 80f) * 100f);
+        if (PlayerStats.debugLogging) {
+            ClientUtils.SendPrivateMessage(fullRoundedPercent >= 50f ?
+                "((50f - (" + fullRoundedPercent + " - 50f)) + 50) / 100" :
+                "((50f - " + fullRoundedPercent + ") + 100) / 100)");
+        }
+        return fullRoundedPercent >= 50f ?
+                ((50f - (fullRoundedPercent - 50f)) + 50) / 100 :
+                ((50f - fullRoundedPercent) + 100) / 100;
     }
 
 }

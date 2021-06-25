@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CCC",
+    "CBC",
+    "CAC"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:coal"
+    },
+    "B": {
+      "item": "minecraft:coal_block"
+    },
+    "A": {
+      "item": "minecraft:campfire"
+    }
+  },
+  "result": {
+    "item": "skyblockitemsplusplus:inactive_campfire_initiate_badge",
+    "count": 1
+  }
+}

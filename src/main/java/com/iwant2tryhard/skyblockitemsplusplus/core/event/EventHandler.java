@@ -9,12 +9,21 @@ import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.farm_suit
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.farm_suit.Farm_Suit_Chestplate;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.farm_suit.Farm_Suit_Helmet;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.farm_suit.Farm_Suit_Leggings;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.hardened_refined_netherite_armor.Hardened_Refined_Netherite_Boots;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.hardened_refined_netherite_armor.Hardened_Refined_Netherite_Chestplate;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.hardened_refined_netherite_armor.Hardened_Refined_Netherite_Helmet;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.hardened_refined_netherite_armor.Hardened_Refined_Netherite_Leggings;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.refined_netherite_armor.Refined_Netherite_Boots;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.refined_netherite_armor.Refined_Netherite_Chestplate;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.refined_netherite_armor.Refined_Netherite_Helmet;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.refined_netherite_armor.Refined_Netherite_Leggings;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.axes.Netherite_Plated_Diamond_Axe;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.hoes.Netherite_Plated_Diamond_Hoe;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.pickaxes.Netherite_Plated_Diamond_Pickaxe;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.shovels.Netherite_Plated_Diamond_Shovel;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.swords.*;
 import com.iwant2tryhard.skyblockitemsplusplus.core.init.EnchantmentInit;
+import com.iwant2tryhard.skyblockitemsplusplus.core.init.ItemInit;
 import net.minecraft.block.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -26,6 +35,7 @@ import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonPartEntity;
 import net.minecraft.entity.item.ArmorStandEntity;
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.item.ItemFrameEntity;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.monster.*;
 import net.minecraft.entity.passive.IronGolemEntity;
@@ -59,6 +69,7 @@ import java.util.Random;
 
 @EventBusSubscriber(modid = SkyblockItemsPlusPlus.MOD_ID, bus = EventBusSubscriber.Bus.FORGE)
 public class EventHandler {
+
     @SubscribeEvent
     public static void onLivingEntityHurt(final LivingHurtEvent event)
     {
@@ -115,12 +126,34 @@ public class EventHandler {
                     int rnd = MathHelper.nextInt(new Random(), 1, 40 - (lifeStealLvl * 10));
                     if (rnd == 1 && PlayerStats.isEnoughMana(6f, player))
                     {
-                        float healAmnt = target.getHealth() * (lifeStealLvl * 0.05f);
+                        float healAmnt = target.getHealth() * (lifeStealLvl * 0.075f * PlayerStats.getLifeStealDamageMultiplier((player.getArmorValue() / 3f) * 10f));
+                        if (PlayerStats.debugLogging) {ClientUtils.SendPrivateMessage("armorVal: " + player.getArmorValue());}
                         player.heal(healAmnt);
                         target.setHealth(target.getHealth() - (healAmnt / 2f));
                         int mana = PlayerStats.calcManaUsage(6f, player);
                         player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - mana);
-                        ClientUtils.SendPrivateMessage(ColorText.GREEN.toString() + "Your " + ColorText.GRAY.toString() + "Life Steal " + lifeStealLvl + ColorText.GREEN.toString() + " Stole " + ColorText.RED.toString() + Math.round(healAmnt / 2) + " health " + ColorText.GREEN.toString() + "from " + ColorText.GOLD.toString() + "placeholder entity name" + ColorText.GREEN.toString() + "! " + ColorText.AQUA.toString() + "(" + (mana * 5) + " Mana)");
+                        ClientUtils.SendPrivateMessage(ColorText.GREEN + "Your " + ColorText.GRAY + "Life Steal " + lifeStealLvl + ColorText.GREEN + " Stole " + ColorText.RED + Math.round(healAmnt / 2) + " health " + ColorText.GREEN + "from " + ColorText.GOLD + "PLACEHOLDER_ENTITY" + ColorText.GREEN + "! " + ColorText.AQUA + "(" + (mana * 5) + " Mana)");
+                    }
+                }
+                //Refined netherite armor
+                if (player.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof Refined_Netherite_Helmet
+                        & player.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Refined_Netherite_Chestplate
+                        & player.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Refined_Netherite_Leggings
+                        & player.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Refined_Netherite_Boots)
+                {
+                    if ((player.getMainHandItem().getItem() == Items.NETHERITE_SWORD) |
+                            (player.getMainHandItem().getItem() instanceof Hardened_Refined_Netherite_Sword) |
+                            (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Sword) |
+                            (player.getMainHandItem().getItem() == Items.NETHERITE_AXE) |
+                            (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Axe) |
+                            (player.getMainHandItem().getItem() == Items.NETHERITE_HOE) |
+                            (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Hoe) |
+                            (player.getMainHandItem().getItem() == Items.NETHERITE_SHOVEL) |
+                            (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Shovel) |
+                            (player.getMainHandItem().getItem() == Items.NETHERITE_PICKAXE) |
+                            (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Pickaxe))
+                    {
+                        event.setAmount(event.getAmount() * 1.2f);
                     }
                 }
             }
@@ -148,19 +181,62 @@ public class EventHandler {
                     int rnd = MathHelper.nextInt(new Random(), 1, 40 - (lifeStealLvl * 10));
                     if (rnd == 1 && PlayerStats.isEnoughMana(6f, player))
                     {
-                        float healAmnt = target.getHealth() * (lifeStealLvl * 0.05f);
-                        ClientUtils.SendPrivateMessage("healAmnt: " + healAmnt);
+                        float healAmnt = target.getHealth() * (lifeStealLvl * 0.05f * PlayerStats.getLifeStealDamageMultiplier((player.getArmorValue() / 3f) * 10f));
+                        if (PlayerStats.debugLogging) {ClientUtils.SendPrivateMessage("armorVal: " + player.getArmorValue());}
                         player.heal(healAmnt);
                         target.setHealth(target.getHealth() - (healAmnt / 2f));
                         int mana = PlayerStats.calcManaUsage(6f, player);
                         player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - mana);
-                        ClientUtils.SendPrivateMessage(ColorText.GREEN.toString() + "Your " + ColorText.GRAY.toString() + "Life Steal " + lifeStealLvl + ColorText.GREEN.toString() + " Stole " + ColorText.RED.toString() + Math.round(healAmnt / 2) + " health " + ColorText.GREEN.toString() + "from " + ColorText.GOLD.toString() + "placeholder entity name" + ColorText.GREEN.toString() + "! " + ColorText.AQUA.toString() + "(" + (mana * 5) + " Mana)");
+                        ClientUtils.SendPrivateMessage(ColorText.GREEN + "Your " + ColorText.GRAY + "Life Steal " + lifeStealLvl + ColorText.GREEN + " Stole " + ColorText.RED + Math.round(healAmnt / 2) + " health " + ColorText.GREEN + "from " + ColorText.GOLD + "PLACEHOLDER_ENTITY" + ColorText.GREEN + "! " + ColorText.AQUA + "(" + (mana * 5) + " Mana)");
                     }
                 }
+                
             }
             if (player.getMainHandItem().getItem() instanceof Flame_Sword)
             {
                 target.setSecondsOnFire(3);
+            }
+            //Refined netherite armor
+            if (player.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof Refined_Netherite_Helmet
+                    & player.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Refined_Netherite_Chestplate
+                    & player.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Refined_Netherite_Leggings
+                    & player.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Refined_Netherite_Boots)
+            {
+                if ((player.getMainHandItem().getItem() == Items.NETHERITE_SWORD) |
+                        (player.getMainHandItem().getItem() instanceof Hardened_Refined_Netherite_Sword) |
+                        (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Sword) |
+                        (player.getMainHandItem().getItem() == Items.NETHERITE_AXE) |
+                        (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Axe) |
+                        (player.getMainHandItem().getItem() == Items.NETHERITE_HOE) |
+                        (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Hoe) |
+                        (player.getMainHandItem().getItem() == Items.NETHERITE_SHOVEL) |
+                        (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Shovel) |
+                        (player.getMainHandItem().getItem() == Items.NETHERITE_PICKAXE) |
+                        (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Pickaxe))
+                {
+                    event.setAmount(event.getAmount() * 1.2f);
+                }
+            }
+            //Hardened Refined netherite armor
+            if (player.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof Hardened_Refined_Netherite_Helmet
+                    & player.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Hardened_Refined_Netherite_Chestplate
+                    & player.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Hardened_Refined_Netherite_Leggings
+                    & player.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Hardened_Refined_Netherite_Boots)
+            {
+                if ((player.getMainHandItem().getItem() == Items.NETHERITE_SWORD) |
+                        (player.getMainHandItem().getItem() instanceof Hardened_Refined_Netherite_Sword) |
+                        (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Sword) |
+                        (player.getMainHandItem().getItem() == Items.NETHERITE_AXE) |
+                        (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Axe) |
+                        (player.getMainHandItem().getItem() == Items.NETHERITE_HOE) |
+                        (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Hoe) |
+                        (player.getMainHandItem().getItem() == Items.NETHERITE_SHOVEL) |
+                        (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Shovel) |
+                        (player.getMainHandItem().getItem() == Items.NETHERITE_PICKAXE) |
+                        (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Pickaxe))
+                {
+                    event.setAmount(event.getAmount() * 1.4f);
+                }
             }
 
             ArmorStandEntity dmgTag = new ArmorStandEntity(worldIn, event.getEntity().position().x + (0.5f - Math.random()), event.getEntity().position().y + 0.5 + (0.5f - Math.random()), event.getEntity().position().z + (0.5f - Math.random()));
@@ -261,6 +337,8 @@ public class EventHandler {
 
     }
 
+    private static int ticksSinceOnFire = 0;
+
     @SubscribeEvent
     public static void playerUpdate(final LivingEvent.LivingUpdateEvent event)
     {
@@ -330,6 +408,438 @@ public class EventHandler {
                 PlayerStats.addStrength(90);
             }
 
+            if (player.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Refined_Netherite_Leggings
+                    & player.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Refined_Netherite_Boots)
+            {
+                player.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 20, 0));
+            }
+            if (player.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Hardened_Refined_Netherite_Boots)
+            {
+                player.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 20, 0));
+            }
+
+
+            //Accessory abilities
+            boolean hasCampfireBadge = false;
+            if (player.inventory.contains(ItemInit.CAMPFIRE_INITIATE_BADGE.get().asItem().getDefaultInstance()) |
+                    player.inventory.contains(ItemInit.CAMPFIRE_ADAPT_BADGE.get().asItem().getDefaultInstance()) |
+                    player.inventory.contains(ItemInit.CAMPFIRE_SCION_BADGE.get().asItem().getDefaultInstance()) |
+                    player.inventory.contains(ItemInit.CAMPFIRE_GOD_BADGE.get().asItem().getDefaultInstance()))
+            {
+                hasCampfireBadge = true;
+            }
+            //campfire
+            if (hasCampfireBadge)
+            {
+                if (!((player.inventory.countItem(ItemInit.CAMPFIRE_INITIATE_BADGE.get().asItem()) > 1) |
+                        (player.inventory.countItem(ItemInit.CAMPFIRE_ADAPT_BADGE.get().asItem()) > 1) |
+                        (player.inventory.countItem(ItemInit.CAMPFIRE_SCION_BADGE.get().asItem()) > 1) |
+                        (player.inventory.countItem(ItemInit.CAMPFIRE_GOD_BADGE.get().asItem()) > 1)))
+                {
+                    if (player.inventory.contains(ItemInit.CAMPFIRE_INITIATE_BADGE.get().asItem().getDefaultInstance()) &
+                            player.inventory.contains(ItemInit.CAMPFIRE_ADAPT_BADGE.get().asItem().getDefaultInstance()) &
+                            player.inventory.contains(ItemInit.CAMPFIRE_SCION_BADGE.get().asItem().getDefaultInstance()) &
+                            player.inventory.contains(ItemInit.CAMPFIRE_GOD_BADGE.get().asItem().getDefaultInstance()))
+                    {
+                        player.addEffect(new EffectInstance(Effects.REGENERATION, 40, 0));
+                        player.addEffect(new EffectInstance(Effects.DAMAGE_RESISTANCE, 40, 0));
+                        if (player.isOnFire())
+                        {
+                            //ClientUtils.SendPrivateMessage("you are on fire!");
+                            //ClientUtils.SendPrivateMessage("ticks:" + ticksSinceOnFire);
+                            if (ticksSinceOnFire >= 40) {
+                                //ClientUtils.SendPrivateMessage("you are on fire mor than 3s!");
+                                int rnd = MathHelper.nextInt(new Random(), 1, 20);
+                                if (rnd == 10)
+                                {
+                                    ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
+                                    ClientUtils.SendPrivateMessage("you healed!");
+                                    player.heal(1f);
+                                }
+                                ticksSinceOnFire += 1;
+                            } else {
+                                ticksSinceOnFire += 1;
+                            }
+                        } else {
+                            ticksSinceOnFire = 0;
+                        }
+                    }
+
+                    else if (player.inventory.contains(ItemInit.CAMPFIRE_INITIATE_BADGE.get().asItem().getDefaultInstance()) &
+                            player.inventory.contains(ItemInit.CAMPFIRE_ADAPT_BADGE.get().asItem().getDefaultInstance()) &
+                            player.inventory.contains(ItemInit.CAMPFIRE_SCION_BADGE.get().asItem().getDefaultInstance()))
+                    {
+                        player.addEffect(new EffectInstance(Effects.REGENERATION, 40, 0));
+                        if (player.isOnFire())
+                        {
+                            //ClientUtils.SendPrivateMessage("you are on fire!");
+                            //ClientUtils.SendPrivateMessage("ticks:" + ticksSinceOnFire);
+                            if (ticksSinceOnFire >= 40) {
+                                //ClientUtils.SendPrivateMessage("you are on fire mor than 3s!");
+                                int rnd = MathHelper.nextInt(new Random(), 1, 30);
+                                if (rnd == 10)
+                                {
+                                    ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
+                                    ClientUtils.SendPrivateMessage("you healed!");
+                                    player.heal(1f);
+                                }
+                                ticksSinceOnFire += 1;
+                            } else {
+                                ticksSinceOnFire += 1;
+                            }
+                        } else {
+                            ticksSinceOnFire = 0;
+                        }
+                    }
+
+                    else if (player.inventory.contains(ItemInit.CAMPFIRE_INITIATE_BADGE.get().asItem().getDefaultInstance()) &
+                            player.inventory.contains(ItemInit.CAMPFIRE_ADAPT_BADGE.get().asItem().getDefaultInstance()) &
+                            player.inventory.contains(ItemInit.CAMPFIRE_GOD_BADGE.get().asItem().getDefaultInstance()))
+                    {
+                        player.addEffect(new EffectInstance(Effects.REGENERATION, 40, 0));
+                        player.addEffect(new EffectInstance(Effects.DAMAGE_RESISTANCE, 40, 0));
+                        if (player.isOnFire())
+                        {
+                            //ClientUtils.SendPrivateMessage("you are on fire!");
+                            //ClientUtils.SendPrivateMessage("ticks:" + ticksSinceOnFire);
+                            if (ticksSinceOnFire >= 40) {
+                                //ClientUtils.SendPrivateMessage("you are on fire mor than 3s!");
+                                int rnd = MathHelper.nextInt(new Random(), 1, 20);
+                                if (rnd == 10)
+                                {
+                                    ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
+                                    ClientUtils.SendPrivateMessage("you healed!");
+                                    player.heal(1f);
+                                }
+                                ticksSinceOnFire += 1;
+                            } else {
+                                ticksSinceOnFire += 1;
+                            }
+                        } else {
+                            ticksSinceOnFire = 0;
+                        }
+                    }
+
+                    else if (player.inventory.contains(ItemInit.CAMPFIRE_INITIATE_BADGE.get().asItem().getDefaultInstance()) &
+                            player.inventory.contains(ItemInit.CAMPFIRE_SCION_BADGE.get().asItem().getDefaultInstance()) &
+                            player.inventory.contains(ItemInit.CAMPFIRE_GOD_BADGE.get().asItem().getDefaultInstance()))
+                    {
+                        player.addEffect(new EffectInstance(Effects.REGENERATION, 40, 0));
+                        player.addEffect(new EffectInstance(Effects.DAMAGE_RESISTANCE, 40, 0));
+                        if (player.isOnFire())
+                        {
+                            //ClientUtils.SendPrivateMessage("you are on fire!");
+                            //ClientUtils.SendPrivateMessage("ticks:" + ticksSinceOnFire);
+                            if (ticksSinceOnFire >= 40) {
+                                //ClientUtils.SendPrivateMessage("you are on fire mor than 3s!");
+                                int rnd = MathHelper.nextInt(new Random(), 1, 20);
+                                if (rnd == 10)
+                                {
+                                    ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
+                                    ClientUtils.SendPrivateMessage("you healed!");
+                                    player.heal(1f);
+                                }
+                                ticksSinceOnFire += 1;
+                            } else {
+                                ticksSinceOnFire += 1;
+                            }
+                        } else {
+                            ticksSinceOnFire = 0;
+                        }
+                    }
+
+                    else if (player.inventory.contains(ItemInit.CAMPFIRE_ADAPT_BADGE.get().asItem().getDefaultInstance()) &
+                            player.inventory.contains(ItemInit.CAMPFIRE_SCION_BADGE.get().asItem().getDefaultInstance()) &
+                            player.inventory.contains(ItemInit.CAMPFIRE_GOD_BADGE.get().asItem().getDefaultInstance()))
+                    {
+                        player.addEffect(new EffectInstance(Effects.REGENERATION, 40, 0));
+                        player.addEffect(new EffectInstance(Effects.DAMAGE_RESISTANCE, 40, 0));
+                        if (player.isOnFire())
+                        {
+                            //ClientUtils.SendPrivateMessage("you are on fire!");
+                            //ClientUtils.SendPrivateMessage("ticks:" + ticksSinceOnFire);
+                            if (ticksSinceOnFire >= 40) {
+                                //ClientUtils.SendPrivateMessage("you are on fire mor than 3s!");
+                                int rnd = MathHelper.nextInt(new Random(), 1, 20);
+                                if (rnd == 10)
+                                {
+                                    ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
+                                    ClientUtils.SendPrivateMessage("you healed!");
+                                    player.heal(1f);
+                                }
+                                ticksSinceOnFire += 1;
+                            } else {
+                                ticksSinceOnFire += 1;
+                            }
+                        } else {
+                            ticksSinceOnFire = 0;
+                        }
+                    }
+
+                    else if (player.inventory.contains(ItemInit.CAMPFIRE_INITIATE_BADGE.get().asItem().getDefaultInstance()) &
+                            player.inventory.contains(ItemInit.CAMPFIRE_ADAPT_BADGE.get().asItem().getDefaultInstance()))
+                    {
+                        if (player.isOnFire())
+                        {
+                            //ClientUtils.SendPrivateMessage("you are on fire!");
+                            //ClientUtils.SendPrivateMessage("ticks:" + ticksSinceOnFire);
+                            if (ticksSinceOnFire >= 60) {
+                                //ClientUtils.SendPrivateMessage("you are on fire mor than 3s!");
+                                int rnd = MathHelper.nextInt(new Random(), 1, 40);
+                                if (rnd == 10)
+                                {
+                                    ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
+                                    ClientUtils.SendPrivateMessage("you healed!");
+                                    player.heal(1f);
+                                }
+                                ticksSinceOnFire += 1;
+                            } else {
+                                ticksSinceOnFire += 1;
+                            }
+                        } else {
+                            ticksSinceOnFire = 0;
+                        }
+                    }
+
+                    else if (player.inventory.contains(ItemInit.CAMPFIRE_INITIATE_BADGE.get().asItem().getDefaultInstance()) &
+                            player.inventory.contains(ItemInit.CAMPFIRE_SCION_BADGE.get().asItem().getDefaultInstance()))
+                    {
+                        player.addEffect(new EffectInstance(Effects.REGENERATION, 40, 0));
+                        if (player.isOnFire())
+                        {
+                            //ClientUtils.SendPrivateMessage("you are on fire!");
+                            //ClientUtils.SendPrivateMessage("ticks:" + ticksSinceOnFire);
+                            if (ticksSinceOnFire >= 40) {
+                                //ClientUtils.SendPrivateMessage("you are on fire mor than 3s!");
+                                int rnd = MathHelper.nextInt(new Random(), 1, 30);
+                                if (rnd == 10)
+                                {
+                                    ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
+                                    ClientUtils.SendPrivateMessage("you healed!");
+                                    player.heal(1f);
+                                }
+                                ticksSinceOnFire += 1;
+                            } else {
+                                ticksSinceOnFire += 1;
+                            }
+                        } else {
+                            ticksSinceOnFire = 0;
+                        }
+                    }
+
+                    else if (player.inventory.contains(ItemInit.CAMPFIRE_INITIATE_BADGE.get().asItem().getDefaultInstance()) &
+                            player.inventory.contains(ItemInit.CAMPFIRE_GOD_BADGE.get().asItem().getDefaultInstance()))
+                    {
+                        player.addEffect(new EffectInstance(Effects.REGENERATION, 40, 0));
+                        player.addEffect(new EffectInstance(Effects.DAMAGE_RESISTANCE, 40, 0));
+                        if (player.isOnFire())
+                        {
+                            //ClientUtils.SendPrivateMessage("you are on fire!");
+                            //ClientUtils.SendPrivateMessage("ticks:" + ticksSinceOnFire);
+                            if (ticksSinceOnFire >= 40) {
+                                //ClientUtils.SendPrivateMessage("you are on fire mor than 3s!");
+                                int rnd = MathHelper.nextInt(new Random(), 1, 20);
+                                if (rnd == 10)
+                                {
+                                    ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
+                                    ClientUtils.SendPrivateMessage("you healed!");
+                                    player.heal(1f);
+                                }
+                                ticksSinceOnFire += 1;
+                            } else {
+                                ticksSinceOnFire += 1;
+                            }
+                        } else {
+                            ticksSinceOnFire = 0;
+                        }
+                    }
+
+                    else if (player.inventory.contains(ItemInit.CAMPFIRE_ADAPT_BADGE.get().asItem().getDefaultInstance()) &
+                            player.inventory.contains(ItemInit.CAMPFIRE_SCION_BADGE.get().asItem().getDefaultInstance()))
+                    {
+                        player.addEffect(new EffectInstance(Effects.REGENERATION, 40, 0));
+                        if (player.isOnFire())
+                        {
+                            //ClientUtils.SendPrivateMessage("you are on fire!");
+                            //ClientUtils.SendPrivateMessage("ticks:" + ticksSinceOnFire);
+                            if (ticksSinceOnFire >= 40) {
+                                //ClientUtils.SendPrivateMessage("you are on fire mor than 3s!");
+                                int rnd = MathHelper.nextInt(new Random(), 1, 30);
+                                if (rnd == 10)
+                                {
+                                    ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
+                                    ClientUtils.SendPrivateMessage("you healed!");
+                                    player.heal(1f);
+                                }
+                                ticksSinceOnFire += 1;
+                            } else {
+                                ticksSinceOnFire += 1;
+                            }
+                        } else {
+                            ticksSinceOnFire = 0;
+                        }
+                    }
+
+                    else if (player.inventory.contains(ItemInit.CAMPFIRE_ADAPT_BADGE.get().asItem().getDefaultInstance()) &
+                            player.inventory.contains(ItemInit.CAMPFIRE_GOD_BADGE.get().asItem().getDefaultInstance()))
+                    {
+                        player.addEffect(new EffectInstance(Effects.REGENERATION, 40, 0));
+                        player.addEffect(new EffectInstance(Effects.DAMAGE_RESISTANCE, 40, 0));
+                        if (player.isOnFire())
+                        {
+                            //ClientUtils.SendPrivateMessage("you are on fire!");
+                            //ClientUtils.SendPrivateMessage("ticks:" + ticksSinceOnFire);
+                            if (ticksSinceOnFire >= 40) {
+                                //ClientUtils.SendPrivateMessage("you are on fire mor than 3s!");
+                                int rnd = MathHelper.nextInt(new Random(), 1, 20);
+                                if (rnd == 10)
+                                {
+                                    ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
+                                    ClientUtils.SendPrivateMessage("you healed!");
+                                    player.heal(1f);
+                                }
+                                ticksSinceOnFire += 1;
+                            } else {
+                                ticksSinceOnFire += 1;
+                            }
+                        } else {
+                            ticksSinceOnFire = 0;
+                        }
+                    }
+
+                    else if (player.inventory.contains(ItemInit.CAMPFIRE_SCION_BADGE.get().asItem().getDefaultInstance()) &
+                            player.inventory.contains(ItemInit.CAMPFIRE_GOD_BADGE.get().asItem().getDefaultInstance()))
+                    {
+                        player.addEffect(new EffectInstance(Effects.REGENERATION, 40, 0));
+                        player.addEffect(new EffectInstance(Effects.DAMAGE_RESISTANCE, 40, 0));
+                        if (player.isOnFire())
+                        {
+                            //ClientUtils.SendPrivateMessage("you are on fire!");
+                            //ClientUtils.SendPrivateMessage("ticks:" + ticksSinceOnFire);
+                            if (ticksSinceOnFire >= 40) {
+                                //ClientUtils.SendPrivateMessage("you are on fire mor than 3s!");
+                                int rnd = MathHelper.nextInt(new Random(), 1, 20);
+                                if (rnd == 10)
+                                {
+                                    ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
+                                    ClientUtils.SendPrivateMessage("you healed!");
+                                    player.heal(1f);
+                                }
+                                ticksSinceOnFire += 1;
+                            } else {
+                                ticksSinceOnFire += 1;
+                            }
+                        } else {
+                            ticksSinceOnFire = 0;
+                        }
+                    }
+
+                    else if (player.inventory.contains(ItemInit.CAMPFIRE_INITIATE_BADGE.get().asItem().getDefaultInstance()))
+                    {
+                        if (player.isOnFire())
+                        {
+                            //ClientUtils.SendPrivateMessage("you are on fire!");
+                            //ClientUtils.SendPrivateMessage("ticks:" + ticksSinceOnFire);
+                            if (ticksSinceOnFire >= 60) {
+                                //ClientUtils.SendPrivateMessage("you are on fire mor than 3s!");
+                                int rnd = MathHelper.nextInt(new Random(), 1, 50);
+                                if (rnd == 10)
+                                {
+                                    ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
+                                    ClientUtils.SendPrivateMessage("you healed!");
+                                    player.heal(1f);
+                                }
+                                ticksSinceOnFire += 1;
+                            } else {
+                                ticksSinceOnFire += 1;
+                            }
+                        } else {
+                            ticksSinceOnFire = 0;
+                        }
+                    }
+
+                    else if (player.inventory.contains(ItemInit.CAMPFIRE_ADAPT_BADGE.get().asItem().getDefaultInstance()))
+                    {
+                        if (player.isOnFire())
+                        {
+                            //ClientUtils.SendPrivateMessage("you are on fire!");
+                            //ClientUtils.SendPrivateMessage("ticks:" + ticksSinceOnFire);
+                            if (ticksSinceOnFire >= 60) {
+                                //ClientUtils.SendPrivateMessage("you are on fire mor than 3s!");
+                                int rnd = MathHelper.nextInt(new Random(), 1, 40);
+                                if (rnd == 10)
+                                {
+                                    ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
+                                    ClientUtils.SendPrivateMessage("you healed!");
+                                    player.heal(1f);
+                                }
+                                ticksSinceOnFire += 1;
+                            } else {
+                                ticksSinceOnFire += 1;
+                            }
+                        } else {
+                            ticksSinceOnFire = 0;
+                        }
+                    }
+
+                    else if (player.inventory.contains(ItemInit.CAMPFIRE_SCION_BADGE.get().asItem().getDefaultInstance()))
+                    {
+                        player.addEffect(new EffectInstance(Effects.REGENERATION, 40, 0));
+                        if (player.isOnFire())
+                        {
+                            //ClientUtils.SendPrivateMessage("you are on fire!");
+                            //ClientUtils.SendPrivateMessage("ticks:" + ticksSinceOnFire);
+                            if (ticksSinceOnFire >= 40) {
+                                //ClientUtils.SendPrivateMessage("you are on fire mor than 3s!");
+                                int rnd = MathHelper.nextInt(new Random(), 1, 30);
+                                if (rnd == 10)
+                                {
+                                    ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
+                                    ClientUtils.SendPrivateMessage("you healed!");
+                                    player.heal(1f);
+                                }
+                                ticksSinceOnFire += 1;
+                            } else {
+                                ticksSinceOnFire += 1;
+                            }
+                        } else {
+                            ticksSinceOnFire = 0;
+                        }
+                    }
+
+                    else if (player.inventory.contains(ItemInit.CAMPFIRE_GOD_BADGE.get().asItem().getDefaultInstance()))
+                    {
+                        player.addEffect(new EffectInstance(Effects.REGENERATION, 40, 0));
+                        player.addEffect(new EffectInstance(Effects.DAMAGE_RESISTANCE, 40, 0));
+                        if (player.isOnFire())
+                        {
+                            //ClientUtils.SendPrivateMessage("you are on fire!");
+                            //ClientUtils.SendPrivateMessage("ticks:" + ticksSinceOnFire);
+                            if (ticksSinceOnFire >= 40) {
+                                //ClientUtils.SendPrivateMessage("you are on fire mor than 3s!");
+                                int rnd = MathHelper.nextInt(new Random(), 1, 20);
+                                if (rnd == 10)
+                                {
+                                    ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
+                                    ClientUtils.SendPrivateMessage("you healed!");
+                                    player.heal(1f);
+                                }
+                                ticksSinceOnFire += 1;
+                            } else {
+                                ticksSinceOnFire += 1;
+                            }
+                        } else {
+                            ticksSinceOnFire = 0;
+                        }
+                    }
+                }
+            }
+
+
+
+
+
+
             int headDefense;
             int chestDefense;
             int legsDefense;
@@ -372,30 +882,35 @@ public class EventHandler {
                     player.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, 60, 2));
                 }
             }
+
+
         }
     }
 
     @SubscribeEvent
     public static void playerInteractEntity(final PlayerInteractEvent.EntityInteract event)
     {
-        PlayerEntity player = event.getPlayer();
-        LivingEntity target = event.getTarget() instanceof EnderDragonPartEntity ? ((EnderDragonPartEntity) event.getTarget()).getParent() : (LivingEntity) event.getTarget();
-        if (player.getMainHandItem().getItem() instanceof Ink_Wand)
+        if (!(event.getTarget() instanceof ItemFrameEntity))
         {
-            Ink_Wand wand = (Ink_Wand) player.getMainHandItem().getItem();
-            if (!player.getCooldowns().isOnCooldown(wand))
+            PlayerEntity player = event.getPlayer();
+            LivingEntity target = event.getTarget() instanceof EnderDragonPartEntity ? ((EnderDragonPartEntity) event.getTarget()).getParent() : (LivingEntity) event.getTarget();
+            if (player.getMainHandItem().getItem() instanceof Ink_Wand)
             {
-                target.hurt(DamageSource.playerAttack(player), ((10000 + (PlayerStats.getManaReductionPercent() * 10) + 100) / 100));
-                target.addEffect(new EffectInstance(Effects.BLINDNESS, 200, 0));
-                target.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 200, 11));
-                target.addEffect(new EffectInstance(Effects.WITHER, 200, 2));
-                AreaEffectCloudEntity effect = new AreaEffectCloudEntity(event.getWorld(), target.position().x, target.position().y, target.position().z);
-                effect.setRadius(1f);
-                effect.setDuration(200);
-                effect.setPotion(new Potion(new EffectInstance(Effects.BLINDNESS, 200, 0),
-                                            new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 200, 11),
-                                            new EffectInstance(Effects.WITHER, 200, 2)));
-                event.getWorld().addFreshEntity(effect);
+                Ink_Wand wand = (Ink_Wand) player.getMainHandItem().getItem();
+                if (!player.getCooldowns().isOnCooldown(wand))
+                {
+                    target.hurt(DamageSource.playerAttack(player), ((10000 + (PlayerStats.getManaReductionPercent() * 10) + 100) / 100));
+                    target.addEffect(new EffectInstance(Effects.BLINDNESS, 200, 0));
+                    target.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 200, 11));
+                    target.addEffect(new EffectInstance(Effects.WITHER, 200, 2));
+                    AreaEffectCloudEntity effect = new AreaEffectCloudEntity(event.getWorld(), target.position().x, target.position().y, target.position().z);
+                    effect.setRadius(1f);
+                    effect.setDuration(200);
+                    effect.setPotion(new Potion(new EffectInstance(Effects.BLINDNESS, 200, 0),
+                            new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 200, 11),
+                            new EffectInstance(Effects.WITHER, 200, 2)));
+                    event.getWorld().addFreshEntity(effect);
+                }
             }
         }
     }
@@ -418,18 +933,7 @@ public class EventHandler {
             {
                 if (PlayerStats.debugLogging) { Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("Event detected telekinesis"), false); }
 
-
-
-                if (PlayerStats.debugLogging) { Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("Event Array: " + target.captureDrops()), false); }
-
-                /*for (int i = 0; i < Arrays.stream(collection).count(); ++i)
-                {
-                    if (PlayerStats.debugLogging) { Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("Event Item: " + collection[i].getItem()), false); }
-
-                    player.addItem(collection[i].getItem());
-
-                    if (PlayerStats.debugLogging) { Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("Event Item added"), false); }
-                }*/
+                /*target.lootFrom()*/
             }
         }
     }

@@ -26,10 +26,10 @@ public class Undead_Sword extends SwordItem {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         tooltip.add(new StringTextComponent("\u00A77" + "Damage: " + "\u00A7c" + "+30"));
         tooltip.add(new StringTextComponent(""));
-        tooltip.add(new StringTextComponent(ColorText.GRAY.toString() + "Deals " + ColorText.GREEN.toString() + "+100% " + ColorText.GRAY.toString() + "damage to"));
-        tooltip.add(new StringTextComponent(ColorText.GRAY.toString() + "Skeletons, Withers,"));
-        tooltip.add(new StringTextComponent(ColorText.GRAY.toString() + "Zombie Pigmen, and"));
-        tooltip.add(new StringTextComponent(ColorText.GRAY.toString() + "Zombies."));
+        tooltip.add(new StringTextComponent(ColorText.GRAY + "Deals " + ColorText.GREEN + "+100% " + ColorText.GRAY + "damage to"));
+        tooltip.add(new StringTextComponent(ColorText.GRAY + "Skeletons, Withers,"));
+        tooltip.add(new StringTextComponent(ColorText.GRAY + "Zombie Pigmen, and"));
+        tooltip.add(new StringTextComponent(ColorText.GRAY + "Zombies."));
         tooltip.add(new StringTextComponent(""));
         tooltip.add(new StringTextComponent("\u00A77" + "This item can be reforged!"));
         tooltip.add(new StringTextComponent("\u00A7l" +"COMMON SWORD"));

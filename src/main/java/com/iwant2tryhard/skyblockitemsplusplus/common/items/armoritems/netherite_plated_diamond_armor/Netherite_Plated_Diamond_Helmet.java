@@ -20,10 +20,10 @@ public class Netherite_Plated_Diamond_Helmet extends ArmorItem {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        tooltip.add(new StringTextComponent("\u00A77" + "Defense: " + ColorText.GREEN.toString() + "+20"));
+        tooltip.add(new StringTextComponent("\u00A77" + "Defense: " + ColorText.GREEN + "+15"));
         tooltip.add(new StringTextComponent(""));
         tooltip.add(new StringTextComponent("\u00A77" + "This item can be reforged!"));
-        tooltip.add(new StringTextComponent(ColorText.BLUE.toString() + "\u00A7l" +"RARE HELMET"));
+        tooltip.add(new StringTextComponent(ColorText.BLUE + "\u00A7l" +"RARE HELMET"));
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
     }
 }

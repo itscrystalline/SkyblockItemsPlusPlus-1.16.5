@@ -37,6 +37,7 @@ public class SkyblockItemsPlusPlus
     public static final ItemGroup SkyblockItems_Materials = new SkyblockItemsMaterials();
     public static final ItemGroup SkyblockItems_Armors = new SkyblockItemsArmors();
     public static final ItemGroup SkyblockItems_Tools = new SkyblockItemsTools();
+    public static final ItemGroup SkyblockItems_Accessories = new SkyblockItemsAccessories();
 
     public SkyblockItemsPlusPlus() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -103,6 +104,18 @@ public class SkyblockItemsPlusPlus
         @Override
         public ItemStack makeIcon() {
             return ItemInit.NETHERITE_PLATED_DIAMOND_PICKAXE.get().getDefaultInstance();
+        }
+    }
+    public static class SkyblockItemsAccessories extends ItemGroup
+    {
+        public SkyblockItemsAccessories()
+        {
+            super("SkyblockItems_Accessories");
+        }
+
+        @Override
+        public ItemStack makeIcon() {
+            return ItemInit.CAMPFIRE_INITIATE_BADGE.get().getDefaultInstance();
         }
     }
 }

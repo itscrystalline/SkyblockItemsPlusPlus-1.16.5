@@ -4,6 +4,7 @@ import com.iwant2tryhard.skyblockitemsplusplus.SkyblockItemsPlusPlus;
 import com.iwant2tryhard.skyblockitemsplusplus.common.containers.ElectricCraftingTableContainer;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
@@ -28,7 +29,7 @@ public class ElectricCraftingTableScreen extends ContainerScreen<ElectricCraftin
     protected void renderBg(MatrixStack stack, float p_230450_2_, int p_230450_3_, int p_230450_4_) {
         RenderSystem.color4f(1f, 1f, 1f, 1f);
         this.minecraft.textureManager.bind(TEXTURE);
-        this.blit(stack, this.leftPos, this.topPos, 0, 0, imageWidth, imageHeight, 256, 256);
+        blit(stack, this.leftPos, this.topPos, 0, 0, imageWidth, imageHeight, 256, 256);
 
         this.blit(stack, this.leftPos + 89, this.topPos + 35, 176, 0, this.container.getSmeltProgressionScaled(), 16);
     }

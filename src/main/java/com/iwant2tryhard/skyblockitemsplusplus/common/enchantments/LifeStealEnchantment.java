@@ -28,6 +28,6 @@ public class LifeStealEnchantment extends Enchantment {
 
     @Override
     protected boolean checkCompatibility(Enchantment ench) {
-        return true;
+        return !ench.equals(EnchantmentInit.LIFE_STEAL);
     }
 }

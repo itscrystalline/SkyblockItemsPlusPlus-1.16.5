@@ -26,9 +26,9 @@ public class End_Sword extends SwordItem {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         tooltip.add(new StringTextComponent("\u00A77" + "Damage: " + "\u00A7c" + "+35"));
         tooltip.add(new StringTextComponent(""));
-        tooltip.add(new StringTextComponent(ColorText.GRAY.toString() + "Deals " + ColorText.GREEN.toString() + "+100% " + ColorText.GRAY.toString() + "damage to"));
-        tooltip.add(new StringTextComponent(ColorText.GRAY.toString() + "Endermites, Ender Dragons,"));
-        tooltip.add(new StringTextComponent(ColorText.GRAY.toString() + "and Endermen."));
+        tooltip.add(new StringTextComponent(ColorText.GRAY + "Deals " + ColorText.GREEN + "+100% " + ColorText.GRAY + "damage to"));
+        tooltip.add(new StringTextComponent(ColorText.GRAY + "Endermites, Ender Dragons,"));
+        tooltip.add(new StringTextComponent(ColorText.GRAY + "and Endermen."));
         tooltip.add(new StringTextComponent(""));
         tooltip.add(new StringTextComponent("\u00A77" + "This item can be reforged!"));
         tooltip.add(new StringTextComponent("\u00A7l" +"COMMON SWORD"));

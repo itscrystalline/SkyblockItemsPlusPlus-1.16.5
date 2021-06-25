@@ -1,6 +1,7 @@
 package com.iwant2tryhard.skyblockitemsplusplus.common.enchantments;
 
 
+import com.iwant2tryhard.skyblockitemsplusplus.core.init.EnchantmentInit;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -23,6 +24,10 @@ public class TelekinesisEnchantment extends Enchantment {
     @Override
     public boolean isAllowedOnBooks() {
         return true;
+    }
+
+    protected boolean checkCompatibility(Enchantment ench) {
+        return !ench.equals(EnchantmentInit.TELEKINESIS);
     }
 
     /*@Mod.EventBusSubscriber(modid = SkyblockItemsPlusPlus.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)

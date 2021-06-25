@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CSC",
+    "SBS",
+    "CAC"
+  ],
+  "key": {
+    "C": {
+      "item": "skyblockitemsplusplus:refined_coal"
+    },
+    "B": {
+      "item": "skyblockitemsplusplus:campfire_adapt_badge"
+    },
+    "A": {
+      "item": "minecraft:campfire"
+    },
+    "S": {
+      "item": "skyblockitemsplusplus:refined_coal_block"
+    }
+  },
+  "result": {
+    "item": "skyblockitemsplusplus:inactive_campfire_scion_badge",
+    "count": 1
+  }
+}

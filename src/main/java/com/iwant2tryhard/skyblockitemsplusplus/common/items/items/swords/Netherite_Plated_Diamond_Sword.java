@@ -22,7 +22,7 @@ public class Netherite_Plated_Diamond_Sword extends SwordItem {
         tooltip.add(new StringTextComponent("\u00A77" + "True Damage: " + "\u00A7c" + "+7"));
         tooltip.add(new StringTextComponent(""));
         tooltip.add(new StringTextComponent("\u00A77" + "This item can be reforged!"));
-        tooltip.add(new StringTextComponent(ColorText.BLUE.toString() + "\u00A7l" + "RARE SWORD"));
+        tooltip.add(new StringTextComponent(ColorText.BLUE + "\u00A7l" + "RARE SWORD"));
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
     }
 }

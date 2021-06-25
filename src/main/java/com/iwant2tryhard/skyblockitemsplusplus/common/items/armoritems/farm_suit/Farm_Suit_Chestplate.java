@@ -21,10 +21,10 @@ public class Farm_Suit_Chestplate extends ArmorItem {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        tooltip.add(new StringTextComponent("\u00A77" + "Defense: " + ColorText.GREEN.toString() + "+15"));
+        tooltip.add(new StringTextComponent("\u00A77" + "Defense: " + ColorText.GREEN + "+15"));
         tooltip.add(new StringTextComponent(""));
-        tooltip.add(new StringTextComponent(ColorText.GOLD.toString() + "Full Set Bonus: Bonus Speed"));
-        tooltip.add(new StringTextComponent(ColorText.GRAY.toString() + "Gain " + ColorText.WHITE.toString() + "Speed 3 " + ColorText.GRAY.toString() + "if over crops or farmland."));
+        tooltip.add(new StringTextComponent(ColorText.GOLD + "Full Set Bonus: Bonus Speed"));
+        tooltip.add(new StringTextComponent(ColorText.GRAY + "Gain " + ColorText.WHITE + "Speed 3 " + ColorText.GRAY + "if over crops or farmland."));
         tooltip.add(new StringTextComponent(""));
         tooltip.add(new StringTextComponent("\u00A77" + "This item can be reforged!"));
         tooltip.add(new StringTextComponent("\u00A7l" +"COMMON CHESTPLATE"));

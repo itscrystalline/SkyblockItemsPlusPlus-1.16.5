@@ -10,7 +10,7 @@ import net.minecraft.util.SoundEvents;
 public class NetheritePlatedDiamondArmorSource implements IArmorMaterial {
     private static final int[] baseDurability = {407, 592, 555, 481};
     private final int durabilityMultiplier = 1;
-    private final int[] baseDefense = {4, 9, 7, 4};
+    private final int[] baseDefense = {3, 8, 6, 3};
 
     @Override
     public int getDurabilityForSlot(EquipmentSlotType slotType) {

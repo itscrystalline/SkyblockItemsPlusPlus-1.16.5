@@ -28,6 +28,6 @@ public class OneForAllEnchantment extends Enchantment {
 
     @Override
     protected boolean checkCompatibility(Enchantment ench) {
-        return (ench.equals(Enchantments.UNBREAKING) | ench.equals(Enchantments.MENDING) | ench.equals(EnchantmentInit.TELEKINESIS));
+        return (ench.equals(Enchantments.UNBREAKING) | ench.equals(Enchantments.MENDING) | ench.equals(EnchantmentInit.TELEKINESIS) | ench.equals(EnchantmentInit.ONE_FOR_ALL));
     }
 }

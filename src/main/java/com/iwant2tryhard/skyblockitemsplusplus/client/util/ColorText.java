@@ -28,7 +28,7 @@ public enum ColorText {
 
     private final String color;
 
-    private ColorText(String color) {
+    ColorText(String color) {
         this.color = color;
     }
 

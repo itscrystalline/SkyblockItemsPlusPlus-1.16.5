@@ -52,7 +52,7 @@ public class ElectricCraftingTableTileEntity extends TileEntity implements ITick
     private ITextComponent customName;
     public int currentSmeltTime;
     public final int maxSmeltTime = 200;
-    private CustomItemHandler inventory;
+    private final CustomItemHandler inventory;
 
     public ElectricCraftingTableTileEntity(TileEntityType<?> tileEntityType) {
         super(tileEntityType);
@@ -139,7 +139,7 @@ public class ElectricCraftingTableTileEntity extends TileEntity implements ITick
             this.customName = ITextComponent.Serializer.fromJson(compoundNBT.getString("CustomName"));
         }
 
-        NonNullList<ItemStack> inv = NonNullList.<ItemStack>withSize(this.inventory.getSlots(), ItemStack.EMPTY);
+        NonNullList<ItemStack> inv = NonNullList.withSize(this.inventory.getSlots(), ItemStack.EMPTY);
         ItemStackHelper.loadAllItems(compoundNBT, inv);
         this.inventory.setNonNullList(inv);
 

@@ -25,8 +25,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class Ink_Wand extends SwordItem {
-    private static float manaUsage = 12f;
-    private static float displayManaUsage = 60f;
+    private static final float manaUsage = 12f;
+    private static final float displayManaUsage = 60f;
     //private static String oneForAllText = ColorText.LIGHT_PURPLE.toString() + "(+20)";
     //boolean hasOneForAll = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ONE_FOR_ALL.get(), this.asItem().getDefaultInstance()) > 0;
     public Ink_Wand(IItemTier itemTier, int damage, float attackSpeed, Properties properties) {
@@ -41,13 +41,13 @@ public class Ink_Wand extends SwordItem {
         tooltip.add(new StringTextComponent(""));
         tooltip.add(new StringTextComponent("\u00A76" + "Item Ablity: Ink Bomb " + "\u00A7e" + "\u00A7l" + "RIGHT CLICK"));
         tooltip.add(new StringTextComponent("\u00A77" + "Shoot an ink bomb in front of"));
-        tooltip.add(new StringTextComponent("\u00A77" + "you dealing " + ColorText.GREEN.toString() + "10000 + " + ( (PlayerStats.getManaReductionPercent() * 10) + 100 ) + ColorText.GRAY.toString() + " damage"));
+        tooltip.add(new StringTextComponent("\u00A77" + "you dealing " + ColorText.GREEN + "10000 + " + ( (PlayerStats.getManaReductionPercent() * 10) + 100 ) + ColorText.GRAY + " damage"));
         tooltip.add(new StringTextComponent("\u00A77" + "and giving blindness!"));
-        tooltip.add(new StringTextComponent(ColorText.GRAY.toString() + "Mana Cost: " + ColorText.AQUA.toString() + "50 " + ColorText.GRAY.toString() + "(Mana Reduction: -" + PlayerStats.getManaReductionPercent() + "%)"));
-        tooltip.add(new StringTextComponent(ColorText.GRAY.toString() + "Cooldown: " + ColorText.GREEN.toString() + "30s"));
+        tooltip.add(new StringTextComponent(ColorText.GRAY + "Mana Cost: " + ColorText.AQUA + "50 " + ColorText.GRAY + "(Mana Reduction: -" + PlayerStats.getManaReductionPercent() + "%)"));
+        tooltip.add(new StringTextComponent(ColorText.GRAY + "Cooldown: " + ColorText.GREEN + "30s"));
         tooltip.add(new StringTextComponent(""));
         tooltip.add(new StringTextComponent("\u00A77" + "This item can be reforged!"));
-        tooltip.add(new StringTextComponent(ColorText.DARK_PURPLE.toString() + "\u00A7l" +"EPIC SWORD"));
+        tooltip.add(new StringTextComponent(ColorText.DARK_PURPLE + "\u00A7l" +"EPIC SWORD"));
     }
 
     @Override

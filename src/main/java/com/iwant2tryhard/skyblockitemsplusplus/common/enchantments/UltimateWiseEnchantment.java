@@ -27,6 +27,6 @@ public class UltimateWiseEnchantment extends Enchantment{
     }
 
     protected boolean checkCompatibility(Enchantment ench) {
-        return !ench.equals(EnchantmentInit.ONE_FOR_ALL);
+        return !(ench.equals(EnchantmentInit.ONE_FOR_ALL) | ench.equals(EnchantmentInit.ULTIMATE_WISE));
     }
 }

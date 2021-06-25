@@ -36,6 +36,6 @@ public class Silver_Fang extends SwordItem {
         tooltip.add(new StringTextComponent("\u00A77" + "Damage: " + "\u00A7c" + "+100"));
         tooltip.add(new StringTextComponent(""));
         tooltip.add(new StringTextComponent("\u00A77" + "This item can be reforged!"));
-        tooltip.add(new StringTextComponent(ColorText.GREEN.toString() + "\u00A7l" +"UNCOMMON SWORD"));
+        tooltip.add(new StringTextComponent(ColorText.GREEN + "\u00A7l" +"UNCOMMON SWORD"));
     }
 }

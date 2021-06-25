@@ -5,10 +5,19 @@ import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.farm_suit
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.farm_suit.Farm_Suit_Chestplate;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.farm_suit.Farm_Suit_Helmet;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.farm_suit.Farm_Suit_Leggings;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.hardened_refined_netherite_armor.Hardened_Refined_Netherite_Boots;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.hardened_refined_netherite_armor.Hardened_Refined_Netherite_Chestplate;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.hardened_refined_netherite_armor.Hardened_Refined_Netherite_Helmet;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.hardened_refined_netherite_armor.Hardened_Refined_Netherite_Leggings;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.netherite_plated_diamond_armor.Netherite_Plated_Diamond_Boots;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.netherite_plated_diamond_armor.Netherite_Plated_Diamond_Chestplate;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.netherite_plated_diamond_armor.Netherite_Plated_Diamond_Helmet;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.netherite_plated_diamond_armor.Netherite_Plated_Diamond_Leggings;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.refined_netherite_armor.Refined_Netherite_Boots;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.refined_netherite_armor.Refined_Netherite_Chestplate;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.refined_netherite_armor.Refined_Netherite_Helmet;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.refined_netherite_armor.Refined_Netherite_Leggings;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.accessories.campfirebadge.*;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.axes.Netherite_Plated_Diamond_Axe;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.hoes.Netherite_Plated_Diamond_Hoe;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.pickaxes.Netherite_Plated_Diamond_Pickaxe;
@@ -17,11 +26,14 @@ import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.swords.*;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.materials.blockitems.*;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.materials.items.*;
 import com.iwant2tryhard.skyblockitemsplusplus.common.materials.armor.FarmSuitSource;
+import com.iwant2tryhard.skyblockitemsplusplus.common.materials.armor.HardenedRefinedNetheriteArmorSource;
 import com.iwant2tryhard.skyblockitemsplusplus.common.materials.armor.NetheritePlatedDiamondArmorSource;
+import com.iwant2tryhard.skyblockitemsplusplus.common.materials.armor.RefinedNetheriteArmorSource;
 import com.iwant2tryhard.skyblockitemsplusplus.common.materials.items.NetheritePlatedDiamondSource;
 import com.iwant2tryhard.skyblockitemsplusplus.common.materials.tools.swords.*;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
+import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -90,23 +102,23 @@ public class ItemInit {
     public static final RegistryObject<Ink_Wand> INK_WAND = ITEMS.register("ink_wand",
             () -> new Ink_Wand(new InkWandSource(), 130, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat)));
     public static final RegistryObject<Silver_Fang> SILVER_FANG = ITEMS.register("silver_fang",
-            () -> new Silver_Fang(new SilverFangSource(), 100, -2.5f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat)));
+            () -> new Silver_Fang(new SilverFangSource(), 100, -2.2f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat)));
 
     //pickaxes
     public static final RegistryObject<Netherite_Plated_Diamond_Pickaxe> NETHERITE_PLATED_DIAMOND_PICKAXE = ITEMS.register("netherite_plated_diamond_pickaxe",
-            () -> new Netherite_Plated_Diamond_Pickaxe(new NetheritePlatedDiamondSource(), 5, -2.6f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Tools)));
+            () -> new Netherite_Plated_Diamond_Pickaxe(new NetheritePlatedDiamondSource(), 5, -2.6f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Tools).addToolType(ToolType.PICKAXE, 3)));
 
     //axes
     public static final RegistryObject<Netherite_Plated_Diamond_Axe> NETHERITE_PLATED_DIAMOND_AXE = ITEMS.register("netherite_plated_diamond_axe",
-            () -> new Netherite_Plated_Diamond_Axe(new NetheritePlatedDiamondSource(), 9, -3f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Tools)));
+            () -> new Netherite_Plated_Diamond_Axe(new NetheritePlatedDiamondSource(), 9, -3f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Tools).addToolType(ToolType.AXE, 3)));
 
     //shovels
     public static final RegistryObject<Netherite_Plated_Diamond_Shovel> NETHERITE_PLATED_DIAMOND_SHOVEL = ITEMS.register("netherite_plated_diamond_shovel",
-            () -> new Netherite_Plated_Diamond_Shovel(new NetheritePlatedDiamondSource(), (int) 5.5f, -3f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Tools)));
+            () -> new Netherite_Plated_Diamond_Shovel(new NetheritePlatedDiamondSource(), (int) 5.5f, -3f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Tools).addToolType(ToolType.SHOVEL, 3)));
 
     //hoes
     public static final RegistryObject<Netherite_Plated_Diamond_Hoe> NETHERITE_PLATED_DIAMOND_HOE = ITEMS.register("netherite_plated_diamond_hoe",
-            () -> new Netherite_Plated_Diamond_Hoe(new NetheritePlatedDiamondSource(), 1, 0f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Tools)));
+            () -> new Netherite_Plated_Diamond_Hoe(new NetheritePlatedDiamondSource(), 1, 0f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Tools).addToolType(ToolType.HOE, 3)));
 
     //bows
     //public static final RegistryObject<Wither_Bow> WITHER_BOW = ITEMS.register("wither_bow",
@@ -130,6 +142,45 @@ public class ItemInit {
             () -> new Netherite_Plated_Diamond_Leggings(new NetheritePlatedDiamondArmorSource(), EquipmentSlotType.LEGS, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Armors)));
     public static final RegistryObject<Netherite_Plated_Diamond_Boots> NETHERITE_PLATED_DIAMOND_BOOTS = ITEMS.register("netherite_plated_diamond_boots",
             () -> new Netherite_Plated_Diamond_Boots(new NetheritePlatedDiamondArmorSource(), EquipmentSlotType.FEET, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Armors)));
+
+    public static final RegistryObject<Refined_Netherite_Helmet> REFINED_NETHERITE_HELMET = ITEMS.register("refined_netherite_helmet",
+            () -> new Refined_Netherite_Helmet(new RefinedNetheriteArmorSource(), EquipmentSlotType.HEAD, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Armors).fireResistant()));
+    public static final RegistryObject<Refined_Netherite_Chestplate> REFINED_NETHERITE_CHESTPLATE = ITEMS.register("refined_netherite_chestplate",
+            () -> new Refined_Netherite_Chestplate(new RefinedNetheriteArmorSource(), EquipmentSlotType.CHEST, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Armors).fireResistant()));
+    public static final RegistryObject<Refined_Netherite_Leggings> REFINED_NETHERITE_LEGGINGS = ITEMS.register("refined_netherite_leggings",
+            () -> new Refined_Netherite_Leggings(new RefinedNetheriteArmorSource(), EquipmentSlotType.LEGS, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Armors).fireResistant()));
+    public static final RegistryObject<Refined_Netherite_Boots> REFINED_NETHERITE_BOOTS = ITEMS.register("refined_netherite_boots",
+            () -> new Refined_Netherite_Boots(new RefinedNetheriteArmorSource(), EquipmentSlotType.FEET, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Armors).fireResistant()));
+
+    public static final RegistryObject<Hardened_Refined_Netherite_Helmet> HARDENED_REFINED_NETHERITE_HELMET = ITEMS.register("hardened_refined_netherite_helmet",
+            () -> new Hardened_Refined_Netherite_Helmet(new HardenedRefinedNetheriteArmorSource(), EquipmentSlotType.HEAD, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Armors).fireResistant()));
+    public static final RegistryObject<Hardened_Refined_Netherite_Chestplate> HARDENED_REFINED_NETHERITE_CHESTPLATE = ITEMS.register("hardened_refined_netherite_chestplate",
+            () -> new Hardened_Refined_Netherite_Chestplate(new HardenedRefinedNetheriteArmorSource(), EquipmentSlotType.CHEST, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Armors).fireResistant()));
+    public static final RegistryObject<Hardened_Refined_Netherite_Leggings> HARDENED_HARDENED_REFINED_NETHERITE_LEGGINGS = ITEMS.register("hardened_refined_netherite_leggings",
+            () -> new Hardened_Refined_Netherite_Leggings(new HardenedRefinedNetheriteArmorSource(), EquipmentSlotType.LEGS, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Armors).fireResistant()));
+    public static final RegistryObject<Hardened_Refined_Netherite_Boots> HARDENED_REFINED_NETHERITE_BOOTS = ITEMS.register("hardened_refined_netherite_boots",
+            () -> new Hardened_Refined_Netherite_Boots(new HardenedRefinedNetheriteArmorSource(), EquipmentSlotType.FEET, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Armors).fireResistant()));
+
+    //Accessories
+        //active
+    public static final RegistryObject<Campfire_Initiate_Badge> CAMPFIRE_INITIATE_BADGE = ITEMS.register("campfire_initiate_badge",
+            () -> new Campfire_Initiate_Badge(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Accessories).stacksTo(1)));
+    public static final RegistryObject<Campfire_Adapt_Badge> CAMPFIRE_ADAPT_BADGE = ITEMS.register("campfire_adapt_badge",
+            () -> new Campfire_Adapt_Badge(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Accessories).stacksTo(1)));
+    public static final RegistryObject<Campfire_Scion_Badge> CAMPFIRE_SCION_BADGE = ITEMS.register("campfire_scion_badge",
+            () -> new Campfire_Scion_Badge(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Accessories).stacksTo(1)));
+    public static final RegistryObject<Campfire_God_Badge> CAMPFIRE_GOD_BADGE = ITEMS.register("campfire_god_badge",
+            () -> new Campfire_God_Badge(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Accessories).stacksTo(1)));
+
+        //inactive
+    public static final RegistryObject<Inactive_Campfire_Initiate_Badge> INACTIVE_CAMPFIRE_INITIATE_BADGE = ITEMS.register("inactive_campfire_initiate_badge",
+                () -> new Inactive_Campfire_Initiate_Badge(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Accessories).stacksTo(1)));
+    public static final RegistryObject<Inactive_Campfire_Adapt_Badge> INACTIVE_CAMPFIRE_ADAPT_BADGE = ITEMS.register("inactive_campfire_adapt_badge",
+            () -> new Inactive_Campfire_Adapt_Badge(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Accessories).stacksTo(1)));
+    public static final RegistryObject<Inactive_Campfire_Scion_Badge> INACTIVE_CAMPFIRE_SCION_BADGE = ITEMS.register("inactive_campfire_scion_badge",
+            () -> new Inactive_Campfire_Scion_Badge(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Accessories).stacksTo(1)));
+    public static final RegistryObject<Inactive_Campfire_God_Badge> INACTIVE_CAMPFIRE_GOD_BADGE = ITEMS.register("inactive_campfire_god_badge",
+            () -> new Inactive_Campfire_God_Badge(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Accessories).stacksTo(1)));
 
 
     //Block items

@@ -21,8 +21,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class Aspect_Of_The_End extends SwordItem {
-    private float manaUsage = 10f/* * ((EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ULTIMATE_WISE.get(), this.asItem().getDefaultInstance()) * 10) / 100)*/;
-    private float displayManaUsage = 50f/* * ((EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ULTIMATE_WISE.get(), this.asItem().getDefaultInstance()) * 10) / 100)*/;
+    private final float manaUsage = 10f/* * ((EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ULTIMATE_WISE.get(), this.asItem().getDefaultInstance()) * 10) / 100)*/;
+    private final float displayManaUsage = 50f/* * ((EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ULTIMATE_WISE.get(), this.asItem().getDefaultInstance()) * 10) / 100)*/;
     //private static String oneForAllText = ColorText.LIGHT_PURPLE.toString() + "(+20)";
     //boolean hasOneForAll = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ONE_FOR_ALL.get(), this.asItem().getDefaultInstance()) > 0;
     public Aspect_Of_The_End(IItemTier itemTier, int damage, float attackSpeed, Properties properties) {
@@ -37,10 +37,10 @@ public class Aspect_Of_The_End extends SwordItem {
         //tooltip.add(new StringTextComponent(ItemStack.appendEnchantmentNames();
         //tooltip.add(new StringTextComponent(""));
         tooltip.add(new StringTextComponent("\u00A76" + "Item Ablity: Instant Transmission " + "\u00A7e" + "\u00A7l" + "RIGHT CLICK"));
-        tooltip.add(new StringTextComponent("\u00A77" + "Teleport " + ColorText.GREEN.toString() + "8 blocks " + ColorText.GRAY.toString() + "ahead of"));
-        tooltip.add(new StringTextComponent(ColorText.GRAY.toString() + "you and gain " + ColorText.WHITE.toString() + "Speed 5"));
-        tooltip.add(new StringTextComponent(ColorText.GRAY.toString() + "for " + ColorText.GREEN.toString() + "3 seconds."));
-        tooltip.add(new StringTextComponent(ColorText.GRAY.toString() + "Mana Cost: " + ColorText.AQUA.toString() + displayManaUsage + " " + ColorText.GRAY.toString() + "(Mana Reduction: -" + PlayerStats.getManaReductionPercent() + "%)"));
+        tooltip.add(new StringTextComponent("\u00A77" + "Teleport " + ColorText.GREEN + "8 blocks " + ColorText.GRAY + "ahead of"));
+        tooltip.add(new StringTextComponent(ColorText.GRAY + "you and gain " + ColorText.WHITE + "Speed 5"));
+        tooltip.add(new StringTextComponent(ColorText.GRAY + "for " + ColorText.GREEN + "3 seconds."));
+        tooltip.add(new StringTextComponent(ColorText.GRAY + "Mana Cost: " + ColorText.AQUA + displayManaUsage + " " + ColorText.GRAY + "(Mana Reduction: -" + PlayerStats.getManaReductionPercent() + "%)"));
         tooltip.add(new StringTextComponent("\u00A77" + "This item can be reforged!"));
         tooltip.add(new StringTextComponent(ColorText.BLUE + "\u00A7l" +"RARE SWORD"));
         super.appendHoverText(stack, worldIn, tooltip, flagIn);

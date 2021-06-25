@@ -24,8 +24,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class Rogue_Sword extends SwordItem {
-    private static float manaUsage = 10f;
-    private static float displayManaUsage = 50f;
+    private static final float manaUsage = 10f;
+    private static final float displayManaUsage = 50f;
     //private static String oneForAllText = ColorText.LIGHT_PURPLE.toString() + "(+20)";
     //boolean hasOneForAll = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ONE_FOR_ALL.get(), this.asItem().getDefaultInstance()) > 0;
     public Rogue_Sword(IItemTier itemTier, int damage, float attackSpeed, Properties properties) {

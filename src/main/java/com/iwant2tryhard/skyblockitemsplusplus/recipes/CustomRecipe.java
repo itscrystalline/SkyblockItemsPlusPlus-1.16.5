@@ -16,9 +16,9 @@ public class CustomRecipe implements ICustomRecipe{
 
     private final ResourceLocation id;
 
-    private Ingredient input1; private Ingredient input2; private Ingredient input3;
-    private Ingredient input4; private Ingredient input5; private Ingredient input6;
-    private Ingredient input7; private Ingredient input8; private Ingredient input9;
+    private final Ingredient input1; private final Ingredient input2; private final Ingredient input3;
+    private final Ingredient input4; private final Ingredient input5; private final Ingredient input6;
+    private final Ingredient input7; private final Ingredient input8; private final Ingredient input9;
 
     private final ItemStack output;
 
@@ -43,13 +43,9 @@ public class CustomRecipe implements ICustomRecipe{
 
     @Override
     public boolean matches(RecipeWrapper inv, World worldIn) {
-        if (    (this.input1.test(inv.getItem(0))) & (this.input1.test(inv.getItem(1))) & (this.input1.test(inv.getItem(2))) &
+        return (this.input1.test(inv.getItem(0))) & (this.input1.test(inv.getItem(1))) & (this.input1.test(inv.getItem(2))) &
                 (this.input4.test(inv.getItem(3))) & (this.input1.test(inv.getItem(4))) & (this.input1.test(inv.getItem(5))) &
-                (this.input7.test(inv.getItem(6))) & (this.input1.test(inv.getItem(7))) & (this.input1.test(inv.getItem(8))))
-        {
-            return true;
-        }
-        return false;
+                (this.input7.test(inv.getItem(6))) & (this.input1.test(inv.getItem(7))) & (this.input1.test(inv.getItem(8)));
     }
 
     @Override

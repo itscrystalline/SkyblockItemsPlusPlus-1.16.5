@@ -26,9 +26,9 @@ public class Hunter_Knife extends SwordItem {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         tooltip.add(new StringTextComponent("\u00A77" + "Damage: " + "\u00A7c" + "+50"));
         tooltip.add(new StringTextComponent(""));
-        tooltip.add(new StringTextComponent(ColorText.GRAY.toString() + "Gain " + ColorText.WHITE.toString() + "Speed 2 " + ColorText.GRAY.toString() + "when held."));
+        tooltip.add(new StringTextComponent(ColorText.GRAY + "Gain " + ColorText.WHITE + "Speed 2 " + ColorText.GRAY + "when held."));
         tooltip.add(new StringTextComponent(""));
         tooltip.add(new StringTextComponent("\u00A77" + "This item can be reforged!"));
-        tooltip.add(new StringTextComponent(ColorText.GREEN.toString() + "\u00A7l" +"UNCOMMON SWORD"));
+        tooltip.add(new StringTextComponent(ColorText.GREEN + "\u00A7l" +"UNCOMMON SWORD"));
     }
 }

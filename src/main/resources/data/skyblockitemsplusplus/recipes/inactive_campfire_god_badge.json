@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SSS",
+    "SBS",
+    "SAS"
+  ],
+  "key": {
+    "B": {
+      "item": "skyblockitemsplusplus:campfire_scion_badge"
+    },
+    "A": {
+      "item": "minecraft:campfire"
+    },
+    "S": {
+      "item": "skyblockitemsplusplus:refined_coal_block"
+    }
+  },
+  "result": {
+    "item": "skyblockitemsplusplus:inactive_campfire_god_badge",
+    "count": 1
+  }
+}

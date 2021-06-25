@@ -27,9 +27,9 @@ public class Flame_Sword extends SwordItem {
         tooltip.add(new StringTextComponent("\u00A77" + "Damage: " + "\u00A7c" + "+50"));
         tooltip.add(new StringTextComponent("\u00A77" + "Strength: " + "\u00A7c" + "+20"));
         tooltip.add(new StringTextComponent(""));
-        tooltip.add(new StringTextComponent(ColorText.GRAY.toString() + "Ignites enemies for " + ColorText.GREEN.toString() + "3s " + ColorText.GRAY.toString() + "."));
+        tooltip.add(new StringTextComponent(ColorText.GRAY + "Ignites enemies for " + ColorText.GREEN + "3s " + ColorText.GRAY + "."));
         tooltip.add(new StringTextComponent(""));
         tooltip.add(new StringTextComponent("\u00A77" + "This item can be reforged!"));
-        tooltip.add(new StringTextComponent(ColorText.GREEN.toString() + "\u00A7l" +"UNCOMMON SWORD"));
+        tooltip.add(new StringTextComponent(ColorText.GREEN + "\u00A7l" +"UNCOMMON SWORD"));
     }
 }

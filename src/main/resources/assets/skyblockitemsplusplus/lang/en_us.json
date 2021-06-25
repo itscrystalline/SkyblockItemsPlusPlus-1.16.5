@@ -12,6 +12,17 @@
     "item.skyblockitemsplusplus.refined_ender_pearl": "\u00a7aRefined Ender Pearl",
     "item.skyblockitemsplusplus.refined_rotten_flesh": "Refined Rotten Flesh",
     "item.skyblockitemsplusplus.refined_ink_sack": "\u00A7aRefined Ink Sack",
+    "item.skyblockitemsplusplus.refined_ghast_tear": "\u00A7aRefined Ghast Tear",
+
+    "item.skyblockitemsplusplus.campfire_initiate_badge": "\u00A7aCampfire Initiate Badge",
+    "item.skyblockitemsplusplus.campfire_adapt_badge": "\u00A79Campfire Adapt Badge",
+    "item.skyblockitemsplusplus.campfire_scion_badge": "\u00A75Campfire Scion Badge",
+    "item.skyblockitemsplusplus.campfire_god_badge": "\u00A76Campfire God Badge",
+
+    "item.skyblockitemsplusplus.inactive_campfire_initiate_badge": "\u00A7aCampfire Initiate Badge (Inactive)",
+    "item.skyblockitemsplusplus.inactive_campfire_adapt_badge": "\u00A79Campfire Adapt Badge (Inactive)",
+    "item.skyblockitemsplusplus.inactive_campfire_scion_badge": "\u00A75Campfire Scion Badge (Inactive)",
+    "item.skyblockitemsplusplus.inactive_campfire_god_badge": "\u00A76Campfire God Badge (Inactive)",
 
     "item.skyblockitemsplusplus.aspect_of_the_jerry": "Aspect of The Jerry",
     "item.skyblockitemsplusplus.rogue_sword": "Rogue Sword",
@@ -44,6 +55,14 @@
     "item.skyblockitemsplusplus.netherite_plated_diamond_chestplate": "\u00a79Netherite Plated Diamond Chestplate",
     "item.skyblockitemsplusplus.netherite_plated_diamond_leggings": "\u00a79Netherite Plated Diamond Leggings",
     "item.skyblockitemsplusplus.netherite_plated_diamond_boots": "\u00a79Netherite Plated Diamond Boots",
+    "item.skyblockitemsplusplus.refined_netherite_helmet": "\u00a76Refined Netherite Helmet",
+    "item.skyblockitemsplusplus.refined_netherite_chestplate": "\u00a76Refined Netherite Chestplate",
+    "item.skyblockitemsplusplus.refined_netherite_leggings": "\u00a76Refined Netherite Leggings",
+    "item.skyblockitemsplusplus.refined_netherite_boots": "\u00a76Refined Netherite Boots",
+    "item.skyblockitemsplusplus.hardened_refined_netherite_helmet": "\u00a7cHardened Refined Netherite Helmet",
+    "item.skyblockitemsplusplus.hardened_refined_netherite_chestplate": "\u00a7cHardened Refined Netherite Chestplate",
+    "item.skyblockitemsplusplus.hardened_refined_netherite_leggings": "\u00a7cHardened Refined Netherite Leggings",
+    "item.skyblockitemsplusplus.hardened_refined_netherite_boots": "\u00a7cHardened Refined Netherite Boots",
 
     "block.skyblockitemsplusplus.refined_netherite_block": "\u00A7cRefined Block of Netherite",
     "block.skyblockitemsplusplus.refined_diamond_block": "\u00A79Refined Block of Diamond",
@@ -63,6 +82,7 @@
     "itemGroup.SkyblockItems_Materials": "Skyblock Items: Materials",
     "itemGroup.SkyblockItems_Armors": "Skyblock Items: Armory",
     "itemGroup.SkyblockItems_Tools": "Skyblock Items: Tools",
+    "itemGroup.SkyblockItems_Accessories": "Skyblock Items: Accessories",
 
     "enchantment.skyblockitemsplusplus.telekinesis": "Telekinesis",
     "enchantment.skyblockitemsplusplus.one_for_all": "\u00A7d\u00A7lOne For All",

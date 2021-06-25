@@ -16,8 +16,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class Aspect_Of_The_Jerry extends SwordItem {
-    private static float manaUsage = 10f;
-    private static float displayManaUsage = 50f;
+    private static final float manaUsage = 10f;
+    private static final float displayManaUsage = 50f;
     public Aspect_Of_The_Jerry(IItemTier itemTier, int damage, float attackSpeed, Properties properties) {
         super(itemTier, damage, attackSpeed, properties);
     }

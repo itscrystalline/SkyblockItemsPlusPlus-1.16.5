@@ -18,7 +18,7 @@ public enum MobStats {
 
     public final int defense;
 
-    private MobStats(int defense) {
+    MobStats(int defense) {
         this.defense = defense;
     }
 }
