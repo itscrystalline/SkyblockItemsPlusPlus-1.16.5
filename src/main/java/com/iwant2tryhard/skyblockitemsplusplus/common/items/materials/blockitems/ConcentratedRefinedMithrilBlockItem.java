@@ -21,4 +21,9 @@ public class ConcentratedRefinedMithrilBlockItem extends BlockItem {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         tooltip.add(new StringTextComponent("\u00A79" + "\u00A7l" + "RARE"));
     }
+
+    @Override
+    public boolean isFoil(ItemStack p_77636_1_) {
+        return true;
+    }
 }

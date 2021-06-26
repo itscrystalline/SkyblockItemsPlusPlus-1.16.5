@@ -5,6 +5,7 @@ import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.accessories.ma
 import com.iwant2tryhard.skyblockitemsplusplus.core.init.ItemInit;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -17,7 +18,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class Inactive_Campfire_Scion_Badge extends AccessoryItem {
+public class Inactive_Campfire_Scion_Badge extends Item {
     public Inactive_Campfire_Scion_Badge(Properties properties) {
         super(properties);
     }

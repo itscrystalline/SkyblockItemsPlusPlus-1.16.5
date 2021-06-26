@@ -25,4 +25,9 @@ public class RefinedNetheriteBlockItem extends BlockItem {
         tooltip.add(new StringTextComponent("\u00A7c" + "\u00A7o" + "-IWant2TryHard"));
         tooltip.add(new StringTextComponent("\u00A7c" + "\u00A7l" + "SUPREME"));
     }
+
+    @Override
+    public boolean isFoil(ItemStack p_77636_1_) {
+        return true;
+    }
 }

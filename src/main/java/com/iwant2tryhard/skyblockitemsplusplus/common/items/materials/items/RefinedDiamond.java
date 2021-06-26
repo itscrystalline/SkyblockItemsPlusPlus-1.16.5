@@ -25,4 +25,9 @@ public class RefinedDiamond extends Item {
         //tooltip.add(new StringTextComponent("tooltip.skyblockitemsplusplus.refined_netherite_ingot"));
         tooltip.add(new StringTextComponent("\u00A7a" + "\u00A7l" + "UNCOMMON"));
     }
+
+    @Override
+    public boolean isFoil(ItemStack p_77636_1_) {
+        return true;
+    }
 }

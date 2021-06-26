@@ -39,7 +39,7 @@ public class Aspect_Of_The_Jerry extends SwordItem {
     public ActionResult<ItemStack> use(World worldIn, PlayerEntity player, Hand hand) {
         if (PlayerStats.isEnoughMana(manaUsage, player))
         {
-            int foodLevel = PlayerStats.calcManaUsage(manaUsage, player);
+            int foodLevel = PlayerStats.calcManaUsage(manaUsage);
             Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("\u00A73" + "Used " + "\u00A76" + "Parley! " + "\u00A73" + "(" + (foodLevel * 5) + " Mana)"), false);
 
             player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - foodLevel);

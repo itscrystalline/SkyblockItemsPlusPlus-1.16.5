@@ -20,4 +20,9 @@ public class RefinedTitanium extends Item {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         tooltip.add(new StringTextComponent("\u00A75" + "\u00A7l" + "EPIC"));
     }
+
+    @Override
+    public boolean isFoil(ItemStack p_77636_1_) {
+        return true;
+    }
 }

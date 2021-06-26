@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class Inactive_Campfire_Adapt_Badge extends AccessoryItem {
+public class Inactive_Campfire_Adapt_Badge extends Item {
     public Inactive_Campfire_Adapt_Badge(Item.Properties properties) {
         super(properties);
     }

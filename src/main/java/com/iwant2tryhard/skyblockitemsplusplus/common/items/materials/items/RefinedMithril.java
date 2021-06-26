@@ -20,4 +20,9 @@ public class RefinedMithril extends Item {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         tooltip.add(new StringTextComponent("\u00A7a" + "\u00A7l" + "UNCOMMON"));
     }
+
+    @Override
+    public boolean isFoil(ItemStack p_77636_1_) {
+        return true;
+    }
 }

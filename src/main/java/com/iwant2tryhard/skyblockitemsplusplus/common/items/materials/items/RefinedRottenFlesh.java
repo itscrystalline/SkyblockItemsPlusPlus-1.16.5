@@ -23,4 +23,9 @@ public class RefinedRottenFlesh extends Item {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
         tooltip.add(new StringTextComponent("\u00A7l" + "COMMON"));
     }
+
+    @Override
+    public boolean isFoil(ItemStack p_77636_1_) {
+        return true;
+    }
 }

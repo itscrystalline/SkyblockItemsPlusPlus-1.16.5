@@ -11,7 +11,7 @@ import net.minecraft.util.SoundEvents;
 public class RefinedNetheriteArmorSource implements IArmorMaterial {
     private static final int[] baseDurability = {610, 888, 832, 721};
     private final int durabilityMultiplier = 1;
-    private final int[] baseDefense = {7, 20, 14, 7};
+    private final int[] baseDefense = {15, 40, 30, 15};
 
     @Override
     public int getDurabilityForSlot(EquipmentSlotType slotType) {

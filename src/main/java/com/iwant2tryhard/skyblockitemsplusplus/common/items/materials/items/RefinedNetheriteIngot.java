@@ -25,4 +25,9 @@ public class RefinedNetheriteIngot extends Item {
         //tooltip.add(new StringTextComponent("tooltip.skyblockitemsplusplus.refined_netherite_ingot"));
         tooltip.add(new StringTextComponent("\u00A76" + "\u00A7l" + "LEGENDARY"));
     }
+
+    @Override
+    public boolean isFoil(ItemStack p_77636_1_) {
+        return true;
+    }
 }

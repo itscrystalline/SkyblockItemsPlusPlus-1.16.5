@@ -12,8 +12,10 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class Campfire_Adapt_Badge extends AccessoryItem {
-    public Campfire_Adapt_Badge(Properties properties) {
-        super(properties);
+
+
+    public Campfire_Adapt_Badge(Properties properties, int defenseBoost, int healthBoost, int speedBoost, float manaReductionPercent, int strengthBoost) {
+        super(properties, defenseBoost, healthBoost, speedBoost, manaReductionPercent, strengthBoost);
     }
 
     @Override

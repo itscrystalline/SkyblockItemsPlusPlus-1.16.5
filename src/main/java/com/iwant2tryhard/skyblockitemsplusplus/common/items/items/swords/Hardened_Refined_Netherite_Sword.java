@@ -29,4 +29,9 @@ public class Hardened_Refined_Netherite_Sword extends SwordItem {
         tooltip.add(new StringTextComponent("\u00A7c" + "\u00A7l" + "SUPREME SWORD"));
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
     }
+
+    @Override
+    public boolean isFoil(ItemStack p_77636_1_) {
+        return true;
+    }
 }

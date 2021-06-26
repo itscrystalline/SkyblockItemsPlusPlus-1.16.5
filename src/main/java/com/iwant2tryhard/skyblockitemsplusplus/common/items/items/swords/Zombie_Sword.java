@@ -2,16 +2,12 @@ package com.iwant2tryhard.skyblockitemsplusplus.common.items.items.swords;
 
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ColorText;
 import com.iwant2tryhard.skyblockitemsplusplus.common.entities.PlayerStats;
-import com.iwant2tryhard.skyblockitemsplusplus.core.init.EnchantmentInit;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
@@ -54,7 +50,7 @@ public class Zombie_Sword extends SwordItem {
     public ActionResult<ItemStack> use(World worldIn, PlayerEntity player, Hand hand) {
         if (PlayerStats.isEnoughMana(manaUsage, player))
         {
-            int foodLevel = PlayerStats.calcManaUsage(manaUsage, player);
+            int foodLevel = PlayerStats.calcManaUsage(manaUsage);
             if (!player.getCooldowns().isOnCooldown(this))
             {
                 if (timesSinceDelay >= 6)

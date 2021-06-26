@@ -28,13 +28,11 @@ import net.minecraft.block.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.AreaEffectCloudEntity;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonPartEntity;
 import net.minecraft.entity.item.ArmorStandEntity;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.item.ItemFrameEntity;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.monster.*;
@@ -42,11 +40,9 @@ import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
-import net.minecraft.particles.IParticleData;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.potion.Potion;
-import net.minecraft.potion.Potions;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
@@ -59,12 +55,9 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
-import javax.tools.Tool;
-import java.util.Arrays;
 import java.util.Random;
 
 @EventBusSubscriber(modid = SkyblockItemsPlusPlus.MOD_ID, bus = EventBusSubscriber.Bus.FORGE)
@@ -130,7 +123,7 @@ public class EventHandler {
                         if (PlayerStats.debugLogging) {ClientUtils.SendPrivateMessage("armorVal: " + player.getArmorValue());}
                         player.heal(healAmnt);
                         target.setHealth(target.getHealth() - (healAmnt / 2f));
-                        int mana = PlayerStats.calcManaUsage(6f, player);
+                        int mana = PlayerStats.calcManaUsage(6f);
                         player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - mana);
                         ClientUtils.SendPrivateMessage(ColorText.GREEN + "Your " + ColorText.GRAY + "Life Steal " + lifeStealLvl + ColorText.GREEN + " Stole " + ColorText.RED + Math.round(healAmnt / 2) + " health " + ColorText.GREEN + "from " + ColorText.GOLD + "PLACEHOLDER_ENTITY" + ColorText.GREEN + "! " + ColorText.AQUA + "(" + (mana * 5) + " Mana)");
                     }
@@ -153,7 +146,36 @@ public class EventHandler {
                             (player.getMainHandItem().getItem() == Items.NETHERITE_PICKAXE) |
                             (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Pickaxe))
                     {
+                        if (PlayerStats.debugLogging) {ClientUtils.SendPrivateMessage("before: " + event.getAmount());}
                         event.setAmount(event.getAmount() * 1.2f);
+                        initialDamage *= 1.2f;
+                        if (PlayerStats.debugLogging) {ClientUtils.SendPrivateMessage("after: " + event.getAmount());}
+                        if (PlayerStats.debugLogging) {ClientUtils.SendPrivateMessage("from: 1/1");}
+                    }
+                }
+                //Hardened Refined netherite armor
+                else if (player.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof Hardened_Refined_Netherite_Helmet
+                        & player.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Hardened_Refined_Netherite_Chestplate
+                        & player.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Hardened_Refined_Netherite_Leggings
+                        & player.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Hardened_Refined_Netherite_Boots)
+                {
+                    if ((player.getMainHandItem().getItem() == Items.NETHERITE_SWORD) |
+                            (player.getMainHandItem().getItem() instanceof Hardened_Refined_Netherite_Sword) |
+                            (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Sword) |
+                            (player.getMainHandItem().getItem() == Items.NETHERITE_AXE) |
+                            (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Axe) |
+                            (player.getMainHandItem().getItem() == Items.NETHERITE_HOE) |
+                            (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Hoe) |
+                            (player.getMainHandItem().getItem() == Items.NETHERITE_SHOVEL) |
+                            (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Shovel) |
+                            (player.getMainHandItem().getItem() == Items.NETHERITE_PICKAXE) |
+                            (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Pickaxe))
+                    {
+                        if (PlayerStats.debugLogging) {ClientUtils.SendPrivateMessage("before: " + event.getAmount());}
+                        event.setAmount(event.getAmount() * 1.4f);
+                        initialDamage *= 1.4f;
+                        if (PlayerStats.debugLogging) {ClientUtils.SendPrivateMessage("after: " + event.getAmount());}
+                        if (PlayerStats.debugLogging) {ClientUtils.SendPrivateMessage("from: 1/2");}
                     }
                 }
             }
@@ -185,9 +207,59 @@ public class EventHandler {
                         if (PlayerStats.debugLogging) {ClientUtils.SendPrivateMessage("armorVal: " + player.getArmorValue());}
                         player.heal(healAmnt);
                         target.setHealth(target.getHealth() - (healAmnt / 2f));
-                        int mana = PlayerStats.calcManaUsage(6f, player);
+                        int mana = PlayerStats.calcManaUsage(6f);
                         player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - mana);
                         ClientUtils.SendPrivateMessage(ColorText.GREEN + "Your " + ColorText.GRAY + "Life Steal " + lifeStealLvl + ColorText.GREEN + " Stole " + ColorText.RED + Math.round(healAmnt / 2) + " health " + ColorText.GREEN + "from " + ColorText.GOLD + "PLACEHOLDER_ENTITY" + ColorText.GREEN + "! " + ColorText.AQUA + "(" + (mana * 5) + " Mana)");
+                    }
+                }
+                //Refined netherite armor
+                if (player.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof Refined_Netherite_Helmet
+                        & player.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Refined_Netherite_Chestplate
+                        & player.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Refined_Netherite_Leggings
+                        & player.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Refined_Netherite_Boots)
+                {
+                    if ((player.getMainHandItem().getItem() == Items.NETHERITE_SWORD) |
+                            (player.getMainHandItem().getItem() instanceof Hardened_Refined_Netherite_Sword) |
+                            (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Sword) |
+                            (player.getMainHandItem().getItem() == Items.NETHERITE_AXE) |
+                            (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Axe) |
+                            (player.getMainHandItem().getItem() == Items.NETHERITE_HOE) |
+                            (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Hoe) |
+                            (player.getMainHandItem().getItem() == Items.NETHERITE_SHOVEL) |
+                            (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Shovel) |
+                            (player.getMainHandItem().getItem() == Items.NETHERITE_PICKAXE) |
+                            (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Pickaxe))
+                    {
+                        if (PlayerStats.debugLogging) {ClientUtils.SendPrivateMessage("before: " + event.getAmount());}
+                        event.setAmount(event.getAmount() * 1.2f);
+                        initialDamage *= 1.2f;
+                        if (PlayerStats.debugLogging) {ClientUtils.SendPrivateMessage("after: " + event.getAmount());}
+                        if (PlayerStats.debugLogging) {ClientUtils.SendPrivateMessage("from: 2/1");}
+                    }
+                }
+                //Hardened Refined netherite armor
+                else if (player.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof Hardened_Refined_Netherite_Helmet
+                        & player.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Hardened_Refined_Netherite_Chestplate
+                        & player.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Hardened_Refined_Netherite_Leggings
+                        & player.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Hardened_Refined_Netherite_Boots)
+                {
+                    if ((player.getMainHandItem().getItem() == Items.NETHERITE_SWORD) |
+                            (player.getMainHandItem().getItem() instanceof Hardened_Refined_Netherite_Sword) |
+                            (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Sword) |
+                            (player.getMainHandItem().getItem() == Items.NETHERITE_AXE) |
+                            (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Axe) |
+                            (player.getMainHandItem().getItem() == Items.NETHERITE_HOE) |
+                            (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Hoe) |
+                            (player.getMainHandItem().getItem() == Items.NETHERITE_SHOVEL) |
+                            (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Shovel) |
+                            (player.getMainHandItem().getItem() == Items.NETHERITE_PICKAXE) |
+                            (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Pickaxe))
+                    {
+                        if (PlayerStats.debugLogging) {ClientUtils.SendPrivateMessage("before: " + event.getAmount());}
+                        event.setAmount(event.getAmount() * 1.4f);
+                        initialDamage *= 1.4f;
+                        if (PlayerStats.debugLogging) {ClientUtils.SendPrivateMessage("after: " + event.getAmount());}
+                        if (PlayerStats.debugLogging) {ClientUtils.SendPrivateMessage("from: 2/2");}
                     }
                 }
                 
@@ -196,48 +268,7 @@ public class EventHandler {
             {
                 target.setSecondsOnFire(3);
             }
-            //Refined netherite armor
-            if (player.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof Refined_Netherite_Helmet
-                    & player.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Refined_Netherite_Chestplate
-                    & player.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Refined_Netherite_Leggings
-                    & player.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Refined_Netherite_Boots)
-            {
-                if ((player.getMainHandItem().getItem() == Items.NETHERITE_SWORD) |
-                        (player.getMainHandItem().getItem() instanceof Hardened_Refined_Netherite_Sword) |
-                        (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Sword) |
-                        (player.getMainHandItem().getItem() == Items.NETHERITE_AXE) |
-                        (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Axe) |
-                        (player.getMainHandItem().getItem() == Items.NETHERITE_HOE) |
-                        (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Hoe) |
-                        (player.getMainHandItem().getItem() == Items.NETHERITE_SHOVEL) |
-                        (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Shovel) |
-                        (player.getMainHandItem().getItem() == Items.NETHERITE_PICKAXE) |
-                        (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Pickaxe))
-                {
-                    event.setAmount(event.getAmount() * 1.2f);
-                }
-            }
-            //Hardened Refined netherite armor
-            if (player.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof Hardened_Refined_Netherite_Helmet
-                    & player.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Hardened_Refined_Netherite_Chestplate
-                    & player.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Hardened_Refined_Netherite_Leggings
-                    & player.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Hardened_Refined_Netherite_Boots)
-            {
-                if ((player.getMainHandItem().getItem() == Items.NETHERITE_SWORD) |
-                        (player.getMainHandItem().getItem() instanceof Hardened_Refined_Netherite_Sword) |
-                        (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Sword) |
-                        (player.getMainHandItem().getItem() == Items.NETHERITE_AXE) |
-                        (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Axe) |
-                        (player.getMainHandItem().getItem() == Items.NETHERITE_HOE) |
-                        (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Hoe) |
-                        (player.getMainHandItem().getItem() == Items.NETHERITE_SHOVEL) |
-                        (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Shovel) |
-                        (player.getMainHandItem().getItem() == Items.NETHERITE_PICKAXE) |
-                        (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Pickaxe))
-                {
-                    event.setAmount(event.getAmount() * 1.4f);
-                }
-            }
+
 
             ArmorStandEntity dmgTag = new ArmorStandEntity(worldIn, event.getEntity().position().x + (0.5f - Math.random()), event.getEntity().position().y + 0.5 + (0.5f - Math.random()), event.getEntity().position().z + (0.5f - Math.random()));
             //dmgTag.forceAddEffect(new EffectInstance(Effects.INVISIBILITY, 1000, 1));
@@ -254,36 +285,66 @@ public class EventHandler {
         if (event.getEntity() instanceof PlayerEntity)
         {
             PlayerEntity target = (PlayerEntity) event.getEntity();
-            float EHP = (target.getMaxHealth() * 5) * ((PlayerStats.getDefense() / 100) + 1);
-            Item head = target.getItemBySlot(EquipmentSlotType.HEAD).getItem();
-            Item chest = target.getItemBySlot(EquipmentSlotType.CHEST).getItem();
-            Item legs = target.getItemBySlot(EquipmentSlotType.LEGS).getItem();
-            Item boot = target.getItemBySlot(EquipmentSlotType.FEET).getItem();
-            if (((head == Items.NETHERITE_HELMET) &
-                    (chest == Items.NETHERITE_CHESTPLATE) &
-                    (legs == Items.NETHERITE_LEGGINGS) &
-                    (boot == Items.NETHERITE_BOOTS)) |
-                    ((head == Items.DIAMOND_HELMET) &
-                    (chest == Items.DIAMOND_CHESTPLATE) &
-                    (legs == Items.DIAMOND_LEGGINGS) &
-                    (boot == Items.DIAMOND_BOOTS)) |
-                    ((head == Items.GOLDEN_HELMET) &
-                    (chest == Items.GOLDEN_CHESTPLATE) &
-                    (legs == Items.GOLDEN_LEGGINGS) &
-                    (boot == Items.GOLDEN_BOOTS)) |
-                    ((head == Items.IRON_HELMET) &
-                    (chest == Items.IRON_CHESTPLATE) &
-                    (legs == Items.IRON_LEGGINGS) &
-                    (boot == Items.IRON_BOOTS)) |
-                    ((head == Items.LEATHER_HELMET) &
-                    (chest == Items.LEATHER_CHESTPLATE) &
-                    (legs == Items.LEATHER_LEGGINGS) &
-                    (boot == Items.LEATHER_BOOTS)))
-            {
+            if (event.getSource() == DamageSource.FALL) {
+                ArmorStandEntity dmgTag = new ArmorStandEntity(worldIn, event.getEntity().position().x + (0.5f - Math.random()), event.getEntity().position().y + 0.5 + (0.5f - Math.random()), event.getEntity().position().z + (0.5f - Math.random()));
+                //dmgTag.forceAddEffect(new EffectInstance(Effects.INVISIBILITY, 1000, 1));
+                dmgTag.setCustomName(ITextComponent.nullToEmpty(ColorText.YELLOW.toString() + Math.round(initialDamage * 100)));
+                dmgTag.setCustomNameVisible(true);
+                dmgTag.setInvulnerable(true);
+                dmgTag.noPhysics = true;
+                dmgTag.setInvisible(true);
+                worldIn.addFreshEntity(dmgTag);
+                if (PlayerStats.debugLogging) {
+                    Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("initialDamage: " + event.getAmount()), false);
+                }
+                if (PlayerStats.debugLogging) {
+                    Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("calc: " + "(1 - (event.getAmount() - (" + PlayerStats.getDefense() + " / (" + PlayerStats.getDefense() + " + 20f))))"), false);
+                }
+                if (PlayerStats.debugLogging) {
+                    Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("calc: " + (1 - (event.getAmount() - (PlayerStats.getDefense() / (PlayerStats.getDefense() + 20f))))), false);
+                }
+                if (PlayerStats.debugLogging) {
+                    Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("defense: " + PlayerStats.getDefense()), false);
+                }
+                if (PlayerStats.debugLogging) {
+                    Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("damageTaken : " + event.getAmount()), false);
+                }
+                float fallDamageMultiplier = 0f;
+
+                if (target.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof Refined_Netherite_Helmet) {
+                    fallDamageMultiplier += 0.25f;
+                }
+                if (target.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Refined_Netherite_Chestplate) {
+                    fallDamageMultiplier += 0.25f;
+                }
+                if (target.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Refined_Netherite_Leggings) {
+                    fallDamageMultiplier += 0.25f;
+                }
+                if (target.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Refined_Netherite_Boots) {
+                    fallDamageMultiplier += 0.25f;
+                }
+
+                if (target.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof Hardened_Refined_Netherite_Helmet) {
+                    fallDamageMultiplier += 0.5f;
+                }
+                if (target.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Hardened_Refined_Netherite_Chestplate) {
+                    fallDamageMultiplier += 0.5f;
+                }
+                if (target.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Hardened_Refined_Netherite_Leggings) {
+                    fallDamageMultiplier += 0.5f;
+                }
+                if (target.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Hardened_Refined_Netherite_Boots) {
+                    fallDamageMultiplier += 0.5f;
+                }
+
+                event.setAmount(event.getAmount() + event.getAmount() * fallDamageMultiplier);
+                ClientUtils.SendPrivateMessage("fallMultiplier: " + fallDamageMultiplier);
+                ClientUtils.SendPrivateMessage("final: " + event.getAmount());
+
+            } else if (event.getSource().isBypassArmor()) {
                 event.setAmount(event.getAmount());
-            }
-            else
-            {
+
+            }else{
                 ArmorStandEntity dmgTag = new ArmorStandEntity(worldIn, event.getEntity().position().x + (0.5f - Math.random()), event.getEntity().position().y + 0.5 + (0.5f - Math.random()), event.getEntity().position().z + (0.5f - Math.random()));
                 //dmgTag.forceAddEffect(new EffectInstance(Effects.INVISIBILITY, 1000, 1));
                 dmgTag.setCustomName(ITextComponent.nullToEmpty(ColorText.YELLOW.toString() + Math.round(initialDamage * 100)));
@@ -293,12 +354,16 @@ public class EventHandler {
                 dmgTag.setInvisible(true);
                 worldIn.addFreshEntity(dmgTag);
                 if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("initialDamage: " + event.getAmount()), false);}
-                event.setAmount(((event.getAmount() / EHP) * target.getMaxHealth()) * 4);
+                if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("calc: " + "(1 - (event.getAmount() - (" + PlayerStats.getDefense() + " / (" + PlayerStats.getDefense() + " + 20f))))"), false);}
+                if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("calc: " + (1 - (event.getAmount() - (PlayerStats.getDefense() / (PlayerStats.getDefense() + 20f))))), false);}
+                event.setAmount(event.getAmount() * (1 - (PlayerStats.getDefense() / (PlayerStats.getDefense() + 20f))));
                 if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("defense: " + PlayerStats.getDefense()), false);}
-                if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("ehp: " + EHP), false);}
-                if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("targetMaxHealth: " + target.getMaxHealth()), false);}
                 if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("damageTaken : " + event.getAmount()), false);}
             }
+            //float EHP = (target.getMaxHealth() * 5) * ((PlayerStats.getDefense() / 100) + 1);
+
+
+
         }
         if (!(event.getEntityLiving() instanceof PlayerEntity))
         {
@@ -853,7 +918,7 @@ public class EventHandler {
 
             if (player.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof ArmorItem) { ArmorItem feet = (ArmorItem) player.getItemBySlot(EquipmentSlotType.FEET).getItem();feetDefense = feet.getDefense(); }else { feetDefense = 0; }
 
-            PlayerStats.setDefense((headDefense + chestDefense + legsDefense + feetDefense) / 5);
+            PlayerStats.setDefense(headDefense + chestDefense + legsDefense + feetDefense);
 
 
             //Armor abilities

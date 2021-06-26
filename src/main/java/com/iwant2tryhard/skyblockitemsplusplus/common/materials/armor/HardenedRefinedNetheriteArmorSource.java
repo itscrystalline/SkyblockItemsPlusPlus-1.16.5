@@ -10,7 +10,7 @@ import net.minecraft.util.SoundEvents;
 public class HardenedRefinedNetheriteArmorSource implements IArmorMaterial {
     private static final int[] baseDurability = {1220, 1776, 1664, 1442};
     private final int durabilityMultiplier = 1;
-    private final int[] baseDefense = {14, 40, 28, 14};
+    private final int[] baseDefense = {135, 360, 270, 135};
 
     @Override
     public int getDurabilityForSlot(EquipmentSlotType slotType) {

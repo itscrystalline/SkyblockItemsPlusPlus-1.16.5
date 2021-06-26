@@ -2,10 +2,8 @@ package com.iwant2tryhard.skyblockitemsplusplus.common.items.items.swords;
 
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ColorText;
 import com.iwant2tryhard.skyblockitemsplusplus.common.entities.PlayerStats;
-import com.iwant2tryhard.skyblockitemsplusplus.core.init.EnchantmentInit;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
@@ -50,7 +48,7 @@ public class Aspect_Of_The_End extends SwordItem {
     public ActionResult<ItemStack> use(World worldIn, PlayerEntity player, Hand hand) {
         if (PlayerStats.isEnoughMana(manaUsage, player))
         {
-            int foodLevel = PlayerStats.calcManaUsage(manaUsage, player);
+            int foodLevel = PlayerStats.calcManaUsage(manaUsage);
             player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - foodLevel);
 
             Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("\u00A73" + "Used " + "\u00A76" + "Instant Transmission! " + "\u00A73" + "(" + (foodLevel * 5) + " Mana)"), false);

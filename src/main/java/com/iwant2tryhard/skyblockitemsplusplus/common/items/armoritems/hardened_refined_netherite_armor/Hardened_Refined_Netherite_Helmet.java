@@ -20,13 +20,20 @@ public class Hardened_Refined_Netherite_Helmet extends ArmorItem {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        tooltip.add(new StringTextComponent("\u00A77" + "Defense: " + ColorText.GREEN + "+70"));
+        tooltip.add(new StringTextComponent("\u00A77" + "Defense: " + ColorText.GREEN + "+675"));
         tooltip.add(new StringTextComponent(""));
         tooltip.add(new StringTextComponent(ColorText.GOLD + "Full Set Bonus: Power of The Netherite"));
         tooltip.add(new StringTextComponent(ColorText.GRAY + "Gain a " + ColorText.RED + " +40% Boost " + ColorText.GRAY + "on ALL netherite items in your inventory."));
         tooltip.add(new StringTextComponent(""));
+        tooltip.add(new StringTextComponent(ColorText.GOLD + "Piece Bonus: Heavy"));
+        tooltip.add(new StringTextComponent(ColorText.GRAY + "Fall damage is added by " + ColorText.BLUE + "+50%" + ColorText.GRAY + " per piece; Max: " + ColorText.BLUE + "+200%"));
+        tooltip.add(new StringTextComponent(""));
         tooltip.add(new StringTextComponent("\u00A77" + "This item can be reforged!"));
         tooltip.add(new StringTextComponent(ColorText.RED + "\u00A7l" +"SUPREME HELMET"));
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
+    }
+    @Override
+    public boolean isFoil(ItemStack p_77636_1_) {
+        return true;
     }
 }

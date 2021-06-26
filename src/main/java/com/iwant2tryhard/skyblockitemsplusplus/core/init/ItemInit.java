@@ -18,6 +18,8 @@ import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.refined_n
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.refined_netherite_armor.Refined_Netherite_Helmet;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.refined_netherite_armor.Refined_Netherite_Leggings;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.accessories.campfirebadge.*;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.accessories.farmingtalisman.Farming_Talisman;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.accessories.vaccinetalisman.Vaccine_Talisman;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.axes.Netherite_Plated_Diamond_Axe;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.hoes.Netherite_Plated_Diamond_Hoe;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.pickaxes.Netherite_Plated_Diamond_Pickaxe;
@@ -33,6 +35,7 @@ import com.iwant2tryhard.skyblockitemsplusplus.common.materials.items.NetheriteP
 import com.iwant2tryhard.skyblockitemsplusplus.common.materials.tools.swords.*;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
+import net.minecraft.item.Rarity;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -156,7 +159,7 @@ public class ItemInit {
             () -> new Hardened_Refined_Netherite_Helmet(new HardenedRefinedNetheriteArmorSource(), EquipmentSlotType.HEAD, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Armors).fireResistant()));
     public static final RegistryObject<Hardened_Refined_Netherite_Chestplate> HARDENED_REFINED_NETHERITE_CHESTPLATE = ITEMS.register("hardened_refined_netherite_chestplate",
             () -> new Hardened_Refined_Netherite_Chestplate(new HardenedRefinedNetheriteArmorSource(), EquipmentSlotType.CHEST, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Armors).fireResistant()));
-    public static final RegistryObject<Hardened_Refined_Netherite_Leggings> HARDENED_HARDENED_REFINED_NETHERITE_LEGGINGS = ITEMS.register("hardened_refined_netherite_leggings",
+    public static final RegistryObject<Hardened_Refined_Netherite_Leggings> HARDENED_REFINED_NETHERITE_LEGGINGS = ITEMS.register("hardened_refined_netherite_leggings",
             () -> new Hardened_Refined_Netherite_Leggings(new HardenedRefinedNetheriteArmorSource(), EquipmentSlotType.LEGS, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Armors).fireResistant()));
     public static final RegistryObject<Hardened_Refined_Netherite_Boots> HARDENED_REFINED_NETHERITE_BOOTS = ITEMS.register("hardened_refined_netherite_boots",
             () -> new Hardened_Refined_Netherite_Boots(new HardenedRefinedNetheriteArmorSource(), EquipmentSlotType.FEET, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Armors).fireResistant()));
@@ -164,13 +167,23 @@ public class ItemInit {
     //Accessories
         //active
     public static final RegistryObject<Campfire_Initiate_Badge> CAMPFIRE_INITIATE_BADGE = ITEMS.register("campfire_initiate_badge",
-            () -> new Campfire_Initiate_Badge(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Accessories).stacksTo(1)));
+            () -> new Campfire_Initiate_Badge(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Accessories).stacksTo(1),
+                    0, 0, 0, 0, 0));
     public static final RegistryObject<Campfire_Adapt_Badge> CAMPFIRE_ADAPT_BADGE = ITEMS.register("campfire_adapt_badge",
-            () -> new Campfire_Adapt_Badge(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Accessories).stacksTo(1)));
+            () -> new Campfire_Adapt_Badge(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Accessories).stacksTo(1),
+                    0, 0, 0, 0, 0));
     public static final RegistryObject<Campfire_Scion_Badge> CAMPFIRE_SCION_BADGE = ITEMS.register("campfire_scion_badge",
-            () -> new Campfire_Scion_Badge(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Accessories).stacksTo(1)));
+            () -> new Campfire_Scion_Badge(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Accessories).stacksTo(1),
+                    0, 0, 0, 0, 0));
     public static final RegistryObject<Campfire_God_Badge> CAMPFIRE_GOD_BADGE = ITEMS.register("campfire_god_badge",
-            () -> new Campfire_God_Badge(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Accessories).stacksTo(1)));
+            () -> new Campfire_God_Badge(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Accessories).stacksTo(1),
+                    0, 0, 0, 0, 0));
+    public static final RegistryObject<Farming_Talisman> FARMING_TALISMAN = ITEMS.register("farming_talisman",
+            () -> new Farming_Talisman(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Accessories).stacksTo(1),
+                    0, 0, 0, 0, 0, 10));
+    public static final RegistryObject<Vaccine_Talisman> VACCINE_TALISMAN = ITEMS.register("vaccine_talisman",
+            () -> new Vaccine_Talisman(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Accessories).stacksTo(1),
+                    0, 0, 0, 0, 0));
 
         //inactive
     public static final RegistryObject<Inactive_Campfire_Initiate_Badge> INACTIVE_CAMPFIRE_INITIATE_BADGE = ITEMS.register("inactive_campfire_initiate_badge",

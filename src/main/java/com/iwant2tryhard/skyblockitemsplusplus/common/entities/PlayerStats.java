@@ -3,9 +3,7 @@ package com.iwant2tryhard.skyblockitemsplusplus.common.entities;
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ClientUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraftforge.event.entity.living.LivingEvent;
 
 public class PlayerStats {
     private static int manaReductionPercent = 0;
@@ -66,11 +64,11 @@ public class PlayerStats {
         }
         else
         {*/
-            return (strengthPercent / 100) * (actualSrcDamage / (targetEHP + (targetMaxHealth * 5)) * targetMaxHealth);
+            return (strengthPercent / 100f) * (actualSrcDamage / (targetEHP + (targetMaxHealth * 5)) * targetMaxHealth);
         //}
     }
 
-    public static int calcManaUsage(float manaUsage, PlayerEntity player)
+    public static int calcManaUsage(float manaUsage)
     {
         int returnValue = Math.round((manaUsage * (1f - (manaReductionPercent / 100f)) * (1f - (ultWiseLvl * 0.1f))));
 
@@ -85,7 +83,7 @@ public class PlayerStats {
     }
     public static boolean isEnoughMana(float manaUsage, PlayerEntity player)
     {
-        return player.getFoodData().getFoodLevel() - PlayerStats.calcManaUsage(manaUsage, player) >= 0f;
+        return player.getFoodData().getFoodLevel() - PlayerStats.calcManaUsage(manaUsage) >= 0f;
     }
 
     public static float getLifeStealDamageMultiplier(float armorDamageReductionPercent)
