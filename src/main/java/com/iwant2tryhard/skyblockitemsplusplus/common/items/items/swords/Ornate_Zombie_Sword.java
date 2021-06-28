@@ -2,7 +2,7 @@ package com.iwant2tryhard.skyblockitemsplusplus.common.items.items.swords;
 
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ClientUtils;
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ColorText;
-import com.iwant2tryhard.skyblockitemsplusplus.common.entities.PlayerStats;
+import com.iwant2tryhard.skyblockitemsplusplus.common.entities.other.PlayerStats;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;

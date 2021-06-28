@@ -1,0 +1,10 @@
+{
+    "replace": false,
+    "values": [
+      "skyblockitemsplusplus:refined_netherite_block",
+      "skyblockitemsplusplus:refined_diamond_block",
+      "skyblockitemsplusplus:refined_emerald_block",
+      "skyblockitemsplusplus:refined_gold_block",
+      "skyblockitemsplusplus:refined_iron_block"
+    ]
+}

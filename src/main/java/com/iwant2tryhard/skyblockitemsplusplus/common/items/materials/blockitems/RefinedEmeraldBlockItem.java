@@ -1,6 +1,8 @@
-package com.iwant2tryhard.skyblockitemsplusplus.common.items.materials.items;
+package com.iwant2tryhard.skyblockitemsplusplus.common.items.materials.blockitems;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
@@ -10,9 +12,9 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ConcentratedRefinedMithril extends Item {
-    public ConcentratedRefinedMithril(Properties properties) {
-        super(properties);
+public class RefinedEmeraldBlockItem extends BlockItem {
+    public RefinedEmeraldBlockItem(Block block, Item.Properties properties) {
+        super(block, properties);
     }
 
     @Override

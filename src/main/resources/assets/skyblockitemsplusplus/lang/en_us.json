@@ -1,6 +1,7 @@
 {
     "item.skyblockitemsplusplus.refined_netherite_ingot": "\u00A76Refined Netherite Ingot",
     "item.skyblockitemsplusplus.refined_diamond": "\u00A7aRefined Diamond",
+    "item.skyblockitemsplusplus.refined_emerald": "\u00A7aRefined Emerald",
     "item.skyblockitemsplusplus.refined_gold_ingot": "\u00A7aRefined Gold Ingot",
     "item.skyblockitemsplusplus.refined_iron_ingot": "\u00A7aRefined Iron Ingot",
     "item.skyblockitemsplusplus.refined_coal": "\u00A7aRefined Coal",
@@ -13,6 +14,7 @@
     "item.skyblockitemsplusplus.refined_rotten_flesh": "Refined Rotten Flesh",
     "item.skyblockitemsplusplus.refined_ink_sack": "\u00A7aRefined Ink Sack",
     "item.skyblockitemsplusplus.refined_ghast_tear": "\u00A7aRefined Ghast Tear",
+    "item.skyblockitemsplusplus.eye_of_the_dragons": "\u00A75Eye Of The Dragons",
 
     "item.skyblockitemsplusplus.campfire_initiate_badge": "\u00A7aCampfire Initiate Badge",
     "item.skyblockitemsplusplus.campfire_adapt_badge": "\u00A79Campfire Adapt Badge",
@@ -68,6 +70,7 @@
 
     "block.skyblockitemsplusplus.refined_netherite_block": "\u00A7cRefined Block of Netherite",
     "block.skyblockitemsplusplus.refined_diamond_block": "\u00A79Refined Block of Diamond",
+    "block.skyblockitemsplusplus.refined_emerald_block": "\u00A79Refined Block of Emerald",
     "block.skyblockitemsplusplus.refined_gold_block": "\u00A79Refined Block of Gold",
     "block.skyblockitemsplusplus.refined_iron_block": "\u00A79Refined Block of Iron",
     "block.skyblockitemsplusplus.refined_coal_block": "\u00a79Refined Block of Coal",
@@ -89,5 +92,7 @@
     "enchantment.skyblockitemsplusplus.telekinesis": "Telekinesis",
     "enchantment.skyblockitemsplusplus.one_for_all": "\u00A7d\u00A7lOne For All",
     "enchantment.skyblockitemsplusplus.ultimate_wise": "\u00A7d\u00A7lUltimate Wise",
-    "enchantment.skyblockitemsplusplus.life_steal": "Life Steal"
+    "enchantment.skyblockitemsplusplus.life_steal": "Life Steal",
+
+    "entity.skyblockitemsplusplus.zealot": "Zealot"
 }

@@ -1,7 +1,6 @@
 package com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.farm_suit;
 
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ColorText;
-import com.iwant2tryhard.skyblockitemsplusplus.common.entities.PlayerStats;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ArmorItem;

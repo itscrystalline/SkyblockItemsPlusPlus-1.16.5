@@ -50,6 +50,8 @@ public class ItemInit {
             () -> new RefinedNetheriteIngot(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Materials)));
     public static final RegistryObject<RefinedDiamond> REFINED_DIAMOND = ITEMS.register("refined_diamond",
             () -> new RefinedDiamond(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Materials)));
+    public static final RegistryObject<RefinedCoal> REFINED_EMERALD = ITEMS.register("refined_emerald",
+            () -> new RefinedCoal(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Materials)));
     public static final RegistryObject<RefinedGoldIngot> REFINED_GOLD_INGOT = ITEMS.register("refined_gold_ingot",
             () -> new RefinedGoldIngot(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Materials)));
     public static final RegistryObject<RefinedIronIngot> REFINED_IRON_INGOT = ITEMS.register("refined_iron_ingot",
@@ -68,13 +70,15 @@ public class ItemInit {
     public static final RegistryObject<RefinedTitanium> REFINED_TITANIUM = ITEMS.register("refined_titanium",
             () -> new RefinedTitanium(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Materials)));
     public static final RegistryObject<RefinedEnderpearl> REFINED_ENDER_PEARL = ITEMS.register("refined_ender_pearl",
-            () -> new RefinedEnderpearl(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Materials)));
+            () -> new RefinedEnderpearl(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Materials).stacksTo(16)));
     public static final RegistryObject<RefinedRottenFlesh> REFINED_ROTTEN_FLESH = ITEMS.register("refined_rotten_flesh",
             () -> new RefinedRottenFlesh(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Materials)));
     public static final RegistryObject<RefinedInkSack> REFINED_INK_SACK = ITEMS.register("refined_ink_sack",
             () -> new RefinedInkSack(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Materials)));
     public static final RegistryObject<RefinedGhastTear> REFINED_GHAST_TEAR = ITEMS.register("refined_ghast_tear",
             () -> new RefinedGhastTear(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Materials)));
+    public static final RegistryObject<EyeOfTheDragons> EYE_OF_THE_DRAGONS = ITEMS.register("eye_of_the_dragons",
+            () -> new EyeOfTheDragons(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Materials).stacksTo(1)));
 
     //swords
     public static final RegistryObject<Aspect_Of_The_Jerry> ASPECT_OF_THE_JERRY = ITEMS.register("aspect_of_the_jerry",
@@ -202,6 +206,8 @@ public class ItemInit {
             () -> new RefinedNetheriteBlockItem(BlockInit.REFINED_NETHERITE_BLOCK.get(), new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Materials)));
     public static final RegistryObject<RefinedDiamondBlockItem> REFINED_DIAMOND_BLOCK = ITEMS.register("refined_diamond_block",
             () -> new RefinedDiamondBlockItem(BlockInit.REFINED_DIAMOND_BLOCK.get(), new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Materials)));
+    public static final RegistryObject<RefinedEmeraldBlockItem> REFINED_EMERALD_BLOCK = ITEMS.register("refined_emerald_block",
+            () -> new RefinedEmeraldBlockItem(BlockInit.REFINED_EMERALD_BLOCK.get(), new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Materials)));
     public static final RegistryObject<RefinedGoldBlockItem> REFINED_GOLD_BLOCK = ITEMS.register("refined_gold_block",
             () -> new RefinedGoldBlockItem(BlockInit.REFINED_GOLD_BLOCK.get(), new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Materials)));
     public static final RegistryObject<RefinedIronBlockItem> REFINED_IRON_BLOCK = ITEMS.register("refined_iron_block",

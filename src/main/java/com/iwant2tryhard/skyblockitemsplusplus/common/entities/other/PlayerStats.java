@@ -1,4 +1,4 @@
-package com.iwant2tryhard.skyblockitemsplusplus.common.entities;
+package com.iwant2tryhard.skyblockitemsplusplus.common.entities.other;
 
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ClientUtils;
 import net.minecraft.client.Minecraft;

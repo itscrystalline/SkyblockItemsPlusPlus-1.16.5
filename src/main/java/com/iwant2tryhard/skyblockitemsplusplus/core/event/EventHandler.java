@@ -3,8 +3,9 @@ package com.iwant2tryhard.skyblockitemsplusplus.core.event;
 import com.iwant2tryhard.skyblockitemsplusplus.SkyblockItemsPlusPlus;
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ClientUtils;
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ColorText;
-import com.iwant2tryhard.skyblockitemsplusplus.common.entities.MobStats;
-import com.iwant2tryhard.skyblockitemsplusplus.common.entities.PlayerStats;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.materials.items.EyeOfTheDragons;
+import com.iwant2tryhard.skyblockitemsplusplus.core.enums.MobStats;
+import com.iwant2tryhard.skyblockitemsplusplus.common.entities.other.PlayerStats;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.farm_suit.Farm_Suit_Boots;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.farm_suit.Farm_Suit_Chestplate;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.farm_suit.Farm_Suit_Helmet;
@@ -33,7 +34,6 @@ import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonPartEntity;
 import net.minecraft.entity.item.ArmorStandEntity;
-import net.minecraft.entity.item.ItemFrameEntity;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.monster.*;
 import net.minecraft.entity.passive.IronGolemEntity;
@@ -53,8 +53,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
@@ -955,7 +957,7 @@ public class EventHandler {
     @SubscribeEvent
     public static void playerInteractEntity(final PlayerInteractEvent.EntityInteract event)
     {
-        if (!(event.getTarget() instanceof ItemFrameEntity))
+        if (event.getTarget() instanceof LivingEntity)
         {
             PlayerEntity player = event.getPlayer();
             LivingEntity target = event.getTarget() instanceof EnderDragonPartEntity ? ((EnderDragonPartEntity) event.getTarget()).getParent() : (LivingEntity) event.getTarget();
@@ -1017,6 +1019,17 @@ public class EventHandler {
             }
         }*/
 
+    }
+
+    @SubscribeEvent
+    public static void OnReciveEOTD(final PlayerEvent.ItemPickupEvent event)
+    {
+        ClientUtils.SendPrivateMessage("received item:" + event.getStack().getItem().getRegistryName());
+        if (event.getStack().getItem() == ItemInit.EYE_OF_THE_DRAGONS.get())
+        {
+            ClientUtils.SendPrivateMessage(ColorText.AQUA + "\uD83D\uDD25 " + ColorText.GOLD + event.getPlayer().getGameProfile().getName() + ColorText.AQUA + " has obtained " + ColorText.DARK_PURPLE + "Eye of the Dragons" + ColorText.AQUA + "!");
+            event.getOriginalEntity().level.playSound(event.getPlayer(), event.getPlayer(), SoundEvents.WITHER_SPAWN, SoundCategory.NEUTRAL, 1.0f, 1.0f);
+        }
     }
 
 }

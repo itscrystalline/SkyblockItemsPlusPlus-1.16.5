@@ -1,5 +1,6 @@
 package com.iwant2tryhard.skyblockitemsplusplus.common.items.materials.items;
 
+import com.iwant2tryhard.skyblockitemsplusplus.client.util.ColorText;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -10,15 +11,15 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ConcentratedRefinedMithril extends Item {
-    public ConcentratedRefinedMithril(Properties properties) {
+public class EyeOfTheDragons extends Item{
+    public EyeOfTheDragons(Item.Properties properties) {
         super(properties);
     }
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new StringTextComponent("\u00A79" + "\u00A7l" + "RARE"));
+        tooltip.add(new StringTextComponent(ColorText.DARK_PURPLE + "\u00A7l" + "EPIC"));
     }
 
     @Override

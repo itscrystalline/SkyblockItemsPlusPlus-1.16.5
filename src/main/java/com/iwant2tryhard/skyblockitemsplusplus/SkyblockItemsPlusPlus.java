@@ -1,11 +1,13 @@
 package com.iwant2tryhard.skyblockitemsplusplus;
 
 import com.iwant2tryhard.skyblockitemsplusplus.client.gui.ElectricCraftingTableScreen;
+import com.iwant2tryhard.skyblockitemsplusplus.common.entities.ZealotEntity;
 import com.iwant2tryhard.skyblockitemsplusplus.core.init.*;
 import com.iwant2tryhard.skyblockitemsplusplus.world.OreGeneration;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.gui.ScreenManager;
+import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
@@ -13,6 +15,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -48,6 +51,7 @@ public class SkyblockItemsPlusPlus
         ItemInit.ITEMS.register(bus);
         TileEntityTypeInit.TILE_ENTITY_TYPES.register(bus);
         ContainerInit.CONTAINER_TYPES.register(bus);
+        EntityTypeInit.ENTITY_TYPES.register(bus);
 
         MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH, OreGeneration::generateOres);
         MinecraftForge.EVENT_BUS.register(this);
@@ -56,6 +60,9 @@ public class SkyblockItemsPlusPlus
     private void setup(final FMLCommonSetupEvent event)
     {
         //ScreenManager.register(ContainerInit.ELECTRIC_CRFATING_TABLE.get(), ElectricCraftingTableScreen::new);
+        DeferredWorkQueue.runLater(() -> {
+            GlobalEntityTypeAttributes.put(EntityTypeInit.ZEALOT.get(), ZealotEntity.setAttributes().build());
+        });
     }
 
     public static class SkyblockItemsCombat extends ItemGroup

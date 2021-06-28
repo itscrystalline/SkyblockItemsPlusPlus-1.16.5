@@ -33,6 +33,13 @@ public class BlockInit {
                     .harvestLevel(3)
                     .sound(SoundType.METAL)
                     .requiresCorrectToolForDrops()));
+    public static final RegistryObject<Block> REFINED_EMERALD_BLOCK = BLOCKS.register("refined_emerald_block",
+            () -> new Block(AbstractBlock.Properties.of(Material.METAL, MaterialColor.EMERALD)
+                    .strength(7f, 10f)
+                    .harvestTool(ToolType.PICKAXE)
+                    .harvestLevel(2)
+                    .sound(SoundType.STONE)
+                    .requiresCorrectToolForDrops()));
     public static final RegistryObject<Block> REFINED_GOLD_BLOCK = BLOCKS.register("refined_gold_block",
             () -> new Block(AbstractBlock.Properties.of(Material.METAL, MaterialColor.GOLD)
                     .strength(5f, 10f)
