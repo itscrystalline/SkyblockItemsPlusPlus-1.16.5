@@ -19,6 +19,8 @@ public class ZealotEntityModel<T extends ZealotEntity> extends EntityModel<T> {
 	private final ModelRenderer ArmsRight;
 	private final ModelRenderer Head;
 
+	public boolean creepy;
+
 	public ZealotEntityModel() {
 		texWidth = 64;
 		texHeight = 64;
@@ -65,7 +67,75 @@ public class ZealotEntityModel<T extends ZealotEntity> extends EntityModel<T> {
 
 	@Override
 	public void setupAnim(T t, float v, float v1, float v2, float v3, float v4) {
+		//super.setupAnim(t, v, v1, v2, v3, v4);
+		/*this.Head.visible = true;
+		float lvt_7_1_ = -14.0F;
+		this.Body.xRot = 0.0F;
+		this.Body.y = -14.0F;
+		this.Body.z = -0.0F;
+		ModelRenderer var10000 = this.LegsRight;
+		var10000.xRot -= 0.0F;
+		var10000 = this.LegsLeft;
+		var10000.xRot -= 0.0F;
+		var10000 = this.ArmsRight;
+		var10000.xRot = (float)((double)var10000.xRot * 0.5D);
+		var10000 = this.ArmsLeft;
+		var10000.xRot = (float)((double)var10000.xRot * 0.5D);
+		var10000 = this.LegsRight;
+		var10000.xRot = (float)((double)var10000.xRot * 0.5D);
+		var10000 = this.LegsLeft;
+		var10000.xRot = (float)((double)var10000.xRot * 0.5D);
+		float lvt_8_1_ = 0.4F;
+		if (this.ArmsRight.xRot > 0.4F) {
+			this.ArmsRight.xRot = 0.4F;
+		}
 
+		if (this.ArmsLeft.xRot > 0.4F) {
+			this.ArmsLeft.xRot = 0.4F;
+		}
+
+		if (this.ArmsRight.xRot < -0.4F) {
+			this.ArmsRight.xRot = -0.4F;
+		}
+
+		if (this.ArmsLeft.xRot < -0.4F) {
+			this.ArmsLeft.xRot = -0.4F;
+		}
+
+		if (this.LegsRight.xRot > 0.4F) {
+			this.LegsRight.xRot = 0.4F;
+		}
+
+		if (this.LegsLeft.xRot > 0.4F) {
+			this.LegsLeft.xRot = 0.4F;
+		}
+
+		if (this.LegsRight.xRot < -0.4F) {
+			this.LegsRight.xRot = -0.4F;
+		}
+
+		if (this.LegsLeft.xRot < -0.4F) {
+			this.LegsLeft.xRot = -0.4F;
+		}
+
+		this.ArmsRight.z = 0.0F;
+		this.ArmsLeft.z = 0.0F;
+		this.LegsRight.z = 0.0F;
+		this.LegsLeft.z = 0.0F;
+		this.LegsRight.y = -5.0F;
+		this.LegsLeft.y = -5.0F;
+		this.Head.z = -0.0F;
+		this.Head.y = -13.0F;
+		float lvt_9_2_;
+		if (this.creepy) {
+			lvt_9_2_ = 1.0F;
+			var10000 = this.Head;
+			var10000.y -= 5.0F;
+		}
+
+		lvt_9_2_ = -14.0F;
+		this.ArmsRight.setPos(-5.0F, -12.0F, 0.0F);
+		this.ArmsLeft.setPos(5.0F, -12.0F, 0.0F);*/
 	}
 
 	@Override

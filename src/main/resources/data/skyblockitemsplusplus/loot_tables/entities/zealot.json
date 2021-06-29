@@ -6,29 +6,6 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "skyblockitemsplusplus:eye_of_the_dragons",
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": 1,
-              "conditions": [
-                {
-                  "condition": "minecraft:random_chance_with_looting",
-                  "chance": 0.000005,
-                  "looting_multiplier": 2
-                }
-              ]
-            }
-          ],
-          "conditions": [
-            {
-              "condition": "minecraft:killed_by_player",
-              "inverse": false
-            }
-          ]
-        },
-        {
-          "type": "minecraft:item",
           "name": "minecraft:ender_eye",
           "functions": [
             {

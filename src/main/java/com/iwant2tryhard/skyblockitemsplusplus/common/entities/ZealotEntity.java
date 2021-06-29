@@ -89,9 +89,10 @@ public class ZealotEntity extends MonsterEntity implements IAngerable {
 
     public static AttributeModifierMap.MutableAttribute setAttributes() {
         return MonsterEntity.createLivingAttributes()
-                .add(Attributes.MAX_HEALTH, 40.0D)
+                .add(Attributes.MAX_HEALTH, 60.0D)
                 .add(Attributes.MOVEMENT_SPEED, 0.35000001192092896D)
-                .add(Attributes.ATTACK_DAMAGE, 7.0D)
+                .add(Attributes.ATTACK_DAMAGE, 30.0D)
+                .add(Attributes.ATTACK_KNOCKBACK, 1.0D)
                 .add(Attributes.FOLLOW_RANGE, 64.0D);
     }
 
@@ -198,7 +199,6 @@ public class ZealotEntity extends MonsterEntity implements IAngerable {
         return 2.55F;
     }
 
-    //TODO: Fix attacking crashing client
     public void aiStep() {
         if (this.level.isClientSide) {
             for(int i = 0; i < 2; ++i) {
@@ -357,44 +357,6 @@ public class ZealotEntity extends MonsterEntity implements IAngerable {
         PERSISTENT_ANGER_TIME = TickRangeConverter.rangeOfSeconds(20, 39);
     }
 
-    static class TakeBlockGoal extends Goal {
-        private final ZealotEntity zealot;
-
-        public TakeBlockGoal(ZealotEntity p_i45841_1_) {
-            this.zealot = p_i45841_1_;
-        }
-
-        public boolean canUse() {
-            if (this.zealot.getCarriedBlock() != null) {
-                return false;
-            } else if (!ForgeEventFactory.getMobGriefingEvent(this.zealot.level, this.zealot)) {
-                return false;
-            } else {
-                return this.zealot.getRandom().nextInt(20) == 0;
-            }
-        }
-
-        public void tick() {
-            Random random = this.zealot.getRandom();
-            World world = this.zealot.level;
-            int i = MathHelper.floor(this.zealot.getX() - 2.0D + random.nextDouble() * 4.0D);
-            int j = MathHelper.floor(this.zealot.getY() + random.nextDouble() * 3.0D);
-            int k = MathHelper.floor(this.zealot.getZ() - 2.0D + random.nextDouble() * 4.0D);
-            BlockPos blockpos = new BlockPos(i, j, k);
-            BlockState blockstate = world.getBlockState(blockpos);
-            Block block = blockstate.getBlock();
-            Vector3d vector3d = new Vector3d((double)MathHelper.floor(this.zealot.getX()) + 0.5D, (double)j + 0.5D, (double)MathHelper.floor(this.zealot.getZ()) + 0.5D);
-            Vector3d vector3d1 = new Vector3d((double)i + 0.5D, (double)j + 0.5D, (double)k + 0.5D);
-            BlockRayTraceResult blockraytraceresult = world.clip(new RayTraceContext(vector3d, vector3d1, RayTraceContext.BlockMode.OUTLINE, RayTraceContext.FluidMode.NONE, this.zealot));
-            boolean flag = blockraytraceresult.getBlockPos().equals(blockpos);
-            if (block.is(BlockTags.ENDERMAN_HOLDABLE) && flag) {
-                world.removeBlock(blockpos, false);
-                this.zealot.setCarriedBlock(blockstate.getBlock().defaultBlockState());
-            }
-
-        }
-    }
-
     static class StareGoal extends Goal {
         private final ZealotEntity zealot;
         private LivingEntity target;
@@ -420,49 +382,6 @@ public class ZealotEntity extends MonsterEntity implements IAngerable {
 
         public void tick() {
             this.zealot.getLookControl().setLookAt(this.target.getX(), this.target.getEyeY(), this.target.getZ());
-        }
-    }
-
-    static class PlaceBlockGoal extends Goal {
-        private final ZealotEntity zealot;
-
-        public PlaceBlockGoal(ZealotEntity p_i45843_1_) {
-            this.zealot = p_i45843_1_;
-        }
-
-        public boolean canUse() {
-            if (this.zealot.getCarriedBlock() == null) {
-                return false;
-            } else if (!ForgeEventFactory.getMobGriefingEvent(this.zealot.level, this.zealot)) {
-                return false;
-            } else {
-                return this.zealot.getRandom().nextInt(2000) == 0;
-            }
-        }
-
-        public void tick() {
-            Random random = this.zealot.getRandom();
-            World world = this.zealot.level;
-            int i = MathHelper.floor(this.zealot.getX() - 1.0D + random.nextDouble() * 2.0D);
-            int j = MathHelper.floor(this.zealot.getY() + random.nextDouble() * 2.0D);
-            int k = MathHelper.floor(this.zealot.getZ() - 1.0D + random.nextDouble() * 2.0D);
-            BlockPos blockpos = new BlockPos(i, j, k);
-            BlockState blockstate = world.getBlockState(blockpos);
-            BlockPos blockpos1 = blockpos.below();
-            BlockState blockstate1 = world.getBlockState(blockpos1);
-            BlockState blockstate2 = this.zealot.getCarriedBlock();
-            if (blockstate2 != null) {
-                blockstate2 = Block.updateFromNeighbourShapes(blockstate2, this.zealot.level, blockpos);
-                if (this.canPlaceBlock(world, blockpos, blockstate2, blockstate, blockstate1, blockpos1) && !ForgeEventFactory.onBlockPlace(this.zealot, BlockSnapshot.create(world.dimension(), world, blockpos1), Direction.UP)) {
-                    world.setBlock(blockpos, blockstate2, 3);
-                    this.zealot.setCarriedBlock((BlockState)null);
-                }
-            }
-
-        }
-
-        private boolean canPlaceBlock(World p_220836_1_, BlockPos p_220836_2_, BlockState p_220836_3_, BlockState p_220836_4_, BlockState p_220836_5_, BlockPos p_220836_6_) {
-            return p_220836_4_.isAir(p_220836_1_, p_220836_2_) && !p_220836_5_.isAir(p_220836_1_, p_220836_6_) && !p_220836_5_.is(Blocks.BEDROCK) && !p_220836_5_.is(Tags.Blocks.ENDERMAN_PLACE_ON_BLACKLIST) && p_220836_5_.isCollisionShapeFullBlock(p_220836_1_, p_220836_6_) && p_220836_3_.canSurvive(p_220836_1_, p_220836_2_) && p_220836_1_.getEntities(this.zealot, AxisAlignedBB.unitCubeFromLowerCorner(Vector3d.atLowerCornerOf(p_220836_2_))).isEmpty();
         }
     }
 

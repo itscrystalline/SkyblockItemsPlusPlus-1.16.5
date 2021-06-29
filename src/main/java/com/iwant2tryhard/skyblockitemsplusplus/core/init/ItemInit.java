@@ -110,6 +110,8 @@ public class ItemInit {
             () -> new Ink_Wand(new InkWandSource(), 130, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat)));
     public static final RegistryObject<Silver_Fang> SILVER_FANG = ITEMS.register("silver_fang",
             () -> new Silver_Fang(new SilverFangSource(), 100, -2.2f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat)));
+    public static final RegistryObject<Emerald_Blade> EMERALD_BLADE = ITEMS.register("emerald_blade",
+            () -> new Emerald_Blade(new EmeraldBladeSource(), 130, -2.8f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat)));
 
     //pickaxes
     public static final RegistryObject<Netherite_Plated_Diamond_Pickaxe> NETHERITE_PLATED_DIAMOND_PICKAXE = ITEMS.register("netherite_plated_diamond_pickaxe",

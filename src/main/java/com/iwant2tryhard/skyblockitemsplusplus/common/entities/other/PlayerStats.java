@@ -11,6 +11,7 @@ public class PlayerStats {
     private static int defense = 0;
     public static boolean debugLogging = false;
     private static int ultWiseLvl = 0;
+    private static int coins = 0;
 
     public static int getManaReductionPercent() {
         return manaReductionPercent;
@@ -53,19 +54,21 @@ public class PlayerStats {
         PlayerStats.ultWiseLvl = ultWiseLvl;
     }
 
-    public static float damageEntity(float srcDamage, float targetDefense, float targetMaxHealth, boolean hasOFA)
+    public static int getCoins() {
+        return coins;
+    }
+    public static void setCoins(int coins) {
+        PlayerStats.coins = coins;
+    }
+
+    public static float damageEntity(float srcDamage, float targetDefense, float targetMaxHealth, boolean hasOFA, boolean hasEmeraldBlade)
     {
         float actualSrcDamage;
         actualSrcDamage = hasOFA ? srcDamage + 20 : srcDamage;
+        actualSrcDamage += hasEmeraldBlade ? calcEmeraldBladeBoost() : 0f;
         float targetEHP = targetDefense * 10;
-        /*if (isCrit)
-        {
-            return 1.25f * (strengthPercent / 100) * (srcDamage / (targetEHP + (targetMaxHealth * 5)) * targetMaxHealth);
-        }
-        else
-        {*/
-            return (strengthPercent / 100f) * (actualSrcDamage / (targetEHP + (targetMaxHealth * 5)) * targetMaxHealth);
-        //}
+        return (strengthPercent / 100f) * (actualSrcDamage / (targetEHP + (targetMaxHealth * 5)) * targetMaxHealth);
+
     }
 
     public static int calcManaUsage(float manaUsage)
@@ -97,6 +100,11 @@ public class PlayerStats {
         return fullRoundedPercent >= 50f ?
                 ((50f - (fullRoundedPercent - 50f)) + 50) / 100 :
                 ((50f - fullRoundedPercent) + 100) / 100;
+    }
+
+    public static int calcEmeraldBladeBoost()
+    {
+        return (int) Math.round(2.5D * Math.sqrt(Math.sqrt(coins)));
     }
 
 }
