@@ -25,11 +25,14 @@ import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.pickaxes.Nethe
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.shovels.Netherite_Plated_Diamond_Shovel;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.swords.*;
 import com.iwant2tryhard.skyblockitemsplusplus.core.init.EnchantmentInit;
+import com.iwant2tryhard.skyblockitemsplusplus.core.init.EntityTypeInit;
 import com.iwant2tryhard.skyblockitemsplusplus.core.init.ItemInit;
 import net.minecraft.block.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.AreaEffectCloudEntity;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
@@ -54,18 +57,25 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.Dimension;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.MobSpawnInfo;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.eventbus.api.Event;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
 import javax.swing.text.html.parser.Entity;
+import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 @EventBusSubscriber(modid = SkyblockItemsPlusPlus.MOD_ID, bus = EventBusSubscriber.Bus.FORGE)
@@ -1048,7 +1058,7 @@ public class EventHandler {
         if (event.getEntityLiving() instanceof ZealotEntity && event.getSource().getEntity() instanceof PlayerEntity)
         {
             World world = event.getEntityLiving().level;
-            int rnd = MathHelper.nextInt(new Random(), 1, 200);
+            int rnd = MathHelper.nextInt(new Random(), 1, 250);
             if (rnd == 50)
             {
                 ItemEntity eotd = new ItemEntity(world, event.getEntityLiving().position().x, event.getEntityLiving().position().y, event.getEntityLiving().position().z);
@@ -1059,19 +1069,31 @@ public class EventHandler {
         }
     }
 
-    //TODO: Fix spawn
-    @SubscribeEvent
-    public static void OnSpawnEnderman(final LivingSpawnEvent event)
+    /*@SubscribeEvent
+    public static void OnTickEnderman(final LivingEvent.LivingUpdateEvent event)
     {
-        if (event.getEntityLiving() instanceof EndermanEntity && event.getWorld().dimensionType().equals(Dimension.END))
+        if (event.getEntityLiving() instanceof EndermanEntity && event.getEntityLiving().level.dimensionType().equals(Dimension.END))
         {
-            int rnd = MathHelper.nextInt(new Random(), 1, 10);
-            if (rnd == 5)
+            int rnd = MathHelper.nextInt(new Random(), 1, 10000);
+            if (rnd == 100)
             {
-                ZealotEntity zealot = new ZealotEntity((World) event.getWorld());
-                zealot.setPos(event.getEntity().getX(), event.getEntity().getY(), event.getEntity().getZ());
-                event.getWorld().addFreshEntity(zealot);
+                ZealotEntity zealot = new ZealotEntity(event.getEntityLiving().level);
+                zealot.setPos(event.getEntityLiving().getX(), event.getEntityLiving().getY(), event.getEntityLiving().getZ());
+                zealot.changeDimension()
+                event.getEntityLiving().level.addFreshEntity()
+                event.getEntityLiving().kill();
             }
+        }
+    }*/
+
+    @SubscribeEvent(priority = EventPriority.HIGH)
+    public static void onBiomeLoadingEvent(BiomeLoadingEvent event) {
+        if (event.getCategory().equals(Biome.Category.THEEND))
+        {
+            List<MobSpawnInfo.Spawners> spawns =
+                    event.getSpawns().getSpawner(EntityClassification.MONSTER);
+
+            spawns.add(new MobSpawnInfo.Spawners(EntityTypeInit.ZEALOT.get(), 5, 1, 3));
         }
     }
 
