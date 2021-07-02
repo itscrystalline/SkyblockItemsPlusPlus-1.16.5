@@ -1,5 +1,6 @@
 package com.iwant2tryhard.skyblockitemsplusplus.common.items.materials.items;
 
+import com.iwant2tryhard.skyblockitemsplusplus.common.util.CustomRarity;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -11,14 +12,16 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class ConcentratedRefinedMithril extends Item {
-    public ConcentratedRefinedMithril(Properties properties) {
+    private final CustomRarity rarity;
+    public ConcentratedRefinedMithril(Properties properties, CustomRarity rarity) {
         super(properties);
+        this.rarity = rarity;
     }
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new StringTextComponent("\u00A79" + "\u00A7l" + "RARE"));
+        tooltip.add(new StringTextComponent(rarity.toString()));
     }
 
     @Override

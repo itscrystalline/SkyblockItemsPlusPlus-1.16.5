@@ -4,6 +4,10 @@ import com.iwant2tryhard.skyblockitemsplusplus.SkyblockItemsPlusPlus;
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ClientUtils;
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ColorText;
 import com.iwant2tryhard.skyblockitemsplusplus.common.entities.ZealotEntity;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.mushroom_armor.Mushroom_Boots;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.mushroom_armor.Mushroom_Chestplate;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.mushroom_armor.Mushroom_Helmet;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.mushroom_armor.Mushroom_Leggings;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.materials.items.EyeOfTheDragons;
 import com.iwant2tryhard.skyblockitemsplusplus.core.enums.MobStats;
 import com.iwant2tryhard.skyblockitemsplusplus.common.entities.other.PlayerStats;
@@ -34,6 +38,8 @@ import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonPartEntity;
@@ -77,6 +83,7 @@ import javax.swing.text.html.parser.Entity;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+import java.util.UUID;
 
 @EventBusSubscriber(modid = SkyblockItemsPlusPlus.MOD_ID, bus = EventBusSubscriber.Bus.FORGE)
 public class EventHandler {
@@ -284,6 +291,18 @@ public class EventHandler {
                 }
                 
             }
+
+            if (player.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof Mushroom_Helmet
+                    & player.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Mushroom_Chestplate
+                    & player.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Mushroom_Leggings
+                    & player.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Mushroom_Boots)
+            {
+                if (player.level.getTimeOfDay(1f) > 13000 | player.level.getTimeOfDay(1f) < 1000)
+                {
+                    event.setAmount(event.getAmount() / 3f);
+                }
+            }
+
             if (player.getMainHandItem().getItem() instanceof Flame_Sword)
             {
                 target.setSecondsOnFire(3);
@@ -427,8 +446,7 @@ public class EventHandler {
     @SubscribeEvent
     public static void playerUpdate(final LivingEvent.LivingUpdateEvent event)
     {
-        if (event.getEntityLiving() instanceof PlayerEntity)
-        {
+        if (event.getEntityLiving() instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) event.getEntityLiving();
 
             //S02PacketChat packet = new S02PacketChat(new ChatComponentText(message), Byte.parseByte("2"));
@@ -441,70 +459,73 @@ public class EventHandler {
             } else {
                 PlayerStats.setManaReductionPercent(player.experienceLevel);
             }
-            if (EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ULTIMATE_WISE.get(), player.getOffhandItem()) > 0)
-            {
+            if (EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ULTIMATE_WISE.get(), player.getOffhandItem()) > 0) {
                 PlayerStats.setUltWiseLvl(EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ULTIMATE_WISE.get(), player.getOffhandItem()));
-            }else if (EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ULTIMATE_WISE.get(), player.getMainHandItem()) > 0)
-            {
+            } else if (EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ULTIMATE_WISE.get(), player.getMainHandItem()) > 0) {
                 PlayerStats.setUltWiseLvl(EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ULTIMATE_WISE.get(), player.getMainHandItem()));
-            }else
-            {
+            } else {
                 PlayerStats.setUltWiseLvl(0);
             }
 
             //emeralds to coins
             PlayerStats.setCoins((player.inventory.countItem(Items.EMERALD) * 6) + (player.inventory.countItem(Items.EMERALD_BLOCK) * 54) + (player.inventory.countItem(ItemInit.REFINED_EMERALD.get()) * 960) + (player.inventory.countItem(ItemInit.REFINED_EMERALD_BLOCK.get()) * 8640));
 
-            if (player.getMainHandItem().getItem() instanceof Aspect_Of_The_End || player.getOffhandItem().getItem() instanceof Aspect_Of_The_End)
-            {
+            if (player.getMainHandItem().getItem() instanceof Aspect_Of_The_End || player.getOffhandItem().getItem() instanceof Aspect_Of_The_End) {
                 PlayerStats.addStrength(100);
             }
-            if (player.getMainHandItem().getItem() instanceof Flame_Sword || player.getOffhandItem().getItem() instanceof Flame_Sword)
-            {
+            if (player.getMainHandItem().getItem() instanceof Flame_Sword || player.getOffhandItem().getItem() instanceof Flame_Sword) {
                 PlayerStats.addStrength(20);
             }
-            if (player.getMainHandItem().getItem() instanceof Zombie_Sword || player.getOffhandItem().getItem() instanceof Zombie_Sword)
-            {
+            if (player.getMainHandItem().getItem() instanceof Zombie_Sword || player.getOffhandItem().getItem() instanceof Zombie_Sword) {
                 PlayerStats.addStrength(50);
-                if (player.experienceLevel > 65)
-                { PlayerStats.setManaReductionPercent(90); }
-                else
-                { PlayerStats.addManaReductionPercent(25); }
+                if (player.experienceLevel > 65) {
+                    PlayerStats.setManaReductionPercent(90);
+                } else {
+                    PlayerStats.addManaReductionPercent(25);
+                }
             }
-            if (player.getMainHandItem().getItem() instanceof Ornate_Zombie_Sword || player.getOffhandItem().getItem() instanceof Ornate_Zombie_Sword)
-            {
+            if (player.getMainHandItem().getItem() instanceof Ornate_Zombie_Sword || player.getOffhandItem().getItem() instanceof Ornate_Zombie_Sword) {
                 PlayerStats.addStrength(60);
-                if (player.experienceLevel > 65)
-                { PlayerStats.setManaReductionPercent(90); }
-                else
-                { PlayerStats.addManaReductionPercent(25); }
+                if (player.experienceLevel > 65) {
+                    PlayerStats.setManaReductionPercent(90);
+                } else {
+                    PlayerStats.addManaReductionPercent(25);
+                }
             }
-            if (player.getMainHandItem().getItem() instanceof Florid_Zombie_Sword || player.getOffhandItem().getItem() instanceof Florid_Zombie_Sword)
-            {
+            if (player.getMainHandItem().getItem() instanceof Florid_Zombie_Sword || player.getOffhandItem().getItem() instanceof Florid_Zombie_Sword) {
                 PlayerStats.addStrength(80);
-                if (player.experienceLevel > 40)
-                { PlayerStats.setManaReductionPercent(90); }
-                else
-                { PlayerStats.addManaReductionPercent(50); }
+                if (player.experienceLevel > 40) {
+                    PlayerStats.setManaReductionPercent(90);
+                } else {
+                    PlayerStats.addManaReductionPercent(50);
+                }
             }
-            if (player.getMainHandItem().getItem() instanceof Hunter_Knife || player.getOffhandItem().getItem() instanceof Hunter_Knife)
-            {
+            if (player.getMainHandItem().getItem() instanceof Hunter_Knife || player.getOffhandItem().getItem() instanceof Hunter_Knife) {
                 player.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, 20, 0));
             }
-            if (player.getMainHandItem().getItem() instanceof Ink_Wand || player.getOffhandItem().getItem() instanceof Ink_Wand)
-            {
+            if (player.getMainHandItem().getItem() instanceof Ink_Wand || player.getOffhandItem().getItem() instanceof Ink_Wand) {
                 PlayerStats.addStrength(90);
             }
 
             if (player.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Refined_Netherite_Leggings
-                    & player.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Refined_Netherite_Boots)
-            {
+                    & player.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Refined_Netherite_Boots) {
                 player.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 20, 0));
             }
-            if (player.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Hardened_Refined_Netherite_Boots)
-            {
+            if (player.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Hardened_Refined_Netherite_Boots) {
                 player.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 20, 0));
             }
+
+            if (player.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Mushroom_Chestplate
+                    & player.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Mushroom_Leggings) {
+                player.addEffect(new EffectInstance(Effects.HEALTH_BOOST, 20, 1));
+            } else if (player.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Mushroom_Chestplate) {
+                player.addEffect(new EffectInstance(Effects.HEALTH_BOOST, 20, 0));
+            } else if (player.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Mushroom_Leggings) {
+                player.addEffect(new EffectInstance(Effects.HEALTH_BOOST, 20, 0));
+            }
+
+
+
 
 
             //Accessory abilities
@@ -971,6 +992,16 @@ public class EventHandler {
                 }
             }
 
+            if (player.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof Mushroom_Helmet
+                    & player.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Mushroom_Chestplate
+                    & player.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Mushroom_Leggings
+                    & player.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Mushroom_Boots)
+            {
+                if (player.level.getTimeOfDay(1f) > 13000 | player.level.getTimeOfDay(1f) < 1000)
+                {
+                    player.addEffect(new EffectInstance(Effects.NIGHT_VISION, 20, 0));
+                }
+            }
 
         }
     }

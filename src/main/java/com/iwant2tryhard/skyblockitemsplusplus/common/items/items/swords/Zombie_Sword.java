@@ -2,6 +2,7 @@ package com.iwant2tryhard.skyblockitemsplusplus.common.items.items.swords;
 
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ColorText;
 import com.iwant2tryhard.skyblockitemsplusplus.common.entities.other.PlayerStats;
+import com.iwant2tryhard.skyblockitemsplusplus.common.util.CustomRarity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
@@ -23,10 +24,12 @@ public class Zombie_Sword extends SwordItem {
     private static int timesSinceDelay = 0;
     private static final float manaUsage = 14f;
     private static final float displayManaUsage = 70f;
+    private final CustomRarity rarity;
     //private static String oneForAllText = ColorText.LIGHT_PURPLE.toString() + "(+20)";
     //boolean hasOneForAll = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ONE_FOR_ALL.get(), this.asItem().getDefaultInstance()) > 0;
-    public Zombie_Sword(IItemTier itemTier, int damage, float attackSpeed, Properties properties) {
+    public Zombie_Sword(IItemTier itemTier, int damage, float attackSpeed, Properties properties, CustomRarity rarity) {
         super(itemTier, damage, attackSpeed, properties);
+        this.rarity = rarity;
     }
 
     @Override
@@ -43,7 +46,7 @@ public class Zombie_Sword extends SwordItem {
         tooltip.add(new StringTextComponent(ColorText.GRAY + "Charges: " + ColorText.YELLOW + "4  " + ColorText.GRAY + "/ " + ColorText.GREEN + "15s"));
         tooltip.add(new StringTextComponent(""));
         tooltip.add(new StringTextComponent("\u00A77" + "This item can be reforged!"));
-        tooltip.add(new StringTextComponent(ColorText.BLUE + "\u00A7l" +"RARE SWORD"));
+        tooltip.add(new StringTextComponent(rarity + "SWORD"));
     }
 
     @Override

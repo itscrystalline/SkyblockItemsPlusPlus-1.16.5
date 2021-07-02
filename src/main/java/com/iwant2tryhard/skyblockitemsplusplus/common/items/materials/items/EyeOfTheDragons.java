@@ -1,6 +1,7 @@
 package com.iwant2tryhard.skyblockitemsplusplus.common.items.materials.items;
 
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ColorText;
+import com.iwant2tryhard.skyblockitemsplusplus.common.util.CustomRarity;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -12,14 +13,16 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class EyeOfTheDragons extends Item{
-    public EyeOfTheDragons(Item.Properties properties) {
+    private final CustomRarity rarity;
+    public EyeOfTheDragons(Properties properties, CustomRarity rarity) {
         super(properties);
+        this.rarity = rarity;
     }
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        tooltip.add(new StringTextComponent(ColorText.DARK_PURPLE + "\u00A7l" + "EPIC"));
+        tooltip.add(new StringTextComponent(rarity.toString()));
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.iwant2tryhard.skyblockitemsplusplus.common.items.items.swords;
 
 import com.iwant2tryhard.skyblockitemsplusplus.common.entities.other.PlayerStats;
+import com.iwant2tryhard.skyblockitemsplusplus.common.util.CustomRarity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
@@ -23,10 +24,12 @@ import java.util.List;
 public class Rogue_Sword extends SwordItem {
     private static final float manaUsage = 10f;
     private static final float displayManaUsage = 50f;
+    private final CustomRarity rarity;
     //private static String oneForAllText = ColorText.LIGHT_PURPLE.toString() + "(+20)";
     //boolean hasOneForAll = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ONE_FOR_ALL.get(), this.asItem().getDefaultInstance()) > 0;
-    public Rogue_Sword(IItemTier itemTier, int damage, float attackSpeed, Properties properties) {
+    public Rogue_Sword(IItemTier itemTier, int damage, float attackSpeed, Properties properties, CustomRarity rarity) {
         super(itemTier, damage, attackSpeed, properties);
+        this.rarity = rarity;
     }
 
     @Override
@@ -40,7 +43,7 @@ public class Rogue_Sword extends SwordItem {
         tooltip.add(new StringTextComponent("\u00A77" + "Mana Cost: " + "\u00A7b" + "50" + "\u00A77" + " (Mana Reduction: -" + PlayerStats.getManaReductionPercent() + "\u00A77" + "%)"));
         tooltip.add(new StringTextComponent(""));
         tooltip.add(new StringTextComponent("\u00A77" + "This item can be reforged!"));
-        tooltip.add(new StringTextComponent("\u00A7l" +"COMMON SWORD"));
+        tooltip.add(new StringTextComponent(rarity + "SWORD"));
     }
 
     @Override

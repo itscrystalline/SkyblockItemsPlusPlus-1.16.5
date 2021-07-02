@@ -2,6 +2,7 @@ package com.iwant2tryhard.skyblockitemsplusplus.common.items.items.swords;
 
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ColorText;
 import com.iwant2tryhard.skyblockitemsplusplus.common.entities.other.PlayerStats;
+import com.iwant2tryhard.skyblockitemsplusplus.common.util.CustomRarity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
@@ -23,8 +24,11 @@ public class Aspect_Of_The_End extends SwordItem {
     private final float displayManaUsage = 50f/* * ((EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ULTIMATE_WISE.get(), this.asItem().getDefaultInstance()) * 10) / 100)*/;
     //private static String oneForAllText = ColorText.LIGHT_PURPLE.toString() + "(+20)";
     //boolean hasOneForAll = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ONE_FOR_ALL.get(), this.asItem().getDefaultInstance()) > 0;
-    public Aspect_Of_The_End(IItemTier itemTier, int damage, float attackSpeed, Properties properties) {
+    private final CustomRarity rarity;
+
+    public Aspect_Of_The_End(IItemTier itemTier, int damage, float attackSpeed, Properties properties, CustomRarity rarity) {
         super(itemTier, damage, attackSpeed, properties);
+        this.rarity = rarity;
     }
 
     @Override
@@ -40,7 +44,7 @@ public class Aspect_Of_The_End extends SwordItem {
         tooltip.add(new StringTextComponent(ColorText.GRAY + "for " + ColorText.GREEN + "3 seconds."));
         tooltip.add(new StringTextComponent(ColorText.GRAY + "Mana Cost: " + ColorText.AQUA + displayManaUsage + " " + ColorText.GRAY + "(Mana Reduction: -" + PlayerStats.getManaReductionPercent() + "%)"));
         tooltip.add(new StringTextComponent("\u00A77" + "This item can be reforged!"));
-        tooltip.add(new StringTextComponent(ColorText.BLUE + "\u00A7l" +"RARE SWORD"));
+        tooltip.add(new StringTextComponent(rarity + "SWORD"));
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
     }
 

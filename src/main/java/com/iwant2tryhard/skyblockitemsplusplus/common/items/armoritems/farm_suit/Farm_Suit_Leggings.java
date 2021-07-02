@@ -1,6 +1,7 @@
 package com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.farm_suit;
 
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ColorText;
+import com.iwant2tryhard.skyblockitemsplusplus.common.util.CustomRarity;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ArmorItem;
@@ -14,8 +15,10 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class Farm_Suit_Leggings extends ArmorItem {
-    public Farm_Suit_Leggings(IArmorMaterial armorMaterial, EquipmentSlotType slotType, Properties properties) {
+    private final CustomRarity rarity;
+    public Farm_Suit_Leggings(IArmorMaterial armorMaterial, EquipmentSlotType slotType, Properties properties, CustomRarity rarity) {
         super(armorMaterial, slotType, properties);
+        this.rarity = rarity;
     }
 
     @Override
@@ -26,7 +29,7 @@ public class Farm_Suit_Leggings extends ArmorItem {
         tooltip.add(new StringTextComponent(ColorText.GRAY + "Gain " + ColorText.WHITE + "Speed 3 " + ColorText.GRAY + "if over crops or farmland."));
         tooltip.add(new StringTextComponent(""));
         tooltip.add(new StringTextComponent("\u00A77" + "This item can be reforged!"));
-        tooltip.add(new StringTextComponent("\u00A7l" +"COMMON LEGGINGS"));
+        tooltip.add(new StringTextComponent(rarity + "LEGGINGS"));
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
     }
 }

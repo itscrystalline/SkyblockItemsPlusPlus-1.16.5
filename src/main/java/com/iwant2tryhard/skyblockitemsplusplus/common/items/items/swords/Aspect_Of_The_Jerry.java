@@ -1,6 +1,7 @@
 package com.iwant2tryhard.skyblockitemsplusplus.common.items.items.swords;
 
 import com.iwant2tryhard.skyblockitemsplusplus.common.entities.other.PlayerStats;
+import com.iwant2tryhard.skyblockitemsplusplus.common.util.CustomRarity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
@@ -18,8 +19,10 @@ import java.util.List;
 public class Aspect_Of_The_Jerry extends SwordItem {
     private static final float manaUsage = 10f;
     private static final float displayManaUsage = 50f;
-    public Aspect_Of_The_Jerry(IItemTier itemTier, int damage, float attackSpeed, Properties properties) {
+    private final CustomRarity rarity;
+    public Aspect_Of_The_Jerry(IItemTier itemTier, int damage, float attackSpeed, Properties properties, CustomRarity rarity) {
         super(itemTier, damage, attackSpeed, properties);
+        this.rarity = rarity;
     }
 
     @Override
@@ -31,7 +34,7 @@ public class Aspect_Of_The_Jerry extends SwordItem {
         tooltip.add(new StringTextComponent("\u00A77" + "Mana Cost: " + "\u00A7b" + "50"));
         tooltip.add(new StringTextComponent(""));
         tooltip.add(new StringTextComponent("\u00A77" + "This item can be reforged!"));
-        tooltip.add(new StringTextComponent("\u00A7l" +"COMMON SWORD"));
+        tooltip.add(new StringTextComponent(rarity + "SWORD"));
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
     }
 

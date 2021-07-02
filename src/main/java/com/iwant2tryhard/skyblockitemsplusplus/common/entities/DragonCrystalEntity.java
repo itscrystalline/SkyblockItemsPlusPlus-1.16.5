@@ -21,6 +21,7 @@ import net.minecraft.world.end.DragonFightManager;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
@@ -139,8 +140,9 @@ public class DragonCrystalEntity extends Entity {
         return super.shouldRenderAtSqrDistance(p_70112_1_) || this.getBeamTarget() != null;
     }
 
+    @Override
     public IPacket<?> getAddEntityPacket() {
-        return new SSpawnObjectPacket(this);
+        return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     static {

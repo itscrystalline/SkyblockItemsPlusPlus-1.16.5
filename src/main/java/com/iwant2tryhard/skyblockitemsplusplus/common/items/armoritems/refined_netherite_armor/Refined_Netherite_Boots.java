@@ -1,11 +1,11 @@
 package com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.refined_netherite_armor;
 
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ColorText;
+import com.iwant2tryhard.skyblockitemsplusplus.common.util.CustomRarity;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.IArmorMaterial;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -15,8 +15,10 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class Refined_Netherite_Boots extends ArmorItem {
-    public Refined_Netherite_Boots(IArmorMaterial armorMaterial, EquipmentSlotType slotType, Item.Properties properties) {
+    private final CustomRarity rarity;
+    public Refined_Netherite_Boots(IArmorMaterial armorMaterial, EquipmentSlotType slotType, Properties properties, CustomRarity rarity) {
         super(armorMaterial, slotType, properties);
+        this.rarity = rarity;
     }
 
     @Override
@@ -30,7 +32,7 @@ public class Refined_Netherite_Boots extends ArmorItem {
         tooltip.add(new StringTextComponent(ColorText.GRAY + "Fall damage is added by " + ColorText.BLUE + "+25%" + ColorText.GRAY + " per piece; Max: " + ColorText.BLUE + "+100%"));
         tooltip.add(new StringTextComponent(""));
         tooltip.add(new StringTextComponent("\u00A77" + "This item can be reforged!"));
-        tooltip.add(new StringTextComponent(ColorText.GOLD + "\u00A7l" + "LEGENDARY BOOTS"));
+        tooltip.add(new StringTextComponent(rarity + "BOOTS"));
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
     }
 
