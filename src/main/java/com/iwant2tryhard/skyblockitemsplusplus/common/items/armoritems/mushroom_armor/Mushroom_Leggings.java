@@ -4,6 +4,7 @@ import com.iwant2tryhard.skyblockitemsplusplus.client.util.ColorText;
 import com.iwant2tryhard.skyblockitemsplusplus.common.util.CustomRarity;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ArmorItem;
@@ -54,9 +55,14 @@ public class Mushroom_Leggings extends ArmorItem {
             {
                 if (player.level.getTimeOfDay(1f) > 13000 | player.level.getTimeOfDay(1f) < 1000)
                 {
-                    //AttributeModifier modifier = new AttributeModifier(UUID.fromString("5D6F0BA2-1186-46AC-B896-C61C5CEE99CC"), player.getItemBySlot(EquipmentSlotType.LEGS).getItem()::getDescriptionId, 2f, AttributeModifier.Operation.ADDITION);
-                    //player.getItemBySlot(EquipmentSlotType.LEGS).getItem().getAttributeModifiers(EquipmentSlotType.LEGS, player.getItemBySlot(EquipmentSlotType.LEGS)).put(Attributes.MAX_HEALTH, modifier);
+                    player.getAttribute(Attributes.MAX_HEALTH).setBaseValue(player.getAttribute(Attributes.MAX_HEALTH).getValue() + hp * statMultiplier);
+                }else
+                {
+                    player.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20f);
                 }
+            }else
+            {
+                player.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20f);
             }
 
             if (player.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof Mushroom_Helmet
@@ -67,6 +73,10 @@ public class Mushroom_Leggings extends ArmorItem {
                 if (player.level.getTimeOfDay(1f) > 13000 | player.level.getTimeOfDay(1f) < 1000)
                 {
                     statMultiplier = 3;
+                }
+                else
+                {
+                    statMultiplier = 1;
                 }
             }
         }

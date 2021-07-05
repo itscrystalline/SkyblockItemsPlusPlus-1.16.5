@@ -4,6 +4,7 @@ import com.iwant2tryhard.skyblockitemsplusplus.client.util.ColorText;
 import com.iwant2tryhard.skyblockitemsplusplus.common.util.CustomRarity;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
@@ -53,13 +54,18 @@ public class Mushroom_Chestplate extends ArmorItem {
         if (entityIn instanceof PlayerEntity)
         {
             PlayerEntity player = (PlayerEntity) entityIn;
-            if (player.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Mushroom_Leggings)
+            if (player.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Mushroom_Chestplate)
             {
                 if (player.level.getTimeOfDay(1f) > 13000 | player.level.getTimeOfDay(1f) < 1000)
                 {
-                    AttributeModifier modifier = new AttributeModifier(UUID.fromString("5D6F0BA2-1186-46AC-B896-C61C5CEE99CC"), player.getItemBySlot(EquipmentSlotType.CHEST).getItem()::getDescriptionId, 2f, AttributeModifier.Operation.ADDITION);
-                    player.getItemBySlot(EquipmentSlotType.CHEST).getItem().getAttributeModifiers(EquipmentSlotType.CHEST, player.getItemBySlot(EquipmentSlotType.CHEST)).put(Attributes.MAX_HEALTH, modifier);
+                    player.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20 + hp * statMultiplier);
+                }else
+                {
+                    player.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20f);
                 }
+            }else
+            {
+                player.getAttribute(Attributes.MAX_HEALTH).setBaseValue(20f);
             }
 
             if (player.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof Mushroom_Helmet

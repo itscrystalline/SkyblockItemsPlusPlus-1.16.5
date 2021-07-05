@@ -1,6 +1,7 @@
 package com.iwant2tryhard.skyblockitemsplusplus.common.items.items.accessories.main;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -51,7 +52,7 @@ public class AccessoryItem extends Item {
         {
             PlayerEntity player = (PlayerEntity) entityIn;
             player.setSpeed(((((player.getSpeed() / 0.699999988079071f) * 100f) + speedBoost) / 100f) * 0.699999988079071f);
-            //player.setHealth(player.getHealth)
+            player.getAttribute(Attributes.MAX_HEALTH).setBaseValue(player.getAttribute(Attributes.MAX_HEALTH).getValue() + healthBoost);
         }
     }
 }

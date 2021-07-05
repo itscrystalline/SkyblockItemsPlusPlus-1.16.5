@@ -3,6 +3,7 @@ package com.iwant2tryhard.skyblockitemsplusplus.core.event;
 import com.iwant2tryhard.skyblockitemsplusplus.SkyblockItemsPlusPlus;
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ClientUtils;
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ColorText;
+import com.iwant2tryhard.skyblockitemsplusplus.common.entities.PlayerSkills;
 import com.iwant2tryhard.skyblockitemsplusplus.common.entities.ZealotEntity;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.mushroom_armor.Mushroom_Boots;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.mushroom_armor.Mushroom_Chestplate;
@@ -308,7 +309,22 @@ public class EventHandler {
                 target.setSecondsOnFire(3);
             }
 
+            int headDefense;
+            int chestDefense;
+            int legsDefense;
+            int feetDefense;
 
+            if (target.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof ArmorItem) { ArmorItem head = (ArmorItem) target.getItemBySlot(EquipmentSlotType.HEAD).getItem();headDefense = head.getDefense(); }else { headDefense = 0; }
+
+            if (target.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof ArmorItem) { ArmorItem chest = (ArmorItem) target.getItemBySlot(EquipmentSlotType.CHEST).getItem();chestDefense = chest.getDefense(); }else { chestDefense = 0; }
+
+            if (target.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof ArmorItem) { ArmorItem legs = (ArmorItem) target.getItemBySlot(EquipmentSlotType.LEGS).getItem();legsDefense = legs.getDefense(); }else { legsDefense = 0; }
+
+            if (target.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof ArmorItem) { ArmorItem feet = (ArmorItem) target.getItemBySlot(EquipmentSlotType.FEET).getItem();feetDefense = feet.getDefense(); }else { feetDefense = 0; }
+
+            int totalDefense = headDefense + chestDefense + legsDefense + feetDefense;
+
+            event.setAmount(event.getAmount() * (1 - (totalDefense / (totalDefense + 20f))));
             ArmorStandEntity dmgTag = new ArmorStandEntity(worldIn, event.getEntity().position().x + (0.5f - Math.random()), event.getEntity().position().y + 0.5 + (0.5f - Math.random()), event.getEntity().position().z + (0.5f - Math.random()));
             //dmgTag.forceAddEffect(new EffectInstance(Effects.INVISIBILITY, 1000, 1));
             dmgTag.setCustomName(ITextComponent.nullToEmpty(ColorText.YELLOW.toString() + Math.round((initialDamage + (hasEmeraldBlade ? PlayerStats.calcEmeraldBladeBoost() : 0)) * 100)));
@@ -515,14 +531,14 @@ public class EventHandler {
                 player.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 20, 0));
             }
 
-            if (player.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Mushroom_Chestplate
+            /*if (player.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Mushroom_Chestplate
                     & player.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Mushroom_Leggings) {
                 player.addEffect(new EffectInstance(Effects.HEALTH_BOOST, 20, 1));
             } else if (player.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Mushroom_Chestplate) {
                 player.addEffect(new EffectInstance(Effects.HEALTH_BOOST, 20, 0));
             } else if (player.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Mushroom_Leggings) {
                 player.addEffect(new EffectInstance(Effects.HEALTH_BOOST, 20, 0));
-            }
+            }*/
 
 
 
@@ -1126,6 +1142,24 @@ public class EventHandler {
 
             spawns.add(new MobSpawnInfo.Spawners(EntityTypeInit.ZEALOT.get(), 5, 1, 3));
         }
+    }
+
+    @SubscribeEvent
+    public static void AwardStats(final LivingDeathEvent event)
+    {
+        if (event.getSource().getEntity() instanceof PlayerEntity)
+        {
+            PlayerSkills.AwardCombatXP(event.getEntityLiving().getExperienceReward((PlayerEntity) event.getSource().getEntity()));
+            ClientUtils.SendPrivateMessage("Combat XP: " + PlayerSkills.combatXp + "/" + ((Math.pow((PlayerSkills.combatLvl + 3), 2) - Math.pow((PlayerSkills.combatLvl + 1), 2)) * 10));
+            ClientUtils.SendPrivateMessage("Progress: " + Math.round(PlayerSkills.combatXp / ((Math.pow((PlayerSkills.combatLvl + 3), 2) - Math.pow((PlayerSkills.combatLvl + 1), 2)) * 10) * 100) + "%");
+            ClientUtils.SendPrivateMessage("Combat LVL: " + PlayerSkills.combatLvl);
+            //ClientUtils.SendPrivateMessage("calc: " + "(((" + PlayerSkills.combatLvl + " + 3) ^ 2) - ((" + PlayerSkills.combatLvl + " + 1) ^ 2))");
+        }
+    }
+    @SubscribeEvent
+    public static void AssignStats(final PlayerEvent.PlayerLoggedInEvent event)
+    {
+
     }
 
 }
