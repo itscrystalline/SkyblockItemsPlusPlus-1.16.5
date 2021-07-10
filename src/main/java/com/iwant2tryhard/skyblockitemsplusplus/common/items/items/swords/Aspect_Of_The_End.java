@@ -58,201 +58,207 @@ public class Aspect_Of_The_End extends SwordItem {
         {
             int foodLevel = PlayerStats.calcManaUsage(manaUsage);
 
-            if (worldIn.getBlockState(new BlockPos(player.position().x + player.getLookAngle().x * 8,
-                    player.position().y + player.getLookAngle().y * 8,
-                    player.position().z + player.getLookAngle().z * 8)).getBlock() instanceof AirBlock)
-            {
-                player.setPos(player.position().x + player.getLookAngle().x * 8,
-                        player.position().y + player.getLookAngle().y * 8,
-                        player.position().z + player.getLookAngle().z * 8);
-                player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - foodLevel);
-                Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("\u00A73" + "Used " + "\u00A76" + "Instant Transmission! " + "\u00A73" + "(" + (foodLevel * 5) + " Mana)"), false);
-            }
-            else if (worldIn.getBlockState(new BlockPos(player.position().x + player.getLookAngle().x * 8,
-                    player.position().y + player.getLookAngle().y * 8 + 1,
-                    player.position().z + player.getLookAngle().z * 8)).getBlock() instanceof AirBlock)
-            {
-                player.setPos(player.position().x + player.getLookAngle().x * 8,
-                        player.position().y + player.getLookAngle().y * 8 + 1,
-                        player.position().z + player.getLookAngle().z * 8);
-                ClientUtils.SendPrivateMessage(ColorText.RED + "There are blocks in the way!");
-                player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - foodLevel);
-                Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("\u00A73" + "Used " + "\u00A76" + "Instant Transmission! " + "\u00A73" + "(" + (foodLevel * 5) + " Mana)"), false);
-            }
+            int multiplier = 0;
+            int yAdder = 0;
+            boolean hitWall = false;
 
-
-            else if (worldIn.getBlockState(new BlockPos(player.position().x + player.getLookAngle().x * 7,
-                    player.position().y + player.getLookAngle().y * 7,
-                    player.position().z + player.getLookAngle().z * 7)).getBlock() instanceof AirBlock)
-            {
-                player.setPos(player.position().x + player.getLookAngle().x * 7,
-                        player.position().y + player.getLookAngle().y * 7,
-                        player.position().z + player.getLookAngle().z * 7);
-                ClientUtils.SendPrivateMessage(ColorText.RED + "There are blocks in the way!");
-                player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - foodLevel);
-                Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("\u00A73" + "Used " + "\u00A76" + "Instant Transmission! " + "\u00A73" + "(" + (foodLevel * 5) + " Mana)"), false);
-            }
-            else if (worldIn.getBlockState(new BlockPos(player.position().x + player.getLookAngle().x * 7,
-                    player.position().y + player.getLookAngle().y * 7 + 1,
-                    player.position().z + player.getLookAngle().z * 7)).getBlock() instanceof AirBlock)
-            {
-                player.setPos(player.position().x + player.getLookAngle().x * 7,
-                        player.position().y + player.getLookAngle().y * 7 + 1,
-                        player.position().z + player.getLookAngle().z * 7);
-                ClientUtils.SendPrivateMessage(ColorText.RED + "There are blocks in the way!");
-                player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - foodLevel);
-                Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("\u00A73" + "Used " + "\u00A76" + "Instant Transmission! " + "\u00A73" + "(" + (foodLevel * 5) + " Mana)"), false);
-            }
-
-
-            else if (worldIn.getBlockState(new BlockPos(player.position().x + player.getLookAngle().x * 6,
-                    player.position().y + player.getLookAngle().y * 6,
-                    player.position().z + player.getLookAngle().z * 6)).getBlock() instanceof AirBlock)
-            {
-                player.setPos(player.position().x + player.getLookAngle().x * 6,
-                        player.position().y + player.getLookAngle().y * 6,
-                        player.position().z + player.getLookAngle().z * 6);
-                ClientUtils.SendPrivateMessage(ColorText.RED + "There are blocks in the way!");
-                player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - foodLevel);
-                Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("\u00A73" + "Used " + "\u00A76" + "Instant Transmission! " + "\u00A73" + "(" + (foodLevel * 5) + " Mana)"), false);
-            }
-            else if (worldIn.getBlockState(new BlockPos(player.position().x + player.getLookAngle().x * 6,
-                    player.position().y + player.getLookAngle().y * 6 + 1,
-                    player.position().z + player.getLookAngle().z * 6)).getBlock() instanceof AirBlock)
-            {
-                player.setPos(player.position().x + player.getLookAngle().x * 6,
-                        player.position().y + player.getLookAngle().y * 6 + 1,
-                        player.position().z + player.getLookAngle().z * 6);
-                ClientUtils.SendPrivateMessage(ColorText.RED + "There are blocks in the way!");
-                player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - foodLevel);
-                Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("\u00A73" + "Used " + "\u00A76" + "Instant Transmission! " + "\u00A73" + "(" + (foodLevel * 5) + " Mana)"), false);
-            }
-
-
-            else if (worldIn.getBlockState(new BlockPos(player.position().x + player.getLookAngle().x * 5,
-                    player.position().y + player.getLookAngle().y * 5,
-                    player.position().z + player.getLookAngle().z * 5)).getBlock() instanceof AirBlock)
-            {
-                player.setPos(player.position().x + player.getLookAngle().x * 5,
-                        player.position().y + player.getLookAngle().y * 5,
-                        player.position().z + player.getLookAngle().z * 5);
-                ClientUtils.SendPrivateMessage(ColorText.RED + "There are blocks in the way!");
-                player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - foodLevel);
-                Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("\u00A73" + "Used " + "\u00A76" + "Instant Transmission! " + "\u00A73" + "(" + (foodLevel * 5) + " Mana)"), false);
-            }
-            else if (worldIn.getBlockState(new BlockPos(player.position().x + player.getLookAngle().x * 5,
-                    player.position().y + player.getLookAngle().y * 5 + 1,
-                    player.position().z + player.getLookAngle().z * 5)).getBlock() instanceof AirBlock)
-            {
-                player.setPos(player.position().x + player.getLookAngle().x * 5,
-                        player.position().y + player.getLookAngle().y * 5 + 1,
-                        player.position().z + player.getLookAngle().z * 5);
-                ClientUtils.SendPrivateMessage(ColorText.RED + "There are blocks in the way!");
-                player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - foodLevel);
-                Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("\u00A73" + "Used " + "\u00A76" + "Instant Transmission! " + "\u00A73" + "(" + (foodLevel * 5) + " Mana)"), false);
-            }
-
-
-            else if (worldIn.getBlockState(new BlockPos(player.position().x + player.getLookAngle().x * 4,
-                    player.position().y + player.getLookAngle().y * 4,
-                    player.position().z + player.getLookAngle().z * 4)).getBlock() instanceof AirBlock)
-            {
-                player.setPos(player.position().x + player.getLookAngle().x * 4,
-                        player.position().y + player.getLookAngle().y * 4,
-                        player.position().z + player.getLookAngle().z * 4);
-                ClientUtils.SendPrivateMessage(ColorText.RED + "There are blocks in the way!");
-                player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - foodLevel);
-                Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("\u00A73" + "Used " + "\u00A76" + "Instant Transmission! " + "\u00A73" + "(" + (foodLevel * 5) + " Mana)"), false);
-            }
-            else if (worldIn.getBlockState(new BlockPos(player.position().x + player.getLookAngle().x * 4,
-                    player.position().y + player.getLookAngle().y * 4 + 1,
-                    player.position().z + player.getLookAngle().z * 4)).getBlock() instanceof AirBlock)
-            {
-                player.setPos(player.position().x + player.getLookAngle().x * 4,
-                        player.position().y + player.getLookAngle().y * 4 + 1,
-                        player.position().z + player.getLookAngle().z * 4);
-                ClientUtils.SendPrivateMessage(ColorText.RED + "There are blocks in the way!");
-                player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - foodLevel);
-                Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("\u00A73" + "Used " + "\u00A76" + "Instant Transmission! " + "\u00A73" + "(" + (foodLevel * 5) + " Mana)"), false);
-            }
-
-
-            else if (worldIn.getBlockState(new BlockPos(player.position().x + player.getLookAngle().x * 3,
-                    player.position().y + player.getLookAngle().y * 3,
-                    player.position().z + player.getLookAngle().z * 3)).getBlock() instanceof AirBlock)
-            {
-                player.setPos(player.position().x + player.getLookAngle().x * 3,
-                        player.position().y + player.getLookAngle().y * 3,
-                        player.position().z + player.getLookAngle().z * 3);
-                ClientUtils.SendPrivateMessage(ColorText.RED + "There are blocks in the way!");
-                player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - foodLevel);
-                Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("\u00A73" + "Used " + "\u00A76" + "Instant Transmission! " + "\u00A73" + "(" + (foodLevel * 5) + " Mana)"), false);
-            }
-            else if (worldIn.getBlockState(new BlockPos(player.position().x + player.getLookAngle().x * 3,
-                    player.position().y + player.getLookAngle().y * 3 + 1,
-                    player.position().z + player.getLookAngle().z * 3)).getBlock() instanceof AirBlock)
-            {
-                player.setPos(player.position().x + player.getLookAngle().x * 3,
-                        player.position().y + player.getLookAngle().y * 3 + 1,
-                        player.position().z + player.getLookAngle().z * 3);
-                ClientUtils.SendPrivateMessage(ColorText.RED + "There are blocks in the way!");
-                player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - foodLevel);
-                Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("\u00A73" + "Used " + "\u00A76" + "Instant Transmission! " + "\u00A73" + "(" + (foodLevel * 5) + " Mana)"), false);
-            }
-
-
-            else if (worldIn.getBlockState(new BlockPos(player.position().x + player.getLookAngle().x * 2,
-                    player.position().y + player.getLookAngle().y * 2,
-                    player.position().z + player.getLookAngle().z * 2)).getBlock() instanceof AirBlock)
-            {
-                player.setPos(player.position().x + player.getLookAngle().x * 2,
-                        player.position().y + player.getLookAngle().y * 2,
-                        player.position().z + player.getLookAngle().z * 2);
-                ClientUtils.SendPrivateMessage(ColorText.RED + "There are blocks in the way!");
-                player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - foodLevel);
-                Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("\u00A73" + "Used " + "\u00A76" + "Instant Transmission! " + "\u00A73" + "(" + (foodLevel * 5) + " Mana)"), false);
-            }
-            else if (worldIn.getBlockState(new BlockPos(player.position().x + player.getLookAngle().x * 2,
-                    player.position().y + player.getLookAngle().y * 2 + 1,
-                    player.position().z + player.getLookAngle().z * 2)).getBlock() instanceof AirBlock)
-            {
-                player.setPos(player.position().x + player.getLookAngle().x * 2,
-                        player.position().y + player.getLookAngle().y * 2 + 1,
-                        player.position().z + player.getLookAngle().z * 2);
-                ClientUtils.SendPrivateMessage(ColorText.RED + "There are blocks in the way!");
-                player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - foodLevel);
-                Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("\u00A73" + "Used " + "\u00A76" + "Instant Transmission! " + "\u00A73" + "(" + (foodLevel * 5) + " Mana)"), false);
-            }
-
-
-            else if (worldIn.getBlockState(new BlockPos(player.position().x + player.getLookAngle().x,
+            if (worldIn.getBlockState(new BlockPos(player.position().x + player.getLookAngle().x,
                     player.position().y + player.getLookAngle().y,
-                    player.position().z + player.getLookAngle().z)).getBlock() instanceof AirBlock)
+                    player.position().z + player.getLookAngle().z)).getBlock() instanceof AirBlock
+            & !hitWall)
             {
-                player.setPos(player.position().x + player.getLookAngle().x,
-                        player.position().y + player.getLookAngle().y,
-                        player.position().z + player.getLookAngle().z);
-                ClientUtils.SendPrivateMessage(ColorText.RED + "There are blocks in the way!");
-                player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - foodLevel);
-                Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("\u00A73" + "Used " + "\u00A76" + "Instant Transmission! " + "\u00A73" + "(" + (foodLevel * 5) + " Mana)"), false);
+                multiplier = 1;
             }
-            else if (worldIn.getBlockState(new BlockPos(player.position().x + player.getLookAngle().x,
-                    player.position().y + player.getLookAngle().y + 1,
-                    player.position().z + player.getLookAngle().z)).getBlock() instanceof AirBlock)
-            {
-                player.setPos(player.position().x + player.getLookAngle().x,
-                        player.position().y + player.getLookAngle().y + 1,
-                        player.position().z + player.getLookAngle().z);
-                ClientUtils.SendPrivateMessage(ColorText.RED + "There are blocks in the way!");
-                player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - foodLevel);
-                Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("\u00A73" + "Used " + "\u00A76" + "Instant Transmission! " + "\u00A73" + "(" + (foodLevel * 5) + " Mana)"), false);
-            }
-
-
             else
             {
+                if (worldIn.getBlockState(new BlockPos(player.position().x + player.getLookAngle().x,
+                        player.position().y + player.getLookAngle().y + 1,
+                        player.position().z + player.getLookAngle().z)).getBlock() instanceof AirBlock
+                        & !hitWall)
+                {
+                    multiplier = 1;
+                    yAdder = 1;
+                } else {
+                    yAdder = 0;
+                }
+                hitWall = true;
+            }
+
+            if (worldIn.getBlockState(new BlockPos(player.position().x + player.getLookAngle().x * 2,
+                    player.position().y + player.getLookAngle().y * 2,
+                    player.position().z + player.getLookAngle().z * 2)).getBlock() instanceof AirBlock
+                    & !hitWall)
+            {
+                multiplier = 2;
+            }
+            else
+            {
+                if (worldIn.getBlockState(new BlockPos(player.position().x + player.getLookAngle().x * 2,
+                        player.position().y + player.getLookAngle().y * 2 + 1,
+                        player.position().z + player.getLookAngle().z * 2)).getBlock() instanceof AirBlock
+                        & !hitWall)
+                {
+                    multiplier = 2;
+                    yAdder = 1;
+                } else {
+                    yAdder = 0;
+                }
+                hitWall = true;
+            }
+
+            if (worldIn.getBlockState(new BlockPos(player.position().x + player.getLookAngle().x * 3,
+                    player.position().y + player.getLookAngle().y * 3,
+                    player.position().z + player.getLookAngle().z * 3)).getBlock() instanceof AirBlock
+                    & !hitWall)
+            {
+                multiplier = 3;
+            }
+            else
+            {
+                if (worldIn.getBlockState(new BlockPos(player.position().x + player.getLookAngle().x * 3,
+                        player.position().y + player.getLookAngle().y * 3 + 1,
+                        player.position().z + player.getLookAngle().z * 3)).getBlock() instanceof AirBlock
+                        & !hitWall)
+                {
+                    multiplier = 3;
+                    yAdder = 1;
+                } else {
+                    yAdder = 0;
+                }
+                hitWall = true;
+            }
+
+            if (worldIn.getBlockState(new BlockPos(player.position().x + player.getLookAngle().x * 4,
+                    player.position().y + player.getLookAngle().y * 4,
+                    player.position().z + player.getLookAngle().z * 4)).getBlock() instanceof AirBlock
+                    & !hitWall)
+            {
+                multiplier = 4;
+            }
+            else
+            {
+                if (worldIn.getBlockState(new BlockPos(player.position().x + player.getLookAngle().x * 4,
+                        player.position().y + player.getLookAngle().y * 4 + 1,
+                        player.position().z + player.getLookAngle().z * 4)).getBlock() instanceof AirBlock
+                        & !hitWall)
+                {
+                    multiplier = 4;
+                    yAdder = 1;
+                } else {
+                    yAdder = 0;
+                }
+                hitWall = true;
+            }
+
+            if (worldIn.getBlockState(new BlockPos(player.position().x + player.getLookAngle().x * 5,
+                    player.position().y + player.getLookAngle().y * 5,
+                    player.position().z + player.getLookAngle().z * 5)).getBlock() instanceof AirBlock
+                    & !hitWall)
+            {
+                multiplier = 5;
+            }
+            else
+            {
+                if (worldIn.getBlockState(new BlockPos(player.position().x + player.getLookAngle().x * 5,
+                        player.position().y + player.getLookAngle().y * 5 + 1,
+                        player.position().z + player.getLookAngle().z * 5)).getBlock() instanceof AirBlock
+                        & !hitWall)
+                {
+                    multiplier = 5;
+                    yAdder = 1;
+                } else {
+                    yAdder = 0;
+                }
+                hitWall = true;
+            }
+
+            if (worldIn.getBlockState(new BlockPos(player.position().x + player.getLookAngle().x * 6,
+                    player.position().y + player.getLookAngle().y * 6,
+                    player.position().z + player.getLookAngle().z * 6)).getBlock() instanceof AirBlock
+                    & !hitWall)
+            {
+                multiplier = 6;
+            }
+            else
+            {
+                if (worldIn.getBlockState(new BlockPos(player.position().x + player.getLookAngle().x * 6,
+                        player.position().y + player.getLookAngle().y * 6 + 1,
+                        player.position().z + player.getLookAngle().z)).getBlock() instanceof AirBlock
+                        & !hitWall)
+                {
+                    multiplier = 6;
+                    yAdder = 1;
+                } else {
+                    yAdder = 0;
+                }
+                hitWall = true;
+            }
+
+            if (worldIn.getBlockState(new BlockPos(player.position().x + player.getLookAngle().x * 7,
+                    player.position().y + player.getLookAngle().y * 7,
+                    player.position().z + player.getLookAngle().z * 7)).getBlock() instanceof AirBlock
+                    & !hitWall)
+            {
+                multiplier = 7;
+            }
+            else
+            {
+                if (worldIn.getBlockState(new BlockPos(player.position().x + player.getLookAngle().x * 7,
+                        player.position().y + player.getLookAngle().y * 7 + 1,
+                        player.position().z + player.getLookAngle().z * 7)).getBlock() instanceof AirBlock
+                        & !hitWall)
+                {
+                    multiplier = 7;
+                    yAdder = 1;
+                } else {
+                    yAdder = 0;
+                }
+                hitWall = true;
+            }
+
+            if (worldIn.getBlockState(new BlockPos(player.position().x + player.getLookAngle().x * 8,
+                    player.position().y + player.getLookAngle().y * 8,
+                    player.position().z + player.getLookAngle().z * 8)).getBlock() instanceof AirBlock
+                    & !hitWall)
+            {
+                multiplier = 8;
+            }
+            else
+            {
+                if (worldIn.getBlockState(new BlockPos(player.position().x + player.getLookAngle().x * 8,
+                        player.position().y + player.getLookAngle().y * 8 + 1,
+                        player.position().z + player.getLookAngle().z * 8)).getBlock() instanceof AirBlock
+                        & !hitWall)
+                {
+                    multiplier = 8;
+                    yAdder = 1;
+                } else {
+                    yAdder = 0;
+                }
+                hitWall = true;
+            }
+
+            if (multiplier == 0)
+            {
                 ClientUtils.SendPrivateMessage(ColorText.RED + "There are blocks in the way!");
             }
+            else
+            {
+                player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - foodLevel);
+                worldIn.playSound(player, player, SoundEvents.ENDERMAN_TELEPORT,SoundCategory.NEUTRAL, 1.0f, 1.0f);
+                Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("\u00A73" + "Used " + "\u00A76" + "Instant Transmission! " + "\u00A73" + "(" + (foodLevel * 5) + " Mana)"), false);
+
+                player.setPos(player.position().x + player.getLookAngle().x * multiplier,
+                        player.position().y + player.getLookAngle().y * multiplier + (yAdder + 1),
+                        player.position().z + player.getLookAngle().z * multiplier);
+                if (multiplier != 8)
+                {
+                    ClientUtils.SendPrivateMessage(ColorText.RED + "There are blocks in the way!");
+                }
+            }
+
+
+
 
             //testing
             /*worldIn.setBlock(new BlockPos(player.position().x + player.getLookAngle().x,

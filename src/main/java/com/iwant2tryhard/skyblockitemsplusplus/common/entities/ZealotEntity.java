@@ -161,25 +161,12 @@ public class ZealotEntity extends MonsterEntity implements IAngerable {
 
     public void addAdditionalSaveData(CompoundNBT p_213281_1_) {
         super.addAdditionalSaveData(p_213281_1_);
-        BlockState blockstate = this.getCarriedBlock();
-        if (blockstate != null) {
-            p_213281_1_.put("carriedBlockState", NBTUtil.writeBlockState(blockstate));
-        }
 
         this.addPersistentAngerSaveData(p_213281_1_);
     }
 
     public void readAdditionalSaveData(CompoundNBT p_70037_1_) {
         super.readAdditionalSaveData(p_70037_1_);
-        BlockState blockstate = null;
-        if (p_70037_1_.contains("carriedBlockState", 10)) {
-            blockstate = NBTUtil.readBlockState(p_70037_1_.getCompound("carriedBlockState"));
-            if (blockstate.isAir()) {
-                blockstate = null;
-            }
-        }
-
-        this.setCarriedBlock(blockstate);
         if (!this.level.isClientSide) {
             this.readPersistentAngerSaveData((ServerWorld)this.level, p_70037_1_);
         }

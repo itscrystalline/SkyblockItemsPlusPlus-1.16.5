@@ -4,34 +4,20 @@ import com.iwant2tryhard.skyblockitemsplusplus.client.util.ClientUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class PlayerStats {
-    private static int manaReductionPercent;
-    private static int strengthPercent;
-    private static int defense;
+    private static int manaReductionPercent = 0;
+    private static int strengthPercent = 100;
+    private static int defense = 0;
+    private static int ultWiseLvl = 0;
+    private static int coins = 0;
+    
+    @OnlyIn(Dist.CLIENT)
     public static boolean debugLogging = false;
-    private static int ultWiseLvl;
-    private static int coins;
-    private PlayerEntity owner;
 
-    public PlayerStats(PlayerEntity owner)
-    {
-        this.owner = owner;
-        coins = 0;
-        ultWiseLvl = 0;
-        defense = 0;
-        manaReductionPercent = 0;
-        strengthPercent = 0;
-    }
-
-    public PlayerStats(PlayerEntity owner, int coins, int ultWiseLvl, int defense, int manaReductionPercent, int strengthPercent)
-    {
-        this.owner = owner;
-        this.coins = coins;
-        this.ultWiseLvl = ultWiseLvl;
-        this.defense = defense;
-        this.manaReductionPercent = manaReductionPercent;
-        this.strengthPercent = strengthPercent;
+    public PlayerStats() {
     }
 
     public static int getManaReductionPercent() {

@@ -7,7 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-public class AccessoryItem extends Item {
+public abstract class AccessoryItem extends Item {
 
     private final int defenseBoost;
     private final int healthBoost;

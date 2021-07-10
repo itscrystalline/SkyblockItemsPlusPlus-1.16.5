@@ -15,7 +15,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 @EventBusSubscriber(modid = SkyblockItemsPlusPlus.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientEvents {
-    @SubscribeEvent
+
     public static void clientSetup(final FMLClientSetupEvent event)
     {
         ScreenManager.register(ContainerInit.ELECTRIC_CRAFTING_TABLE.get(), ElectricCraftingTableScreen::new);

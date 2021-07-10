@@ -55,6 +55,7 @@ import net.minecraft.item.*;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.potion.Potion;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
@@ -67,6 +68,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.brewing.PotionBrewEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -1144,22 +1146,6 @@ public class EventHandler {
         }
     }
 
-    @SubscribeEvent
-    public static void AwardStats(final LivingDeathEvent event)
-    {
-        if (event.getSource().getEntity() instanceof PlayerEntity)
-        {
-            PlayerSkills.AwardCombatXP(event.getEntityLiving().getExperienceReward((PlayerEntity) event.getSource().getEntity()));
-            ClientUtils.SendPrivateMessage("Combat XP: " + PlayerSkills.combatXp + "/" + ((Math.pow((PlayerSkills.combatLvl + 3), 2) - Math.pow((PlayerSkills.combatLvl + 1), 2)) * 10));
-            ClientUtils.SendPrivateMessage("Progress: " + Math.round(PlayerSkills.combatXp / ((Math.pow((PlayerSkills.combatLvl + 3), 2) - Math.pow((PlayerSkills.combatLvl + 1), 2)) * 10) * 100) + "%");
-            ClientUtils.SendPrivateMessage("Combat LVL: " + PlayerSkills.combatLvl);
-            //ClientUtils.SendPrivateMessage("calc: " + "(((" + PlayerSkills.combatLvl + " + 3) ^ 2) - ((" + PlayerSkills.combatLvl + " + 1) ^ 2))");
-        }
-    }
-    @SubscribeEvent
-    public static void AssignStats(final PlayerEvent.PlayerLoggedInEvent event)
-    {
 
-    }
 
 }
