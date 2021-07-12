@@ -36,6 +36,27 @@ public interface IPlayerSkills {
     void setAlchemyLvl(int lvl);
     int getAlchemyLvl();
 
+    void setStrength(int strength);
+    int getStrength();
+    void setBaseStrength(int baseStrength);
+    int getBaseStrength();
+
+    void setManaReductionPercent(int manaReductionPercent);
+    int getManaReductionPercent();
+    void setBaseManaReductionPercent(int baseManaReductionPercent);
+    int getBaseManaReductionPercent();
+
+    void setDefense(int defense);
+    int getDefense();
+    void setBaseDefense(int baseDefense);
+    int getBaseDefense();
+
+    void setCoins(int coins);
+    int getCoins();
+
+    void setUltWiseLvl(int ultWiseLvl);
+    int getUltWiseLvl();
+
 
     void AwardCombatXp(int xp);
     void AwardMiningXp(int xp);

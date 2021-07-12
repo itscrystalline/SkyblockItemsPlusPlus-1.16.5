@@ -8,11 +8,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class PlayerStats {
-    private static int manaReductionPercent = 0;
-    private static int strengthPercent = 100;
-    private static int defense = 0;
-    private static int ultWiseLvl = 0;
-    private static int coins = 0;
     
     @OnlyIn(Dist.CLIENT)
     public static boolean debugLogging = false;
@@ -20,65 +15,17 @@ public class PlayerStats {
     public PlayerStats() {
     }
 
-    public static int getManaReductionPercent() {
-        return manaReductionPercent;
-    }
-    public static void setManaReductionPercent(int manaReductionPercent) {
-        PlayerStats.manaReductionPercent = manaReductionPercent;
-    }
-    public static void addManaReductionPercent(int manaReductionPercentToAdd) {
-        PlayerStats.manaReductionPercent += manaReductionPercentToAdd;
-    }
-    public static void removeManaReductionPercent(int manaReductionPercentToRemove) {
-        PlayerStats.manaReductionPercent -= manaReductionPercentToRemove;
-    }
-
-    public static int getStrength() {
-        return strengthPercent;
-    }
-    public static void setStrength(int strengthPercent) {
-        PlayerStats.strengthPercent = strengthPercent;
-    }
-    public static void addStrength(int strengthPercentToAdd) {
-        PlayerStats.strengthPercent += strengthPercentToAdd;
-    }
-    public static void removeStrength(int strengthPercentToRemove) {
-        PlayerStats.strengthPercent -= strengthPercentToRemove;
-    }
-
-    public static int getDefense() {
-        return defense;
-    }
-    public static void setDefense(int defense) {
-        PlayerStats.defense = defense;
-    }
-
-    public static int getUltWiseLvl() {
-        return ultWiseLvl;
-    }
-
-    public static void setUltWiseLvl(int ultWiseLvl) {
-        PlayerStats.ultWiseLvl = ultWiseLvl;
-    }
-
-    public static int getCoins() {
-        return coins;
-    }
-    public static void setCoins(int coins) {
-        PlayerStats.coins = coins;
-    }
-
-    public static float damageEntity(float srcDamage, float targetDefense, float targetMaxHealth, boolean hasOFA, boolean hasEmeraldBlade)
+    public static float damageEntity(float srcDamage, float targetDefense, float targetMaxHealth, boolean hasOFA, boolean hasEmeraldBlade, int strengthPercent, int coins)
     {
         float actualSrcDamage;
         actualSrcDamage = hasOFA ? srcDamage + 20 : srcDamage;
-        actualSrcDamage += hasEmeraldBlade ? calcEmeraldBladeBoost() : 0f;
+        actualSrcDamage += hasEmeraldBlade ? calcEmeraldBladeBoost(coins) : 0f;
         float targetEHP = targetDefense * 10;
         return (strengthPercent / 100f) * (actualSrcDamage / (targetEHP + (targetMaxHealth * 5)) * targetMaxHealth);
 
     }
 
-    public static int calcManaUsage(float manaUsage)
+    public static int calcManaUsage(float manaUsage, float manaReductionPercent, float ultWiseLvl)
     {
         int returnValue = Math.round((manaUsage * (1f - (manaReductionPercent / 100f)) * (1f - (ultWiseLvl * 0.1f))));
 
@@ -91,9 +38,9 @@ public class PlayerStats {
         }
         return Math.max(returnValue, 1);
     }
-    public static boolean isEnoughMana(float manaUsage, PlayerEntity player)
+    public static boolean isEnoughMana(float manaUsage, float manaReductionPercent, float ultWiseLvl,  PlayerEntity player)
     {
-        return player.getFoodData().getFoodLevel() - PlayerStats.calcManaUsage(manaUsage) >= 0f;
+        return player.getFoodData().getFoodLevel() - PlayerStats.calcManaUsage(manaUsage, manaReductionPercent, ultWiseLvl) >= 0f;
     }
 
     public static float getLifeStealDamageMultiplier(float armorDamageReductionPercent)
@@ -109,7 +56,7 @@ public class PlayerStats {
                 ((50f - fullRoundedPercent) + 100) / 100;
     }
 
-    public static int calcEmeraldBladeBoost()
+    public static int calcEmeraldBladeBoost(int coins)
     {
         return (int) Math.round(2.5D * Math.sqrt(Math.sqrt(coins)));
     }

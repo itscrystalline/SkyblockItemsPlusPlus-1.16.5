@@ -46,6 +46,19 @@ public class CapabilityPlayerSkills {
 
             compoundNBT.putInt("alchemyLvl", instance.getAlchemyLvl());
             compoundNBT.putInt("alchemyXp", instance.getAlchemyXp());
+
+            compoundNBT.putInt("strength", instance.getStrength());
+            compoundNBT.putInt("baseStrength", instance.getBaseStrength());
+
+            compoundNBT.putInt("manaReductionPercent", instance.getManaReductionPercent());
+            compoundNBT.putInt("baseManaReductionPercent", instance.getBaseManaReductionPercent());
+
+            compoundNBT.putInt("defense", instance.getDefense());
+            compoundNBT.putInt("baseDefense", instance.getBaseDefense());
+
+            compoundNBT.putInt("coins", instance.getCoins());
+
+            compoundNBT.putInt("ultWiseLvl", instance.getUltWiseLvl());
             return compoundNBT;
         }
 
@@ -85,6 +98,24 @@ public class CapabilityPlayerSkills {
             int alchemyXp = ((CompoundNBT)nbt).getInt("alchemyXp");
             instance.setAlchemyLvl(alchemyLvl);
             instance.setAlchemyXp(alchemyXp);
+
+            int strength = ((CompoundNBT)nbt).getInt("strength");
+            int manaReductionPercent = ((CompoundNBT)nbt).getInt("manaReductionPercent");
+            int defense = ((CompoundNBT)nbt).getInt("defense");
+            int coins = ((CompoundNBT)nbt).getInt("coins");
+            int ultWiseLvl = ((CompoundNBT)nbt).getInt("ultWiseLvl");
+            instance.setStrength(strength);
+            instance.setManaReductionPercent(manaReductionPercent);
+            instance.setDefense(defense);
+            instance.setCoins(coins);
+            instance.setUltWiseLvl(ultWiseLvl);
+
+            int baseStrength = ((CompoundNBT)nbt).getInt("baseStrength");
+            int baseManaReductionPercent = ((CompoundNBT)nbt).getInt("baseManaReductionPercent");
+            int baseDefense = ((CompoundNBT)nbt).getInt("baseDefense");
+            instance.setBaseStrength(baseStrength);
+            instance.setBaseManaReductionPercent(baseManaReductionPercent);
+            instance.setBaseDefense(baseDefense);
         }
     }
 }

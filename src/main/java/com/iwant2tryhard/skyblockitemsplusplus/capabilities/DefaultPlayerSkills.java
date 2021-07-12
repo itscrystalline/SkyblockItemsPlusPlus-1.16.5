@@ -23,6 +23,19 @@ public class DefaultPlayerSkills implements IPlayerSkills {
     private int alchemyLvl;
     private int alchemyXp;
 
+    private int strength;
+    private int baseStrength;
+
+    private int manaReductionPercent;
+    private int baseManaReductionPercent;
+
+    private int defense;
+    private int baseDefense;
+
+    private int coins;
+
+    private int ultWiseLvl;
+
     @Override
     public void setCombatXp(int xp) {
         this.combatXp = xp;
@@ -142,6 +155,74 @@ public class DefaultPlayerSkills implements IPlayerSkills {
         return this.alchemyLvl;
     }
 
+    @Override
+    public void setStrength(int strength) {
+        this.strength = strength;
+    }
+    @Override
+    public int getStrength() {
+        return this.strength;
+    }
+    @Override
+    public void setBaseStrength(int baseStrength) {
+        this.baseStrength = baseStrength;
+    }
+    @Override
+    public int getBaseStrength() {
+        return this.baseStrength;
+    }
+
+    @Override
+    public void setManaReductionPercent(int manaReductionPercent) {
+        this.manaReductionPercent = manaReductionPercent;
+    }
+    @Override
+    public int getManaReductionPercent() {
+        return this.manaReductionPercent;
+    }
+    @Override
+    public void setBaseManaReductionPercent(int baseManaReductionPercent) {
+        this.baseManaReductionPercent = baseManaReductionPercent;
+    }
+    @Override
+    public int getBaseManaReductionPercent() {
+        return this.baseManaReductionPercent;
+    }
+
+    @Override
+    public void setCoins(int coins) {
+        this.coins = coins;
+    }
+    @Override
+    public int getCoins() {
+        return this.coins;
+    }
+
+    @Override
+    public int getUltWiseLvl() {
+        return this.ultWiseLvl;
+    }
+    @Override
+    public void setUltWiseLvl(int ultWiseLvl) {
+        this.ultWiseLvl = ultWiseLvl;
+    }
+
+    @Override
+    public void setDefense(int defense) {
+        this.defense = defense;
+    }
+    @Override
+    public int getDefense() {
+        return this.defense;
+    }
+    @Override
+    public void setBaseDefense(int baseDefense) {
+        this.baseDefense = baseDefense;
+    }
+    @Override
+    public int getBaseDefense() {
+        return this.baseDefense;
+    }
 
     public void AwardCombatXp(int xp)
     {
