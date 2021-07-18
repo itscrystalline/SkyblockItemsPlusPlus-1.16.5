@@ -1,10 +1,7 @@
 package com.iwant2tryhard.skyblockitemsplusplus.core.event;
 
 import com.iwant2tryhard.skyblockitemsplusplus.SkyblockItemsPlusPlus;
-import com.iwant2tryhard.skyblockitemsplusplus.capabilities.CapabilityPlayerSkills;
-import com.iwant2tryhard.skyblockitemsplusplus.capabilities.PlayerSkillsEventHandler;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import com.iwant2tryhard.skyblockitemsplusplus.capabilities.playerskills.CapabilityPlayerSkills;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 

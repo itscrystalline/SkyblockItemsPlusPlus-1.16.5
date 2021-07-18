@@ -1,19 +1,15 @@
-package com.iwant2tryhard.skyblockitemsplusplus.capabilities;
+package com.iwant2tryhard.skyblockitemsplusplus.capabilities.playerskills;
 
 import com.iwant2tryhard.skyblockitemsplusplus.SkyblockItemsPlusPlus;
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ClientUtils;
-import com.iwant2tryhard.skyblockitemsplusplus.common.entities.PlayerSkills;
-import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.brewing.PotionBrewEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.eventbus.api.GenericEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 

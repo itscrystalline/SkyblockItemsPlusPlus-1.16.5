@@ -1,4 +1,4 @@
-package com.iwant2tryhard.skyblockitemsplusplus.capabilities;
+package com.iwant2tryhard.skyblockitemsplusplus.capabilities.playerskills;
 
 public class DefaultPlayerSkills implements IPlayerSkills {
 

@@ -1,13 +1,12 @@
 package com.iwant2tryhard.skyblockitemsplusplus.common.items.items.swords;
 
-import com.iwant2tryhard.skyblockitemsplusplus.capabilities.CapabilityPlayerSkills;
-import com.iwant2tryhard.skyblockitemsplusplus.capabilities.IPlayerSkills;
+import com.iwant2tryhard.skyblockitemsplusplus.capabilities.playerskills.CapabilityPlayerSkills;
+import com.iwant2tryhard.skyblockitemsplusplus.capabilities.playerskills.IPlayerSkills;
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ClientUtils;
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ColorText;
 import com.iwant2tryhard.skyblockitemsplusplus.common.entities.other.PlayerStats;
 import com.iwant2tryhard.skyblockitemsplusplus.common.util.CustomRarity;
 import net.minecraft.block.AirBlock;
-import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
@@ -321,5 +320,10 @@ public class Aspect_Of_The_End extends SwordItem {
                 iskills = skills;
             });
         }
+    }
+
+    @Override
+    public ITextComponent getName(ItemStack p_200295_1_) {
+        return new StringTextComponent("CustomRarity.getColorId(rarity).getContents()" + super.getName(p_200295_1_).getContents());
     }
 }

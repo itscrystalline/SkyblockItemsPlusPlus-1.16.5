@@ -31,7 +31,7 @@
     "item.skyblockitemsplusplus.aspect_of_the_jerry": "Aspect of The Jerry",
     "item.skyblockitemsplusplus.rogue_sword": "Rogue Sword",
     "item.skyblockitemsplusplus.hardened_refined_netherite_sword": "\u00a7cHardened Refined Netherite Sword",
-    "item.skyblockitemsplusplus.aspect_of_the_end": "\u00a79Aspect of The End",
+    "item.skyblockitemsplusplus.aspect_of_the_end": "Aspect of The End",
     "item.skyblockitemsplusplus.undead_sword": "Undead Sword",
     "item.skyblockitemsplusplus.end_sword": "End Sword",
     "item.skyblockitemsplusplus.flame_sword": "\u00A7aFlaming Sword",
@@ -99,5 +99,15 @@
     "enchantment.skyblockitemsplusplus.ultimate_wise": "\u00A7d\u00A7lUltimate Wise",
     "enchantment.skyblockitemsplusplus.life_steal": "Life Steal",
 
-    "entity.skyblockitemsplusplus.zealot": "Zealot"
+    "entity.skyblockitemsplusplus.zealot": "Zealot",
+
+    "rarity.skyblockitemsplusplus.common": "",
+    "rarity.skyblockitemsplusplus.uncommon": "\u00a7a",
+    "rarity.skyblockitemsplusplus.rare": "\u00a79",
+    "rarity.skyblockitemsplusplus.epic": "\u00a75",
+    "rarity.skyblockitemsplusplus.legendary": "\u00a76",
+    "rarity.skyblockitemsplusplus.mythic": "\u00a7d",
+    "rarity.skyblockitemsplusplus.special": "\u00a7c",
+    "rarity.skyblockitemsplusplus.very_special": "\u00a74",
+    "rarity.skyblockitemsplusplus.supreme": "\u00a7c"
 }

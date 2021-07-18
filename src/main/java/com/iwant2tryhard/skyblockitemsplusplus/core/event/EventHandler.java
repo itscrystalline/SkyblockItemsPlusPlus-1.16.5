@@ -1,7 +1,7 @@
 package com.iwant2tryhard.skyblockitemsplusplus.core.event;
 
 import com.iwant2tryhard.skyblockitemsplusplus.SkyblockItemsPlusPlus;
-import com.iwant2tryhard.skyblockitemsplusplus.capabilities.CapabilityPlayerSkills;
+import com.iwant2tryhard.skyblockitemsplusplus.capabilities.playerskills.CapabilityPlayerSkills;
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ClientUtils;
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ColorText;
 import com.iwant2tryhard.skyblockitemsplusplus.common.entities.ZealotEntity;
@@ -37,6 +37,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonPartEntity;
@@ -60,6 +61,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.MobSpawnInfo;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -67,10 +69,12 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicReference;
@@ -93,6 +97,7 @@ public class EventHandler {
             player.getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills -> {
                 boolean hasOneForAll = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ONE_FOR_ALL.get(), player.getMainHandItem()) > 0;
                 int lifeStealLvl = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.LIFE_STEAL.get(), player.getMainHandItem());
+                int lightlvl = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.LIGHT.get(), player.getMainHandItem());
                 boolean hasEmeraldBlade = player.getMainHandItem().getItem() instanceof Emerald_Blade;
 
 
@@ -416,6 +421,7 @@ public class EventHandler {
                 int totalDefense = headDefense + chestDefense + legsDefense + feetDefense;
 
                 event.setAmount(event.getAmount() * (1 - (totalDefense / (totalDefense + 20f))));
+                event.setAmount(event.getAmount() * ((10f - lightlvl) * 0.1f));
                 ArmorStandEntity dmgTag = new ArmorStandEntity(worldIn, event.getEntity().position().x + (0.5f - Math.random()), event.getEntity().position().y + 0.5 + (0.5f - Math.random()), event.getEntity().position().z + (0.5f - Math.random()));
                 //dmgTag.forceAddEffect(new EffectInstance(Effects.INVISIBILITY, 1000, 1));
                 dmgTag.setCustomName(ITextComponent.nullToEmpty(ColorText.YELLOW.toString() + Math.round((initialDamage.get() + (hasEmeraldBlade ? PlayerStats.calcEmeraldBladeBoost(skills.getCoins()) : 0)) * 100)));
@@ -610,6 +616,10 @@ public class EventHandler {
                 }
                 if (player.getMainHandItem().getItem() instanceof Ink_Wand || player.getOffhandItem().getItem() instanceof Ink_Wand) {
                     strengthAdder += 90;
+                }
+                if (EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.LIGHT.get(), player.getMainHandItem()) > 0)
+                {
+                    player.getAttribute(Attributes.ATTACK_SPEED).setBaseValue(player.getAttribute(Attributes.ATTACK_SPEED).getValue() * (1f + ((10f - EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.LIGHT.get(), player.getMainHandItem())) * 0.1f)));
                 }
 
                 if (player.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Refined_Netherite_Leggings
@@ -1162,12 +1172,13 @@ public class EventHandler {
 
             PlayerEntity player = (PlayerEntity) event.getSource().getEntity();
             LivingEntity target = event.getEntityLiving();
-            player.getCommandSenderWorld().playSound(player, player, SoundEvents.PLAYER_ATTACK_STRONG, SoundCategory.NEUTRAL, 1.0f, 1.0f);
-            if (EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.TELEKINESIS.get(), player.getMainHandItem()) > 0)
-            {
-                if (PlayerStats.debugLogging) { Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("Event detected telekinesis"), false); }
-
-                /*target.lootFrom()*/
+            int i = ForgeHooks.getLootingLevel(target, player, event.getSource());
+            Collection<ItemEntity> drops = target.captureDrops((Collection)null);
+            if (!ForgeHooks.onLivingDrops(target, event.getSource(), drops, i, target.getLastHurtByMobTimestamp() > 0)) {
+                drops.forEach((loot) -> {
+                    player.inventory.add(loot.getItem());
+                    //target.level.addFreshEntity(loot);
+                });
             }
         }
     }
@@ -1175,17 +1186,15 @@ public class EventHandler {
     @SubscribeEvent
     public static void OnBreakTelekinesis(final BlockEvent.BreakEvent event)
     {
-       /* PlayerEntity player = event.getPlayer();
-        if (player.getMainHandItem().getItem() instanceof ToolItem)
-        {
-            ToolItem tool = (ToolItem) player.getMainHandItem().getItem();
-            ItemStack toolStack = player.getMainHandItem();
-            if (EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.TELEKINESIS.get(), toolStack) > 0)
-            {
-                event.getState().getDrops()
-            }
+        PlayerEntity player = (PlayerEntity) event.getPlayer();
+        //int i = ForgeHooks.get(target, player, event.getSource());
+        /*Collection<ItemEntity> drops = event.getState().getBlock().getDrops(event.getState(), );
+        if (!ForgeHooks.onLivingDrops(target, event.getSource(), drops, i, target.getLastHurtByMobTimestamp() > 0)) {
+            drops.forEach((loot) -> {
+                player.inventory.add(loot.getItem());
+                //target.level.addFreshEntity(loot);
+            });
         }*/
-
     }
 
     @SubscribeEvent
@@ -1243,6 +1252,15 @@ public class EventHandler {
         }
     }
 
+    /*@SubscribeEvent(priority = EventPriority.HIGH)
+    public static void onChangeItem(Event event) {
+        if (event.getCategory().equals(Biome.Category.THEEND))
+        {
+            List<MobSpawnInfo.Spawners> spawns =
+                    event.getSpawns().getSpawner(EntityClassification.MONSTER);
 
+            spawns.add(new MobSpawnInfo.Spawners(EntityTypeInit.ZEALOT.get(), 5, 1, 3));
+        }
+    }*/
 
 }

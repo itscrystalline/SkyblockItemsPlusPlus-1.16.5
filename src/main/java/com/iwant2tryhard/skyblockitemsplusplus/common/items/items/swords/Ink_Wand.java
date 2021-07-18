@@ -1,7 +1,7 @@
 package com.iwant2tryhard.skyblockitemsplusplus.common.items.items.swords;
 
-import com.iwant2tryhard.skyblockitemsplusplus.capabilities.CapabilityPlayerSkills;
-import com.iwant2tryhard.skyblockitemsplusplus.capabilities.IPlayerSkills;
+import com.iwant2tryhard.skyblockitemsplusplus.capabilities.playerskills.CapabilityPlayerSkills;
+import com.iwant2tryhard.skyblockitemsplusplus.capabilities.playerskills.IPlayerSkills;
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ColorText;
 import com.iwant2tryhard.skyblockitemsplusplus.common.entities.other.PlayerStats;
 import com.iwant2tryhard.skyblockitemsplusplus.common.util.CustomRarity;
@@ -71,6 +71,8 @@ public class Ink_Wand extends SwordItem {
                 }
             }
         });
+
+
 
         //return super.use(worldIn, player, hand);
         return ActionResult.pass(player.getItemInHand(hand));

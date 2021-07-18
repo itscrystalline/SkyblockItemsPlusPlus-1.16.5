@@ -1,4 +1,4 @@
-package com.iwant2tryhard.skyblockitemsplusplus.capabilities;
+package com.iwant2tryhard.skyblockitemsplusplus.capabilities.playerskills;
 
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;

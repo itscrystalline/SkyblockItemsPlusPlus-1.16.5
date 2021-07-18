@@ -1,13 +1,10 @@
 package com.iwant2tryhard.skyblockitemsplusplus;
 
-import com.iwant2tryhard.skyblockitemsplusplus.capabilities.CapabilityPlayerSkills;
-import com.iwant2tryhard.skyblockitemsplusplus.capabilities.PlayerSkillsEventHandler;
 import com.iwant2tryhard.skyblockitemsplusplus.client.event.ClientEvents;
 import com.iwant2tryhard.skyblockitemsplusplus.common.entities.ZealotEntity;
 import com.iwant2tryhard.skyblockitemsplusplus.core.event.ModInit;
 import com.iwant2tryhard.skyblockitemsplusplus.core.init.*;
 import com.iwant2tryhard.skyblockitemsplusplus.world.OreGeneration;
-import jdk.nashorn.internal.runtime.regexp.joni.Config;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -15,9 +12,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DeferredWorkQueue;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;

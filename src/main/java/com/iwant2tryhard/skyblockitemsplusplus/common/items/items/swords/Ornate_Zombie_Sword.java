@@ -1,7 +1,7 @@
 package com.iwant2tryhard.skyblockitemsplusplus.common.items.items.swords;
 
-import com.iwant2tryhard.skyblockitemsplusplus.capabilities.CapabilityPlayerSkills;
-import com.iwant2tryhard.skyblockitemsplusplus.capabilities.IPlayerSkills;
+import com.iwant2tryhard.skyblockitemsplusplus.capabilities.playerskills.CapabilityPlayerSkills;
+import com.iwant2tryhard.skyblockitemsplusplus.capabilities.playerskills.IPlayerSkills;
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ClientUtils;
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ColorText;
 import com.iwant2tryhard.skyblockitemsplusplus.common.entities.other.PlayerStats;

@@ -1,10 +1,7 @@
 package com.iwant2tryhard.skyblockitemsplusplus.core.init;
 
 import com.iwant2tryhard.skyblockitemsplusplus.SkyblockItemsPlusPlus;
-import com.iwant2tryhard.skyblockitemsplusplus.common.enchantments.LifeStealEnchantment;
-import com.iwant2tryhard.skyblockitemsplusplus.common.enchantments.OneForAllEnchantment;
-import com.iwant2tryhard.skyblockitemsplusplus.common.enchantments.TelekinesisEnchantment;
-import com.iwant2tryhard.skyblockitemsplusplus.common.enchantments.UltimateWiseEnchantment;
+import com.iwant2tryhard.skyblockitemsplusplus.common.enchantments.*;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -31,5 +28,8 @@ public class EnchantmentInit {
                     new EquipmentSlotType[]{EquipmentSlotType.MAINHAND, EquipmentSlotType.OFFHAND}));
     public static final RegistryObject<Enchantment> LIFE_STEAL = ENCHANTMENTS.register("life_steal",
             () -> new LifeStealEnchantment(Enchantment.Rarity.UNCOMMON, EnchantmentType.WEAPON,
+                    new EquipmentSlotType[]{EquipmentSlotType.MAINHAND}));
+    public static final RegistryObject<Enchantment> LIGHT = ENCHANTMENTS.register("light",
+            () -> new LightEnchantment(Enchantment.Rarity.RARE, EnchantmentType.WEAPON,
                     new EquipmentSlotType[]{EquipmentSlotType.MAINHAND}));
 }
