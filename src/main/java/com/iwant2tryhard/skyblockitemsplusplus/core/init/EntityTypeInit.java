@@ -3,6 +3,7 @@ package com.iwant2tryhard.skyblockitemsplusplus.core.init;
 import com.iwant2tryhard.skyblockitemsplusplus.SkyblockItemsPlusPlus;
 import com.iwant2tryhard.skyblockitemsplusplus.common.entities.DragonCrystalEntity;
 import com.iwant2tryhard.skyblockitemsplusplus.common.entities.ZealotEntity;
+import com.iwant2tryhard.skyblockitemsplusplus.slayers.entity.slayerdealer.SlayerDealerEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
@@ -21,4 +22,8 @@ public class EntityTypeInit {
             () -> EntityType.Builder.<DragonCrystalEntity>of(DragonCrystalEntity::new, EntityClassification.MISC)
                     .sized(2f, 2f)
                     .build(new ResourceLocation(SkyblockItemsPlusPlus.MOD_ID, "dragon_crystal_entity").toString()));
+    public static final RegistryObject<EntityType<SlayerDealerEntity>> SLAYER_DEALER = ENTITY_TYPES.register("slayer_dealer",
+            () -> EntityType.Builder.<SlayerDealerEntity>of(SlayerDealerEntity::new, EntityClassification.MISC)
+                    .sized(0.6f, 1.8f)
+                    .build(new ResourceLocation(SkyblockItemsPlusPlus.MOD_ID, "slayer_dealer_entity").toString()));
 }

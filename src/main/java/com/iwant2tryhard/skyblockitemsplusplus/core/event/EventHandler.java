@@ -1172,14 +1172,19 @@ public class EventHandler {
 
             PlayerEntity player = (PlayerEntity) event.getSource().getEntity();
             LivingEntity target = event.getEntityLiving();
-            int i = ForgeHooks.getLootingLevel(target, player, event.getSource());
-            Collection<ItemEntity> drops = target.captureDrops((Collection)null);
-            if (!ForgeHooks.onLivingDrops(target, event.getSource(), drops, i, target.getLastHurtByMobTimestamp() > 0)) {
-                drops.forEach((loot) -> {
-                    player.inventory.add(loot.getItem());
-                    //target.level.addFreshEntity(loot);
-                });
+            if (EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.TELEKINESIS.get(), player.getMainHandItem()) > 0)
+            {
+                int i = ForgeHooks.getLootingLevel(target, player, event.getSource());
+                Collection<ItemEntity> drops = target.captureDrops((Collection)null);
+                if (!ForgeHooks.onLivingDrops(target, event.getSource(), drops, i, target.getLastHurtByMobTimestamp() > 0)) {
+                    drops.forEach((loot) -> {
+                        player.inventory.add(loot.getItem());
+                        //target.level.addFreshEntity(loot);
+                    });
+                }
             }
+
+
         }
     }
 

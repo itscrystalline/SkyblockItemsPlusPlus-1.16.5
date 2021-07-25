@@ -4,6 +4,7 @@ import com.iwant2tryhard.skyblockitemsplusplus.client.event.ClientEvents;
 import com.iwant2tryhard.skyblockitemsplusplus.common.entities.ZealotEntity;
 import com.iwant2tryhard.skyblockitemsplusplus.core.event.ModInit;
 import com.iwant2tryhard.skyblockitemsplusplus.core.init.*;
+import com.iwant2tryhard.skyblockitemsplusplus.slayers.entity.slayerdealer.SlayerDealerEntity;
 import com.iwant2tryhard.skyblockitemsplusplus.world.OreGeneration;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.ItemGroup;
@@ -58,6 +59,9 @@ public class SkyblockItemsPlusPlus
         DeferredWorkQueue.runLater(() -> {
             GlobalEntityTypeAttributes.put(EntityTypeInit.ZEALOT.get(), ZealotEntity.setAttributes().build());
         });
+        /*DeferredWorkQueue.runLater(() -> {
+            GlobalEntityTypeAttributes.put(EntityTypeInit.SLAYER_DEALER.get(), SlayerDealerEntity.setAttributes().build());
+        });*/
 
     }
 

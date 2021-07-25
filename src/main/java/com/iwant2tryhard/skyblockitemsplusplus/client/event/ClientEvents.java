@@ -6,8 +6,11 @@ import com.iwant2tryhard.skyblockitemsplusplus.client.render.entity.render.Drago
 import com.iwant2tryhard.skyblockitemsplusplus.client.render.entity.render.ZealotEntityRender;
 import com.iwant2tryhard.skyblockitemsplusplus.core.init.ContainerInit;
 import com.iwant2tryhard.skyblockitemsplusplus.core.init.EntityTypeInit;
+import com.iwant2tryhard.skyblockitemsplusplus.slayers.entity.slayerdealer.SlayerDealerEntity;
+import com.iwant2tryhard.skyblockitemsplusplus.slayers.entity.slayerdealer.SlayerDealerRenderer;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -21,5 +24,11 @@ public class ClientEvents {
         ScreenManager.register(ContainerInit.ELECTRIC_CRAFTING_TABLE.get(), ElectricCraftingTableScreen::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.ZEALOT.get(), ZealotEntityRender::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.DRAGON_CRYSTAL.get(), DragonCrystalRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityTypeInit.SLAYER_DEALER.get(), SlayerDealerRenderer::new);
+    }
+
+    @SubscribeEvent
+    public static void setAttributes(EntityAttributeCreationEvent event) {
+        event.put(EntityTypeInit.SLAYER_DEALER.get(), SlayerDealerEntity.setAttributes().build());
     }
 }

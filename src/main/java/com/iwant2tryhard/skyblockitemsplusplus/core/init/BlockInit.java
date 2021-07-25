@@ -26,7 +26,7 @@ public class BlockInit {
                             .harvestLevel(4)
                             .sound(SoundType.NETHERITE_BLOCK)
                             .requiresCorrectToolForDrops()
-                            .noOcclusion()));
+                            ));
     public static final RegistryObject<Block> REFINED_DIAMOND_BLOCK = BLOCKS.register("refined_diamond_block",
             () -> new Block(AbstractBlock.Properties.of(Material.METAL, MaterialColor.DIAMOND)
                     .strength(7f, 10f)
@@ -34,7 +34,7 @@ public class BlockInit {
                     .harvestLevel(3)
                     .sound(SoundType.METAL)
                     .requiresCorrectToolForDrops()
-                    .noOcclusion()));
+                    ));
     public static final RegistryObject<Block> REFINED_EMERALD_BLOCK = BLOCKS.register("refined_emerald_block",
             () -> new Block(AbstractBlock.Properties.of(Material.METAL, MaterialColor.EMERALD)
                     .strength(7f, 10f)
@@ -42,7 +42,7 @@ public class BlockInit {
                     .harvestLevel(3)
                     .sound(SoundType.METAL)
                     .requiresCorrectToolForDrops()
-                    .noOcclusion()));
+                    ));
     public static final RegistryObject<Block> REFINED_GOLD_BLOCK = BLOCKS.register("refined_gold_block",
             () -> new Block(AbstractBlock.Properties.of(Material.METAL, MaterialColor.GOLD)
                     .strength(5f, 10f)
@@ -50,7 +50,7 @@ public class BlockInit {
                     .harvestLevel(2)
                     .sound(SoundType.METAL)
                     .requiresCorrectToolForDrops()
-                    .noOcclusion()));
+                    ));
     public static final RegistryObject<Block> REFINED_IRON_BLOCK = BLOCKS.register("refined_iron_block",
             () -> new Block(AbstractBlock.Properties.of(Material.METAL, MaterialColor.METAL)
                     .strength(5f, 10f)
@@ -58,7 +58,7 @@ public class BlockInit {
                     .harvestLevel(2)
                     .sound(SoundType.METAL)
                     .requiresCorrectToolForDrops()
-                    .noOcclusion()));
+                    ));
     public static final RegistryObject<Block> REFINED_COAL_BLOCK = BLOCKS.register("refined_coal_block",
             () -> new Block(AbstractBlock.Properties.of(Material.METAL, MaterialColor.STONE)
                     .strength(4f, 9f)
@@ -66,7 +66,7 @@ public class BlockInit {
                     .harvestLevel(1)
                     .sound(SoundType.STONE)
                     .requiresCorrectToolForDrops()
-                    .noOcclusion()));
+                    ));
     public static final RegistryObject<Block> MITHRIL_BLOCK = BLOCKS.register("mithril_block",
             () -> new Block(AbstractBlock.Properties.of(Material.METAL, MaterialColor.METAL)
                     .strength(7f, 11f)
@@ -74,7 +74,7 @@ public class BlockInit {
                     .harvestLevel(2)
                     .sound(SoundType.CHAIN)
                     .requiresCorrectToolForDrops()
-                    .noOcclusion()));
+                    ));
     public static final RegistryObject<Block> REFINED_MITHRIL_BLOCK = BLOCKS.register("refined_mithril_block",
             () -> new Block(AbstractBlock.Properties.of(Material.METAL, MaterialColor.METAL)
                     .strength(8f, 11f)
@@ -82,7 +82,7 @@ public class BlockInit {
                     .harvestLevel(2)
                     .sound(SoundType.CHAIN)
                     .requiresCorrectToolForDrops()
-                    .noOcclusion()));
+                    ));
     public static final RegistryObject<Block> CONCENTRATED_REFINED_MITHRIL_BLOCK = BLOCKS.register("concentrated_refined_mithril_block",
             () -> new Block(AbstractBlock.Properties.of(Material.METAL, MaterialColor.METAL)
                     .strength(10f, 11f)
@@ -90,7 +90,7 @@ public class BlockInit {
                     .harvestLevel(2)
                     .sound(SoundType.CHAIN)
                     .requiresCorrectToolForDrops()
-                    .noOcclusion()));
+                    ));
     public static final RegistryObject<Block> TITANIUM_BLOCK = BLOCKS.register("titanium_block",
             () -> new Block(AbstractBlock.Properties.of(Material.HEAVY_METAL, MaterialColor.METAL)
                     .strength(40f, 550f)
@@ -98,7 +98,7 @@ public class BlockInit {
                     .harvestLevel(3)
                     .sound(SoundType.NETHERITE_BLOCK)
                     .requiresCorrectToolForDrops()
-                    .noOcclusion()));
+                    ));
     public static final RegistryObject<Block> REFINED_TITANIUM_BLOCK = BLOCKS.register("refined_titanium_block",
             () -> new Block(AbstractBlock.Properties.of(Material.HEAVY_METAL, MaterialColor.METAL)
                     .strength(50f, 600f)
@@ -106,7 +106,7 @@ public class BlockInit {
                     .harvestLevel(3)
                     .sound(SoundType.NETHERITE_BLOCK)
                     .requiresCorrectToolForDrops()
-                    .noOcclusion()));
+                    ));
 
     //Ore Blocks
     public static final RegistryObject<MithrilOreBlock> MITHRIL_ORE = BLOCKS.register("mithril_ore",
@@ -116,7 +116,7 @@ public class BlockInit {
                     .harvestLevel(2)
                     .sound(SoundType.NETHER_GOLD_ORE)
                     .requiresCorrectToolForDrops()
-                    .noOcclusion()));
+                    ));
     public static final RegistryObject<TitaniumOreBlock> TITANIUM_ORE = BLOCKS.register("titanium_ore",
             () -> new TitaniumOreBlock(AbstractBlock.Properties.of(Material.HEAVY_METAL, MaterialColor.METAL)
                     .strength(35f, 500f)
@@ -124,7 +124,7 @@ public class BlockInit {
                     .harvestLevel(3)
                     .sound(SoundType.NETHERITE_BLOCK)
                     .requiresCorrectToolForDrops()
-                    .noOcclusion()));
+                    ));
 
     //Tile Entities
     public static final RegistryObject<Block> ELECTRIC_CRAFTING_TABLE = BLOCKS.register("electric_crafting_table",
@@ -133,5 +133,5 @@ public class BlockInit {
                     .harvestTool(ToolType.PICKAXE)
                     .harvestLevel(2)
                     .sound(SoundType.STONE)
-                    .noOcclusion()));
+                    ));
 }

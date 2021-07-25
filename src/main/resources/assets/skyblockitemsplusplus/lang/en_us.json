@@ -109,5 +109,13 @@
     "rarity.skyblockitemsplusplus.mythic": "\u00a7d",
     "rarity.skyblockitemsplusplus.special": "\u00a7c",
     "rarity.skyblockitemsplusplus.very_special": "\u00a74",
-    "rarity.skyblockitemsplusplus.supreme": "\u00a7c"
+    "rarity.skyblockitemsplusplus.supreme": "\u00a7c",
+
+    "slayer.skyblockitemsplusplus.slayer_not_initialized": "Slayer is not initialized!",
+    "slayer.skyblockitemsplusplus.slayer_not_started": "No Slayer has started!",
+    "slayer.skyblockitemsplusplus.slayer_started_zombie": "Zombie Slayer",
+    "slayer.skyblockitemsplusplus.slayer_started_spider": "Spider Slayer",
+    "slayer.skyblockitemsplusplus.slayer_started_wolf": "Wolf Slayer",
+    "slayer.skyblockitemsplusplus.slayer_started_enderman": "Enderman Slayer"
+
 }

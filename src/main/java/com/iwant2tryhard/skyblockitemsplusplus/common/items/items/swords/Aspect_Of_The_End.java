@@ -324,6 +324,6 @@ public class Aspect_Of_The_End extends SwordItem {
 
     @Override
     public ITextComponent getName(ItemStack p_200295_1_) {
-        return new StringTextComponent("CustomRarity.getColorId(rarity).getContents()" + super.getName(p_200295_1_).getContents());
+        return new StringTextComponent(CustomRarity.getColorId(rarity).getString() + super.getName(p_200295_1_).getString());
     }
 }

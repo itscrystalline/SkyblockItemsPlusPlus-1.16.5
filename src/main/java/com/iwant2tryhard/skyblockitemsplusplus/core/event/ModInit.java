@@ -2,6 +2,8 @@ package com.iwant2tryhard.skyblockitemsplusplus.core.event;
 
 import com.iwant2tryhard.skyblockitemsplusplus.SkyblockItemsPlusPlus;
 import com.iwant2tryhard.skyblockitemsplusplus.capabilities.playerskills.CapabilityPlayerSkills;
+import com.iwant2tryhard.skyblockitemsplusplus.capabilities.reforges.CapabilityItemReforges;
+import com.iwant2tryhard.skyblockitemsplusplus.slayers.capability.CapabilitySlayerStatus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
@@ -10,6 +12,8 @@ public class ModInit {
     public static void init(final FMLCommonSetupEvent event)
     {
         CapabilityPlayerSkills.register();
+        CapabilityItemReforges.register();
+        CapabilitySlayerStatus.register();
 
         /*MinecraftForge.EVENT_BUS.addListener(PlayerSkillsEventHandler::onAttachCapabilitiesEvent);
         MinecraftForge.EVENT_BUS.addListener(PlayerSkillsEventHandler::AwardCombatStats);
