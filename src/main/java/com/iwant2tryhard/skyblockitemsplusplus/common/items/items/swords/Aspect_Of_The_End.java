@@ -5,6 +5,7 @@ import com.iwant2tryhard.skyblockitemsplusplus.capabilities.playerskills.IPlayer
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ClientUtils;
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ColorText;
 import com.iwant2tryhard.skyblockitemsplusplus.common.entities.other.PlayerStats;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.TaggedSwordItem;
 import com.iwant2tryhard.skyblockitemsplusplus.common.util.CustomRarity;
 import net.minecraft.block.AirBlock;
 import net.minecraft.client.Minecraft;
@@ -13,7 +14,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.SwordItem;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.*;
@@ -25,19 +25,19 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class Aspect_Of_The_End extends SwordItem {
+public class Aspect_Of_The_End extends TaggedSwordItem {
     private final float manaUsage = 10f/* * ((EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ULTIMATE_WISE.get(), this.asItem().getDefaultInstance()) * 10) / 100)*/;
     private final float displayManaUsage = 50f/* * ((EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ULTIMATE_WISE.get(), this.asItem().getDefaultInstance()) * 10) / 100)*/;
     //private static String oneForAllText = ColorText.LIGHT_PURPLE.toString() + "(+20)";
     //boolean hasOneForAll = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ONE_FOR_ALL.get(), this.asItem().getDefaultInstance()) > 0;
-    private final CustomRarity rarity;
+    /*private final CustomRarity rarity;*/
 
     IPlayerSkills iskills;
 
-    public Aspect_Of_The_End(IItemTier itemTier, int damage, float attackSpeed, Properties properties, CustomRarity rarity) {
-        super(itemTier, damage, attackSpeed, properties);
-        this.rarity = rarity;
+    public Aspect_Of_The_End(IItemTier itemTier, int damage, float attackspeed, Properties properties, CustomRarity rarity) {
+        super(itemTier, damage, attackspeed, properties, rarity);
     }
+
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
@@ -59,10 +59,10 @@ public class Aspect_Of_The_End extends SwordItem {
     @Override
     public ActionResult<ItemStack> use(World worldIn, PlayerEntity player, Hand hand) {
         player.getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills -> {
-            ClientUtils.SendPrivateMessage("MRP: " + skills.getManaReductionPercent());
-            if (PlayerStats.isEnoughMana(manaUsage, skills.getManaReductionPercent(), skills.getUltWiseLvl(), player))
+            ClientUtils.SendPrivateMessage("MRP: " + skills.getMana());
+            if (PlayerStats.isEnoughMana(manaUsage, skills.getMana(), skills.getUltWiseLvl(), player))
             {
-                int foodLevel = PlayerStats.calcManaUsage(manaUsage, skills.getManaReductionPercent(), skills.getUltWiseLvl());
+                int foodLevel = PlayerStats.calcManaUsage(manaUsage, skills.getMana(), skills.getUltWiseLvl());
 
                 int multiplier = 0;
                 int yAdder = 0;
@@ -322,8 +322,8 @@ public class Aspect_Of_The_End extends SwordItem {
         }
     }
 
-    @Override
+    /*@Override
     public ITextComponent getName(ItemStack p_200295_1_) {
         return new StringTextComponent(CustomRarity.getColorId(rarity).getString() + super.getName(p_200295_1_).getString());
-    }
+    }*/
 }

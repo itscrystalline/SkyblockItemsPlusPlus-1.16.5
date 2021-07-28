@@ -10,9 +10,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class SlayerDealerEntity extends MobEntity {
@@ -62,12 +65,22 @@ public class SlayerDealerEntity extends MobEntity {
             }
         }
 
-        this.lookAt(closest, 100, 0);
-        super.tick();*/
+        this.lookAt(closest, 100, 0);*/
+        super.tick();
     }
 
     /*@Override
     public boolean attackable() {
         return false;
     }*/
+
+    @Override
+    public boolean shouldShowName() {
+        return true;
+    }
+
+    @Override
+    public ITextComponent getName() {
+        return ITextComponent.nullToEmpty(new TranslationTextComponent("entity.skyblockitemsplusplus.slayer_dealer").getString());
+    }
 }

@@ -41,15 +41,22 @@ public interface IPlayerSkills {
     void setBaseStrength(int baseStrength);
     int getBaseStrength();
 
-    void setManaReductionPercent(int manaReductionPercent);
-    int getManaReductionPercent();
-    void setBaseManaReductionPercent(int baseManaReductionPercent);
-    int getBaseManaReductionPercent();
+    void setMana(int mana);
+    int getMana();
+    void setBaseMana(int baseMana);
+    int getBaseMana();
 
     void setDefense(int defense);
     int getDefense();
     void setBaseDefense(int baseDefense);
     int getBaseDefense();
+
+    void setHealth(float health);
+    float getHealth();
+    void setMaxHealth(float maxHealth);
+    float getMaxHealth();
+    void setBaseMaxHealth(float baseMaxHealth);
+    float getBaseMaxHealth();
 
     void setCoins(int coins);
     int getCoins();
@@ -65,4 +72,23 @@ public interface IPlayerSkills {
     void AwardEnchantingXp(int xp);
     void AwardFishingXp(int xp);
     void AwardAlchemyXp(int xp);
+
+
+
+
+
+    int getSlayerStatus();
+    void setSlayerStatus(int slayerStatus);
+
+    int getMobCount();
+    void setMobCount(int mobCount);
+
+    int getZombieSlayerLvl();
+    void setZombieSlayerLvl(int zombieSlayerLvl);
+    int getSpiderSlayerLvl();
+    void setSpiderSlayerLvl(int spiderSlayerLvl);
+    int getWolfSlayerLvl();
+    void setWolfSlayerLvl(int wolfSlayerLvl);
+    int getEndermanSlayerLvl();
+    void setEndermanSlayerLvl(int endermanSlayerLvl);
 }

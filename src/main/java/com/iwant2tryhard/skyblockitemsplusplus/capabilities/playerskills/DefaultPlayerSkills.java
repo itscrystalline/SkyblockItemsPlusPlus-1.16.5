@@ -26,15 +26,27 @@ public class DefaultPlayerSkills implements IPlayerSkills {
     private int strength;
     private int baseStrength;
 
-    private int manaReductionPercent;
-    private int baseManaReductionPercent;
+    private int mana;
+    private int baseMana;
 
     private int defense;
     private int baseDefense;
 
+    private float health;
+    private float maxHealth;
+    private float baseMaxHealth = 100f;
+
     private int coins;
 
     private int ultWiseLvl;
+
+
+    private int slayerStatus = -1;
+    private int mobCount = -1;
+    private int zombieSlayerLvl = -1;
+    private int spiderSlayerLvl = -1;
+    private int wolfSlayerLvl = -1;
+    private int endermanSlayerLvl = -1;
 
     @Override
     public void setCombatXp(int xp) {
@@ -173,20 +185,20 @@ public class DefaultPlayerSkills implements IPlayerSkills {
     }
 
     @Override
-    public void setManaReductionPercent(int manaReductionPercent) {
-        this.manaReductionPercent = manaReductionPercent;
+    public void setMana(int mana) {
+        this.mana = mana;
     }
     @Override
-    public int getManaReductionPercent() {
-        return this.manaReductionPercent;
+    public int getMana() {
+        return this.mana;
     }
     @Override
-    public void setBaseManaReductionPercent(int baseManaReductionPercent) {
-        this.baseManaReductionPercent = baseManaReductionPercent;
+    public void setBaseMana(int baseMana) {
+        this.baseMana = baseMana;
     }
     @Override
-    public int getBaseManaReductionPercent() {
-        return this.baseManaReductionPercent;
+    public int getBaseMana() {
+        return this.baseMana;
     }
 
     @Override
@@ -222,6 +234,31 @@ public class DefaultPlayerSkills implements IPlayerSkills {
     @Override
     public int getBaseDefense() {
         return this.baseDefense;
+    }
+
+    @Override
+    public void setHealth(float health) {
+        this.health = health;
+    }
+    @Override
+    public float getHealth() {
+        return this.health;
+    }
+    @Override
+    public void setMaxHealth(float maxHealth) {
+        this.maxHealth = maxHealth;
+    }
+    @Override
+    public float getMaxHealth() {
+        return this.maxHealth;
+    }
+    @Override
+    public void setBaseMaxHealth(float baseMaxHealth) {
+        this.baseMaxHealth = baseMaxHealth;
+    }
+    @Override
+    public float getBaseMaxHealth() {
+        return this.baseMaxHealth;
     }
 
     public void AwardCombatXp(int xp)
@@ -356,5 +393,66 @@ public class DefaultPlayerSkills implements IPlayerSkills {
             ++alchemyLvl;
             alchemyXp = 0;
         }
+    }
+
+
+    @Override
+    public int getSlayerStatus() {
+        return slayerStatus;
+    }
+
+    @Override
+    public void setSlayerStatus(int slayerStatus) {
+        this.slayerStatus = slayerStatus;
+    }
+
+    @Override
+    public int getMobCount() {
+        return mobCount;
+    }
+
+    @Override
+    public void setMobCount(int mobCount) {
+        this.mobCount = mobCount;
+    }
+
+    @Override
+    public int getZombieSlayerLvl() {
+        return zombieSlayerLvl;
+    }
+
+    @Override
+    public void setZombieSlayerLvl(int zombieSlayerLvl) {
+        this.zombieSlayerLvl = zombieSlayerLvl;
+    }
+
+    @Override
+    public int getSpiderSlayerLvl() {
+        return spiderSlayerLvl;
+    }
+
+    @Override
+    public void setSpiderSlayerLvl(int spiderSlayerLvl) {
+        this.spiderSlayerLvl = spiderSlayerLvl;
+    }
+
+    @Override
+    public int getWolfSlayerLvl() {
+        return wolfSlayerLvl;
+    }
+
+    @Override
+    public void setWolfSlayerLvl(int wolfSlayerLvl) {
+        this.wolfSlayerLvl = wolfSlayerLvl;
+    }
+
+    @Override
+    public int getEndermanSlayerLvl() {
+        return endermanSlayerLvl;
+    }
+
+    @Override
+    public void setEndermanSlayerLvl(int endermanSlayerLvl) {
+        this.endermanSlayerLvl = endermanSlayerLvl;
     }
 }

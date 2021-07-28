@@ -30,19 +30,19 @@
 
     "item.skyblockitemsplusplus.aspect_of_the_jerry": "Aspect of The Jerry",
     "item.skyblockitemsplusplus.rogue_sword": "Rogue Sword",
-    "item.skyblockitemsplusplus.hardened_refined_netherite_sword": "\u00a7cHardened Refined Netherite Sword",
+    "item.skyblockitemsplusplus.hardened_refined_netherite_sword": "Hardened Refined Netherite Sword",
     "item.skyblockitemsplusplus.aspect_of_the_end": "Aspect of The End",
     "item.skyblockitemsplusplus.undead_sword": "Undead Sword",
     "item.skyblockitemsplusplus.end_sword": "End Sword",
-    "item.skyblockitemsplusplus.flame_sword": "\u00A7aFlaming Sword",
-    "item.skyblockitemsplusplus.zombie_sword": "\u00A79Zombie Sword",
-    "item.skyblockitemsplusplus.ornate_zombie_sword": "\u00A75Ornate Zombie Sword",
-    "item.skyblockitemsplusplus.florid_zombie_sword": "\u00A76Florid Zombie Sword",
-    "item.skyblockitemsplusplus.netherite_plated_diamond_sword": "\u00a79Netherite Plated Diamond Sword",
-    "item.skyblockitemsplusplus.hunter_knife": "\u00A7aHunter Knife",
-    "item.skyblockitemsplusplus.ink_wand": "\u00A75Ink Wand",
-    "item.skyblockitemsplusplus.silver_fang": "\u00A7aSilver Fang",
-    "item.skyblockitemsplusplus.emerald_blade": "\u00A75Emerald Blade",
+    "item.skyblockitemsplusplus.flame_sword": "Flaming Sword",
+    "item.skyblockitemsplusplus.zombie_sword": "Zombie Sword",
+    "item.skyblockitemsplusplus.ornate_zombie_sword": "Ornate Zombie Sword",
+    "item.skyblockitemsplusplus.florid_zombie_sword": "Florid Zombie Sword",
+    "item.skyblockitemsplusplus.netherite_plated_diamond_sword": "Netherite Plated Diamond Sword",
+    "item.skyblockitemsplusplus.hunter_knife": "Hunter Knife",
+    "item.skyblockitemsplusplus.ink_wand": "Ink Wand",
+    "item.skyblockitemsplusplus.silver_fang": "Silver Fang",
+    "item.skyblockitemsplusplus.emerald_blade": "Emerald Blade",
 
     "item.skyblockitemsplusplus.netherite_plated_diamond_pickaxe": "\u00a79Netherite Plated Diamond Pickaxe",
 
@@ -100,6 +100,8 @@
     "enchantment.skyblockitemsplusplus.life_steal": "Life Steal",
 
     "entity.skyblockitemsplusplus.zealot": "Zealot",
+    "entity.skyblockitemsplusplus.dragon_crystal": "Dragon Crystal",
+    "entity.skyblockitemsplusplus.slayer_dealer": "Slayer Dealer",
 
     "rarity.skyblockitemsplusplus.common": "",
     "rarity.skyblockitemsplusplus.uncommon": "\u00a7a",

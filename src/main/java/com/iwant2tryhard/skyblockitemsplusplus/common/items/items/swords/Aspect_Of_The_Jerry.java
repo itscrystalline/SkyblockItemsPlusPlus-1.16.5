@@ -3,6 +3,7 @@ package com.iwant2tryhard.skyblockitemsplusplus.common.items.items.swords;
 import com.iwant2tryhard.skyblockitemsplusplus.capabilities.playerskills.CapabilityPlayerSkills;
 import com.iwant2tryhard.skyblockitemsplusplus.capabilities.playerskills.IPlayerSkills;
 import com.iwant2tryhard.skyblockitemsplusplus.common.entities.other.PlayerStats;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.TaggedSwordItem;
 import com.iwant2tryhard.skyblockitemsplusplus.common.util.CustomRarity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
@@ -10,7 +11,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.SwordItem;
 import net.minecraft.util.*;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -19,15 +19,13 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class Aspect_Of_The_Jerry extends SwordItem {
+public class Aspect_Of_The_Jerry extends TaggedSwordItem {
     private static final float manaUsage = 10f;
     private static final float displayManaUsage = 50f;
-    private final CustomRarity rarity;
 
     IPlayerSkills iskills = null;
     public Aspect_Of_The_Jerry(IItemTier itemTier, int damage, float attackSpeed, Properties properties, CustomRarity rarity) {
-        super(itemTier, damage, attackSpeed, properties);
-        this.rarity = rarity;
+        super(itemTier, damage, attackSpeed, properties, rarity);
     }
 
     @Override
@@ -46,9 +44,9 @@ public class Aspect_Of_The_Jerry extends SwordItem {
     @Override
     public ActionResult<ItemStack> use(World worldIn, PlayerEntity player, Hand hand) {
         player.getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills -> {
-            if (PlayerStats.isEnoughMana(manaUsage, skills.getManaReductionPercent(), skills.getUltWiseLvl(), player))
+            if (PlayerStats.isEnoughMana(manaUsage, skills.getMana(), skills.getUltWiseLvl(), player))
             {
-                int foodLevel = PlayerStats.calcManaUsage(manaUsage, skills.getManaReductionPercent(), skills.getUltWiseLvl());
+                int foodLevel = PlayerStats.calcManaUsage(manaUsage, skills.getMana(), skills.getUltWiseLvl());
                 Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("\u00A73" + "Used " + "\u00A76" + "Parley! " + "\u00A73" + "(" + (foodLevel * 5) + " Mana)"), false);
 
                 player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - foodLevel);

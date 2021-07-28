@@ -13,7 +13,7 @@ public class ModInit {
     {
         CapabilityPlayerSkills.register();
         CapabilityItemReforges.register();
-        CapabilitySlayerStatus.register();
+        //CapabilitySlayerStatus.register();
 
         /*MinecraftForge.EVENT_BUS.addListener(PlayerSkillsEventHandler::onAttachCapabilitiesEvent);
         MinecraftForge.EVENT_BUS.addListener(PlayerSkillsEventHandler::AwardCombatStats);

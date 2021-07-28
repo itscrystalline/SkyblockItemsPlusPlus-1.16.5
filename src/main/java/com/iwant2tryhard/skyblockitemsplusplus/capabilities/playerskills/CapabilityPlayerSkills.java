@@ -50,8 +50,12 @@ public class CapabilityPlayerSkills {
             compoundNBT.putInt("strength", instance.getStrength());
             compoundNBT.putInt("baseStrength", instance.getBaseStrength());
 
-            compoundNBT.putInt("manaReductionPercent", instance.getManaReductionPercent());
-            compoundNBT.putInt("baseManaReductionPercent", instance.getBaseManaReductionPercent());
+            compoundNBT.putInt("mana", instance.getMana());
+            compoundNBT.putInt("baseMana", instance.getBaseMana());
+
+            compoundNBT.putFloat("health", instance.getHealth());
+            compoundNBT.putFloat("maxHealth", instance.getMaxHealth());
+            compoundNBT.putFloat("baseMaxHealth", instance.getBaseMaxHealth());
 
             compoundNBT.putInt("defense", instance.getDefense());
             compoundNBT.putInt("baseDefense", instance.getBaseDefense());
@@ -59,6 +63,14 @@ public class CapabilityPlayerSkills {
             compoundNBT.putInt("coins", instance.getCoins());
 
             compoundNBT.putInt("ultWiseLvl", instance.getUltWiseLvl());
+
+
+            compoundNBT.putInt("slayerStatus", instance.getSlayerStatus());
+            compoundNBT.putInt("mobCount", instance.getMobCount());
+            compoundNBT.putInt("zombieSlayerLvl", instance.getZombieSlayerLvl());
+            compoundNBT.putInt("spiderSlayerLvl", instance.getSpiderSlayerLvl());
+            compoundNBT.putInt("wolfSlayerLvl", instance.getWolfSlayerLvl());
+            compoundNBT.putInt("endermanSlayerLvl", instance.getEndermanSlayerLvl());
             return compoundNBT;
         }
 
@@ -100,22 +112,36 @@ public class CapabilityPlayerSkills {
             instance.setAlchemyXp(alchemyXp);
 
             int strength = ((CompoundNBT)nbt).getInt("strength");
-            int manaReductionPercent = ((CompoundNBT)nbt).getInt("manaReductionPercent");
+            int manaReductionPercent = ((CompoundNBT)nbt).getInt("mana");
             int defense = ((CompoundNBT)nbt).getInt("defense");
             int coins = ((CompoundNBT)nbt).getInt("coins");
             int ultWiseLvl = ((CompoundNBT)nbt).getInt("ultWiseLvl");
             instance.setStrength(strength);
-            instance.setManaReductionPercent(manaReductionPercent);
+            instance.setMana(manaReductionPercent);
             instance.setDefense(defense);
             instance.setCoins(coins);
             instance.setUltWiseLvl(ultWiseLvl);
 
             int baseStrength = ((CompoundNBT)nbt).getInt("baseStrength");
-            int baseManaReductionPercent = ((CompoundNBT)nbt).getInt("baseManaReductionPercent");
+            int baseManaReductionPercent = ((CompoundNBT)nbt).getInt("baseMana");
             int baseDefense = ((CompoundNBT)nbt).getInt("baseDefense");
             instance.setBaseStrength(baseStrength);
-            instance.setBaseManaReductionPercent(baseManaReductionPercent);
+            instance.setBaseMana(baseManaReductionPercent);
             instance.setBaseDefense(baseDefense);
+
+
+            int slayerStatus = ((CompoundNBT) nbt).getInt("slayerStatus");
+            int mobCount = ((CompoundNBT) nbt).getInt("mobCount");
+            int zombieSlayerLvl = ((CompoundNBT) nbt).getInt("zombieSlayerLvl");
+            int spiderSlayerLvl = ((CompoundNBT) nbt).getInt("spiderSlayerLvl");
+            int wolfSlayerLvl = ((CompoundNBT) nbt).getInt("wolfSlayerLvl");
+            int endermanSlayerLvl = ((CompoundNBT) nbt).getInt("endermanSlayerLvl");
+            instance.setSlayerStatus(slayerStatus);
+            instance.setMobCount(mobCount);
+            instance.setZombieSlayerLvl(zombieSlayerLvl);
+            instance.setSpiderSlayerLvl(spiderSlayerLvl);
+            instance.setWolfSlayerLvl(wolfSlayerLvl);
+            instance.setEndermanSlayerLvl(endermanSlayerLvl);
         }
     }
 }

@@ -3,7 +3,9 @@ package com.iwant2tryhard.skyblockitemsplusplus.common.items.items.swords;
 import com.iwant2tryhard.skyblockitemsplusplus.capabilities.playerskills.CapabilityPlayerSkills;
 import com.iwant2tryhard.skyblockitemsplusplus.capabilities.playerskills.IPlayerSkills;
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ColorText;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.TaggedSwordItem;
 import com.iwant2tryhard.skyblockitemsplusplus.common.util.CustomRarity;
+import com.sun.corba.se.spi.ior.TaggedComponentBase;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,15 +19,13 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class Emerald_Blade extends SwordItem {
-    private final CustomRarity rarity;
+public class Emerald_Blade extends TaggedSwordItem {
 
     IPlayerSkills iskills;
     //private static String oneForAllText = ColorText.LIGHT_PURPLE.toString() + "(+20)";
     //boolean hasOneForAll = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ONE_FOR_ALL.get(), this.asItem().getDefaultInstance()) > 0;
     public Emerald_Blade(IItemTier itemTier, int damage, float attackSpeed, Properties properties, CustomRarity rarity) {
-        super(itemTier, damage, attackSpeed, properties);
-        this.rarity = rarity;
+        super(itemTier, damage, attackSpeed, properties, rarity);
     }
 
     @Override

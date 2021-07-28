@@ -5,6 +5,7 @@ import com.iwant2tryhard.skyblockitemsplusplus.capabilities.playerskills.IPlayer
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ClientUtils;
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ColorText;
 import com.iwant2tryhard.skyblockitemsplusplus.common.entities.other.PlayerStats;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.TaggedSwordItem;
 import com.iwant2tryhard.skyblockitemsplusplus.common.util.CustomRarity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
@@ -12,7 +13,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.SwordItem;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
@@ -24,18 +24,16 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class Ornate_Zombie_Sword extends SwordItem {
+public class Ornate_Zombie_Sword extends TaggedSwordItem {
     private static int timesSinceDelay = 0;
     private static final float manaUsage = 14f;
     private static final float displayManaUsage = 70f;
-    private final CustomRarity rarity;
 
     IPlayerSkills iskills;
     //private static String oneForAllText = ColorText.LIGHT_PURPLE.toString() + "(+20)";
     //boolean hasOneForAll = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ONE_FOR_ALL.get(), this.asItem().getDefaultInstance()) > 0;
     public Ornate_Zombie_Sword(IItemTier itemTier, int damage, float attackSpeed, Properties properties, CustomRarity rarity) {
-        super(itemTier, damage, attackSpeed, properties);
-        this.rarity = rarity;
+        super(itemTier, damage, attackSpeed, properties, rarity);
     }
 
     @Override
@@ -58,9 +56,9 @@ public class Ornate_Zombie_Sword extends SwordItem {
     @Override
     public ActionResult<ItemStack> use(World worldIn, PlayerEntity player, Hand hand) {
         player.getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills -> {
-            if (PlayerStats.isEnoughMana(manaUsage, skills.getManaReductionPercent(), skills.getUltWiseLvl(), player))
+            if (PlayerStats.isEnoughMana(manaUsage, skills.getMana(), skills.getUltWiseLvl(), player))
             {
-                int foodLevel = PlayerStats.calcManaUsage(manaUsage, skills.getManaReductionPercent(), skills.getUltWiseLvl());
+                int foodLevel = PlayerStats.calcManaUsage(manaUsage, skills.getMana(), skills.getUltWiseLvl());
                 if (!player.getCooldowns().isOnCooldown(this))
                 {
                     if (timesSinceDelay >= 8)

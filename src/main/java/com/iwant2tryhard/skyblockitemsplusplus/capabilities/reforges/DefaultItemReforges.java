@@ -5,6 +5,8 @@ public class DefaultItemReforges implements IItemReforges {
     private int reforgeItemType = -1;
     private int reforgeType = -1;
 
+    //private String owner;
+
     @Override
     public void setReforgeItemType(int reforgeItemType) {
         this.reforgeItemType = reforgeItemType;
@@ -22,4 +24,14 @@ public class DefaultItemReforges implements IItemReforges {
     public int getReforgeType() {
         return this.reforgeType;
     }
+
+    /*@Override
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    @Override
+    public String getOwner() {
+        return owner;
+    }*/
 }

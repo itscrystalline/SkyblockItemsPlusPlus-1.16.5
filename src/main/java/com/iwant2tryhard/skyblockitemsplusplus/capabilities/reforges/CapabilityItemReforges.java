@@ -28,6 +28,7 @@ public class CapabilityItemReforges {
             CompoundNBT compoundNBT = new CompoundNBT();
             compoundNBT.putInt("reforgeItemType", instance.getReforgeItemType());
             compoundNBT.putInt("reforgeType", instance.getReforgeType());
+            //compoundNBT.putString("owner", instance.getOwner());
             return compoundNBT;
         }
 
@@ -35,8 +36,10 @@ public class CapabilityItemReforges {
         public void readNBT(Capability<IItemReforges> capability, IItemReforges instance, Direction direction, INBT nbt) {
             int reforgeItemType = ((CompoundNBT)nbt).getInt("reforgeItemType");
             int reforgeType = ((CompoundNBT)nbt).getInt("reforgeType");
+            //String owner = ((CompoundNBT)nbt).getString("owner");
             instance.setReforgeItemType(reforgeItemType);
             instance.setReforgeType(reforgeType);
+            //instance.setOwner(owner);
         }
     }
 }

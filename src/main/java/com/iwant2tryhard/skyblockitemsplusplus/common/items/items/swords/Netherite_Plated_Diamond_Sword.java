@@ -1,6 +1,7 @@
 package com.iwant2tryhard.skyblockitemsplusplus.common.items.items.swords;
 
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ColorText;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.TaggedSwordItem;
 import com.iwant2tryhard.skyblockitemsplusplus.common.util.CustomRarity;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.IItemTier;
@@ -13,11 +14,9 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class Netherite_Plated_Diamond_Sword extends SwordItem {
-    private final CustomRarity rarity;
+public class Netherite_Plated_Diamond_Sword extends TaggedSwordItem {
     public Netherite_Plated_Diamond_Sword(IItemTier itemTier, int damage, float attackSpeed, Properties properties, CustomRarity rarity) {
-        super(itemTier, damage, attackSpeed, properties);
-        this.rarity = rarity;
+        super(itemTier, damage, attackSpeed, properties, rarity);
     }
 
     @Override

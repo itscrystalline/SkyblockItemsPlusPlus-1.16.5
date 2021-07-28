@@ -19,16 +19,9 @@ import net.minecraftforge.fml.common.Mod;
 public class ItemReforgesEventHandler {
     @SubscribeEvent
     public static void onAttachCapabilitiesEvent(AttachCapabilitiesEvent<ItemStack> event) {
-        if (event.getObject().getItem() instanceof SwordItem |
-                event.getObject().getItem() instanceof AxeItem |
-                event.getObject().getItem() instanceof ShovelItem |
-                event.getObject().getItem() instanceof HoeItem |
-                event.getObject().getItem() instanceof PickaxeItem)
-        {
+
             ItemReforgesProvider provider = new ItemReforgesProvider();
             event.addCapability(new ResourceLocation(SkyblockItemsPlusPlus.MOD_ID, "reforges"), provider);
             event.addListener(provider::invalidate);
-        }
-
     }
 }

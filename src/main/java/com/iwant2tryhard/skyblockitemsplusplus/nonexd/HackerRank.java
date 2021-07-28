@@ -63,4 +63,13 @@ public class HackerRank {
 // if the code got that far it is an anagram
         return true;
     }
+
+    void Java_1D_Array()
+    {
+        /*int[] a = new int[n];
+        for(int i = 0; i < n; i++){
+            a[i]=scan.nextInt();
+        }*/
+
+    }
 }

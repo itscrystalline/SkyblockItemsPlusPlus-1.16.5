@@ -2,6 +2,7 @@ package com.iwant2tryhard.skyblockitemsplusplus.core.event;
 
 import com.iwant2tryhard.skyblockitemsplusplus.SkyblockItemsPlusPlus;
 import com.iwant2tryhard.skyblockitemsplusplus.capabilities.playerskills.CapabilityPlayerSkills;
+import com.iwant2tryhard.skyblockitemsplusplus.capabilities.reforges.CapabilityItemReforges;
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ClientUtils;
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ColorText;
 import com.iwant2tryhard.skyblockitemsplusplus.common.entities.ZealotEntity;
@@ -69,7 +70,6 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -85,7 +85,7 @@ public class EventHandler {
     @SubscribeEvent
     public static void onLivingEntityHurt(final LivingHurtEvent event)
     {
-        World worldIn = event.getEntity().getCommandSenderWorld();
+        World worldIn = event.getEntity().level;
 
         AtomicReference<Float> initialDamage = new AtomicReference<>(event.getAmount());
         
@@ -141,14 +141,14 @@ public class EventHandler {
                     if (lifeStealLvl > 0) {
                         int rnd = MathHelper.nextInt(new Random(), 1, 40 - (lifeStealLvl * 10));
 
-                        if (rnd == 1 && PlayerStats.isEnoughMana(6f, skills.getManaReductionPercent(), skills.getUltWiseLvl(), player)) {
+                        if (rnd == 1 && PlayerStats.isEnoughMana(6f, skills.getMana(), skills.getUltWiseLvl(), player)) {
                             float healAmnt = target.getHealth() * (lifeStealLvl * 0.075f * PlayerStats.getLifeStealDamageMultiplier((player.getArmorValue() / 3f) * 10f));
                             if (PlayerStats.debugLogging) {
                                 ClientUtils.SendPrivateMessage("armorVal: " + player.getArmorValue());
                             }
                             player.heal(healAmnt);
                             target.setHealth(target.getHealth() - (healAmnt / 2f));
-                            int mana = PlayerStats.calcManaUsage(6f, skills.getManaReductionPercent(), skills.getUltWiseLvl());
+                            int mana = PlayerStats.calcManaUsage(6f, skills.getMana(), skills.getUltWiseLvl());
                             player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - mana);
                             ClientUtils.SendPrivateMessage(ColorText.GREEN + "Your " + ColorText.GRAY + "Life Steal " + lifeStealLvl + ColorText.GREEN + " Stole " + ColorText.RED + Math.round(healAmnt / 2) + " health " + ColorText.GREEN + "from " + ColorText.GOLD + "PLACEHOLDER_ENTITY" + ColorText.GREEN + "! " + ColorText.AQUA + "(" + (mana * 5) + " Mana)");
                         }
@@ -296,14 +296,14 @@ public class EventHandler {
                     if (lifeStealLvl > 0) {
                         int rnd = MathHelper.nextInt(new Random(), 1, 40 - (lifeStealLvl * 10));
 
-                        if (rnd == 1 && PlayerStats.isEnoughMana(6f, skills.getManaReductionPercent(), skills.getUltWiseLvl(), player)) {
+                        if (rnd == 1 && PlayerStats.isEnoughMana(6f, skills.getMana(), skills.getUltWiseLvl(), player)) {
                             float healAmnt = target.getHealth() * (lifeStealLvl * 0.05f * PlayerStats.getLifeStealDamageMultiplier((player.getArmorValue() / 3f) * 10f));
                             if (PlayerStats.debugLogging) {
                                 ClientUtils.SendPrivateMessage("armorVal: " + player.getArmorValue());
                             }
                             player.heal(healAmnt);
                             target.setHealth(target.getHealth() - (healAmnt / 2f));
-                            int mana = PlayerStats.calcManaUsage(6f, skills.getManaReductionPercent(), skills.getUltWiseLvl());
+                            int mana = PlayerStats.calcManaUsage(6f, skills.getMana(), skills.getUltWiseLvl());
                             player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - mana);
                             ClientUtils.SendPrivateMessage(ColorText.GREEN + "Your " + ColorText.GRAY + "Life Steal " + lifeStealLvl + ColorText.GREEN + " Stole " + ColorText.RED + Math.round(healAmnt / 2) + " health " + ColorText.GREEN + "from " + ColorText.GOLD + "PLACEHOLDER_ENTITY" + ColorText.GREEN + "! " + ColorText.AQUA + "(" + (mana * 5) + " Mana)");
                         }
@@ -514,7 +514,8 @@ public class EventHandler {
                     if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("initialDamage: " + event.getAmount()), false);}
                     if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("calc: " + "(1 - (event.getAmount() - (" + skills.getDefense() + " / (" + skills.getDefense() + " + 20f))))"), false);}
                     if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("calc: " + (1 - (event.getAmount() - (skills.getDefense() / (skills.getDefense() + 20f))))), false);}
-                    event.setAmount(event.getAmount() * (1 - (skills.getDefense() / (skills.getDefense() + 20f))));
+                    skills.setHealth(Math.round((event.getEntityLiving().getHealth() / event.getEntityLiving().getMaxHealth()) * skills.getMaxHealth()));
+                    event.setAmount((event.getAmount() * (1 - (skills.getDefense() / (skills.getDefense() + 20f)))) / (skills.getMaxHealth() / 100));
                     if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("defense: " + skills.getDefense()), false);}
                     if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("damageTaken : " + event.getAmount()), false);}
                 }
@@ -631,7 +632,13 @@ public class EventHandler {
                 }
 
                 skills.setStrength(strengthAdder);
-                skills.setManaReductionPercent(Math.min(manaReductionPercentAdder, 90));
+                skills.setMana(Math.min(manaReductionPercentAdder, 90));
+                skills.setMaxHealth((float) (player.getMaxHealth() * 5f + Math.floor(player.experienceLevel / 5D)));
+
+                player.displayClientMessage(ITextComponent.nullToEmpty(
+                        ColorText.RED.toString() + skills.getHealth() + "/" + skills.getMaxHealth() + "  " +
+                        ColorText.GREEN.toString() + (skills.getDefense() * 5) + " Defense" + "  " +
+                        ColorText.BLUE.toString() + skills.getMana() + " Mana"), true);
 
 
             /*if (player.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Mushroom_Chestplate
@@ -1122,10 +1129,18 @@ public class EventHandler {
                     }
                 }
 
-                skills.setManaReductionPercent(manaReductionPercentAdder);
+                skills.setMana(manaReductionPercentAdder);
 
             });
         }
+    }
+
+    @SubscribeEvent
+    public static void OnJoin(final PlayerEvent.PlayerLoggedInEvent event)
+    {
+        PlayerEntity player = (PlayerEntity) event.getPlayer();
+        player.getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills ->
+                skills.setMaxHealth((float) (player.getMaxHealth() * 5f + Math.floor(player.experienceLevel / 5D))));
     }
 
     @SubscribeEvent
@@ -1141,7 +1156,7 @@ public class EventHandler {
                     Ink_Wand wand = (Ink_Wand) player.getMainHandItem().getItem();
                     if (!player.getCooldowns().isOnCooldown(wand))
                     {
-                        target.hurt(DamageSource.playerAttack(player), ((10000 + (skills.getManaReductionPercent() * 10) + 100) / 100));
+                        target.hurt(DamageSource.playerAttack(player), ((10000 + (skills.getMana() * 10) + 100) / 100));
                         target.addEffect(new EffectInstance(Effects.BLINDNESS, 200, 0));
                         target.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 200, 11));
                         target.addEffect(new EffectInstance(Effects.WITHER, 200, 2));
@@ -1203,13 +1218,16 @@ public class EventHandler {
     }
 
     @SubscribeEvent
-    public static void OnReciveEOTD(final PlayerEvent.ItemPickupEvent event)
+    public static void OnReciveItem(final PlayerEvent.ItemPickupEvent event)
     {
-        ClientUtils.SendPrivateMessage("received item:" + event.getStack().getItem().getRegistryName());
-        if (event.getStack().getItem() == ItemInit.EYE_OF_THE_DRAGONS.get())
-        {
-            ClientUtils.SendPrivateMessage(ColorText.AQUA + "\uD83D\uDD25 " + ColorText.GOLD + event.getPlayer().getGameProfile().getName() + ColorText.AQUA + " has obtained " + ColorText.DARK_PURPLE + "Eye of the Dragons" + ColorText.AQUA + "!");
-        }
+        if (PlayerStats.debugLogging) { ClientUtils.SendPrivateMessage("received item:" + event.getStack().getItem().getRegistryName()); }
+        event.getStack().getCapability(CapabilityItemReforges.ITEM_REFORGES_CAPABILITY).ifPresent(itemstats -> {
+            if (event.getStack().getItem() == ItemInit.EYE_OF_THE_DRAGONS.get() /*&& !itemstats.getOwner().equals("")*/)
+            {
+                ClientUtils.SendPrivateMessage(ColorText.AQUA + "\uD83D\uDD25 " + ColorText.GOLD + event.getPlayer().getGameProfile().getName() + ColorText.AQUA + " has obtained " + ColorText.DARK_PURPLE + "Eye of the Dragons" + ColorText.AQUA + "!");
+            }
+            /*itemstats.setOwner(event.getPlayer().getStringUUID());*/
+        });
     }
 
     @SubscribeEvent

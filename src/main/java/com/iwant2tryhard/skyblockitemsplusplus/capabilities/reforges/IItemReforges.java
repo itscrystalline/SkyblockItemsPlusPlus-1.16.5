@@ -5,4 +5,7 @@ public interface IItemReforges {
     int getReforgeItemType();
     void setReforgeType(int reforgeType);
     int getReforgeType();
+
+    /*void setOwner(String owner);
+    String getOwner();*/
 }
