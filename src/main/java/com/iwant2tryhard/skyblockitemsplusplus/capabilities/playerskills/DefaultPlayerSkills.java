@@ -26,14 +26,15 @@ public class DefaultPlayerSkills implements IPlayerSkills {
     private int strength;
     private int baseStrength;
 
-    private int mana;
-    private int baseMana;
+    private int mana = 100;
+    private int maxMana = 100;
+    private int baseMaxMana = 100;
 
     private int defense;
     private int baseDefense;
 
-    private float health;
-    private float maxHealth;
+    private float health = 100f;
+    private float maxHealth = 100f;
     private float baseMaxHealth = 100f;
 
     private int coins;
@@ -193,12 +194,20 @@ public class DefaultPlayerSkills implements IPlayerSkills {
         return this.mana;
     }
     @Override
-    public void setBaseMana(int baseMana) {
-        this.baseMana = baseMana;
+    public void setMaxMana(int maxMana) {
+        this.maxMana = maxMana;
     }
     @Override
-    public int getBaseMana() {
-        return this.baseMana;
+    public int getMaxMana() {
+        return this.maxMana;
+    }
+    @Override
+    public void setBaseMaxMana(int baseMana) {
+        this.baseMaxMana = baseMana;
+    }
+    @Override
+    public int getBaseMaxMana() {
+        return this.baseMaxMana;
     }
 
     @Override

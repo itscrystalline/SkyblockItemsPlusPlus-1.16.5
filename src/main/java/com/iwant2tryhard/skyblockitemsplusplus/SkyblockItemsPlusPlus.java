@@ -32,6 +32,8 @@ public class SkyblockItemsPlusPlus
     public static final ItemGroup SkyblockItems_Tools = new SkyblockItemsTools();
     public static final ItemGroup SkyblockItems_Accessories = new SkyblockItemsAccessories();
 
+    //public static final String black_heart_suit = String.valueOf(ChatColor.translateAlternateColorCodes('&', getConfig().getString("black_heart_suit"))) + "+ ChatColor.translateAlternateColorCodes('&', getConfig().getString("suffix_black_heart_suit"));
+
     public SkyblockItemsPlusPlus() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         bus.addListener(this::setup);

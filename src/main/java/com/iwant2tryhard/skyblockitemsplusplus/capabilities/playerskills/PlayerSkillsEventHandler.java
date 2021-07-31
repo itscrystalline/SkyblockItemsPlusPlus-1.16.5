@@ -117,8 +117,8 @@ public class PlayerSkillsEventHandler {
         });
     }
 
-    /*@SubscribeEvent
-    public static void addMana(Event event)
+
+    /*public static void addMana(PlayerItemConsume event)
     {
         PlayerEntity player = event.getPlayer();
         player.getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(slayerStatus -> {

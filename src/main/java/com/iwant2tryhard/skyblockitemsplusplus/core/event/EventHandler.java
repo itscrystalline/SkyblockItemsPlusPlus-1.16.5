@@ -48,8 +48,10 @@ import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.monster.*;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.potion.Potion;
@@ -59,6 +61,7 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.MobSpawnInfo;
@@ -74,6 +77,7 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
+import java.lang.ref.Reference;
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
@@ -137,7 +141,7 @@ public class EventHandler {
                         (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Pickaxe) |
                         (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Shovel) |
                         (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Hoe)) {
-                    event.setAmount(event.getAmount());
+                    event.setAmount(event.getAmount() * (skills.getStrength() / 100f));
                     if (lifeStealLvl > 0) {
                         int rnd = MathHelper.nextInt(new Random(), 1, 40 - (lifeStealLvl * 10));
 
@@ -424,7 +428,7 @@ public class EventHandler {
                 event.setAmount(event.getAmount() * ((10f - lightlvl) * 0.1f));
                 ArmorStandEntity dmgTag = new ArmorStandEntity(worldIn, event.getEntity().position().x + (0.5f - Math.random()), event.getEntity().position().y + 0.5 + (0.5f - Math.random()), event.getEntity().position().z + (0.5f - Math.random()));
                 //dmgTag.forceAddEffect(new EffectInstance(Effects.INVISIBILITY, 1000, 1));
-                dmgTag.setCustomName(ITextComponent.nullToEmpty(ColorText.YELLOW.toString() + Math.round((initialDamage.get() + (hasEmeraldBlade ? PlayerStats.calcEmeraldBladeBoost(skills.getCoins()) : 0)) * 100)));
+                dmgTag.setCustomName(ITextComponent.nullToEmpty(ColorText.YELLOW.toString() + Math.round((initialDamage.get() + (hasEmeraldBlade ? PlayerStats.calcEmeraldBladeBoost(skills.getCoins()) : 0)))));
                 dmgTag.setCustomNameVisible(true);
                 dmgTag.setInvulnerable(true);
                 dmgTag.noPhysics = true;
@@ -446,7 +450,7 @@ public class EventHandler {
                 if (event.getSource() == DamageSource.FALL) {
                     ArmorStandEntity dmgTag = new ArmorStandEntity(worldIn, event.getEntity().position().x + (0.5f - Math.random()), event.getEntity().position().y + 0.5 + (0.5f - Math.random()), event.getEntity().position().z + (0.5f - Math.random()));
                     //dmgTag.forceAddEffect(new EffectInstance(Effects.INVISIBILITY, 1000, 1));
-                    dmgTag.setCustomName(ITextComponent.nullToEmpty(ColorText.YELLOW.toString() + Math.round(initialDamage.get() * 100)));
+                    dmgTag.setCustomName(ITextComponent.nullToEmpty(ColorText.YELLOW.toString() + Math.round(initialDamage.get())));
                     dmgTag.setCustomNameVisible(true);
                     dmgTag.setInvulnerable(true);
                     dmgTag.noPhysics = true;
@@ -505,7 +509,7 @@ public class EventHandler {
                 }else{
                     ArmorStandEntity dmgTag = new ArmorStandEntity(worldIn, event.getEntity().position().x + (0.5f - Math.random()), event.getEntity().position().y + 0.5 + (0.5f - Math.random()), event.getEntity().position().z + (0.5f - Math.random()));
                     //dmgTag.forceAddEffect(new EffectInstance(Effects.INVISIBILITY, 1000, 1));
-                    dmgTag.setCustomName(ITextComponent.nullToEmpty(ColorText.YELLOW.toString() + Math.round(initialDamage.get() * 100)));
+                    dmgTag.setCustomName(ITextComponent.nullToEmpty(ColorText.YELLOW.toString() + Math.round(initialDamage.get())));
                     dmgTag.setCustomNameVisible(true);
                     dmgTag.setInvulnerable(true);
                     dmgTag.noPhysics = true;
@@ -514,7 +518,7 @@ public class EventHandler {
                     if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("initialDamage: " + event.getAmount()), false);}
                     if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("calc: " + "(1 - (event.getAmount() - (" + skills.getDefense() + " / (" + skills.getDefense() + " + 20f))))"), false);}
                     if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("calc: " + (1 - (event.getAmount() - (skills.getDefense() / (skills.getDefense() + 20f))))), false);}
-                    skills.setHealth(Math.round((event.getEntityLiving().getHealth() / event.getEntityLiving().getMaxHealth()) * skills.getMaxHealth()));
+                    //skills.setHealth(Math.round((event.getEntityLiving().getHealth() / event.getEntityLiving().getMaxHealth()) * skills.getMaxHealth()));
                     event.setAmount((event.getAmount() * (1 - (skills.getDefense() / (skills.getDefense() + 20f)))) / (skills.getMaxHealth() / 100));
                     if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("defense: " + skills.getDefense()), false);}
                     if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("damageTaken : " + event.getAmount()), false);}
@@ -564,6 +568,7 @@ public class EventHandler {
     }
 
     private static int ticksSinceOnFire = 0;
+    private static int ticksSinceJoined = 0;
 
     @SubscribeEvent
     public static void playerUpdate(final LivingEvent.LivingUpdateEvent event)
@@ -571,15 +576,33 @@ public class EventHandler {
         if (event.getEntityLiving() instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) event.getEntityLiving();
             player.getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills -> {
+                //mana regen
+                if (ticksSinceJoined % 20 == 0 && skills.getMana() < skills.getMaxMana())
+                {
+                    if (skills.getMana() + skills.getMaxMana() * 0.02 > skills.getMaxMana()) {
+                        skills.setMana(skills.getMaxMana());
+                        player.getFoodData().setFoodLevel((skills.getMana() / skills.getMaxMana()) * 20);
+
+                        ClientUtils.SendPrivateMessage("(" + skills.getMana() + " / " + skills.getMaxMana() + ") * 20");
+                        ClientUtils.SendPrivateMessage(Integer.toString((skills.getMana() / skills.getMaxMana()) * 20));
+                    }else {
+                        skills.setMana((int) (skills.getMana() + Math.round(skills.getMana() + skills.getMaxMana() * 0.02D)));
+                        player.getFoodData().setFoodLevel((skills.getMana() / skills.getMaxMana()) * 20);
+                        ClientUtils.SendPrivateMessage("(" + skills.getMana() + " / " + skills.getMaxMana() + ") * 20");
+                        ClientUtils.SendPrivateMessage(Integer.toString((skills.getMana() / skills.getMaxMana()) * 20));
+                    }
+                }
+                if (skills.getMana() > skills.getMaxMana()) {
+                    skills.setMana(skills.getMaxMana());
+                }
+                //end of mana regen
 
                 int strengthAdder = 0;
-                int manaReductionPercentAdder = 0;
                 //S02PacketChat packet = new S02PacketChat(new ChatComponentText(message), Byte.parseByte("2"));
                 //player.playerNetServerHandler.sendPacket(packet);
                 //System.out.println(skills.getStrength());
 
                 strengthAdder += player.experienceLevel;
-                manaReductionPercentAdder += player.experienceLevel;
 
                 if (EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ULTIMATE_WISE.get(), player.getOffhandItem()) > 0) {
                     skills.setUltWiseLvl(EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ULTIMATE_WISE.get(), player.getOffhandItem()));
@@ -601,16 +624,12 @@ public class EventHandler {
                 }
                 if (player.getMainHandItem().getItem() instanceof Zombie_Sword || player.getOffhandItem().getItem() instanceof Zombie_Sword) {
                     strengthAdder += 50;
-                    manaReductionPercentAdder += 25;
-
                 }
                 if (player.getMainHandItem().getItem() instanceof Ornate_Zombie_Sword || player.getOffhandItem().getItem() instanceof Ornate_Zombie_Sword) {
                     strengthAdder += 60;
-                    manaReductionPercentAdder += 25;;
                 }
                 if (player.getMainHandItem().getItem() instanceof Florid_Zombie_Sword || player.getOffhandItem().getItem() instanceof Florid_Zombie_Sword) {
                     strengthAdder += 80;
-                    manaReductionPercentAdder += 50;
                 }
                 if (player.getMainHandItem().getItem() instanceof Hunter_Knife || player.getOffhandItem().getItem() instanceof Hunter_Knife) {
                     player.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, 20, 0));
@@ -632,14 +651,22 @@ public class EventHandler {
                 }
 
                 skills.setStrength(strengthAdder);
-                skills.setMana(Math.min(manaReductionPercentAdder, 90));
-                skills.setMaxHealth((float) (player.getMaxHealth() * 5f + Math.floor(player.experienceLevel / 5D)));
+                skills.setMaxMana(100 + player.experienceLevel +
+                        (player.getMainHandItem().getItem() instanceof Zombie_Sword || player.getOffhandItem().getItem() instanceof Zombie_Sword ? 50 : 0) +
+                        (player.getMainHandItem().getItem() instanceof Ornate_Zombie_Sword || player.getOffhandItem().getItem() instanceof Ornate_Zombie_Sword ? 50 : 0) +
+                        (player.getMainHandItem().getItem() instanceof Florid_Zombie_Sword || player.getOffhandItem().getItem() instanceof Florid_Zombie_Sword ? 100 : 0));
+                skills.setMaxHealth((float) (player.getMaxHealth() * 5f + Math.floor(player.experienceLevel / 2D)));
+                skills.setHealth(Math.round((event.getEntityLiving().getHealth() / event.getEntityLiving().getMaxHealth()) * skills.getMaxHealth()));
 
                 player.displayClientMessage(ITextComponent.nullToEmpty(
-                        ColorText.RED.toString() + skills.getHealth() + "/" + skills.getMaxHealth() + "  " +
+                        ColorText.RED.toString() + skills.getHealth() + " Health" + "  " +
                         ColorText.GREEN.toString() + (skills.getDefense() * 5) + " Defense" + "  " +
                         ColorText.BLUE.toString() + skills.getMana() + " Mana"), true);
 
+                player.getFoodData().setFoodLevel((skills.getMana() / skills.getMaxMana()) * 20);
+                //ClientUtils.SendPrivateMessage("1:" + "(" + skills.getMana() + " / " + skills.getMaxMana() + ") * 20");
+                //ClientUtils.SendPrivateMessage("2:" + (skills.getMana() / skills.getMaxMana()) * 20);
+                //ClientUtils.SendPrivateMessage("3:" + player.getFoodData().getFoodLevel());
 
             /*if (player.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Mushroom_Chestplate
                     & player.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Mushroom_Leggings) {
@@ -1129,18 +1156,50 @@ public class EventHandler {
                     }
                 }
 
-                skills.setMana(manaReductionPercentAdder);
+                //skills.setMana(manaReductionPercentAdder);
 
             });
         }
+        ticksSinceJoined += 1;
     }
 
     @SubscribeEvent
     public static void OnJoin(final PlayerEvent.PlayerLoggedInEvent event)
     {
         PlayerEntity player = (PlayerEntity) event.getPlayer();
-        player.getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills ->
-                skills.setMaxHealth((float) (player.getMaxHealth() * 5f + Math.floor(player.experienceLevel / 5D))));
+        player.getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills -> {
+            if (player instanceof ServerPlayerEntity) {
+
+                CompoundNBT data = player.getPersistentData();
+                CompoundNBT persistent;
+                if (!data.contains(PlayerEntity.PERSISTED_NBT_TAG)) {
+                    data.put(PlayerEntity.PERSISTED_NBT_TAG, (persistent = new CompoundNBT()));
+                } else {
+                    persistent = data.getCompound(PlayerEntity.PERSISTED_NBT_TAG);
+                }
+
+                if (!persistent.contains("ISNOTFIRSTTIME")) {
+                    persistent.putBoolean("ISNOTFIRSTTIME", true);
+                    skills.setMaxHealth(100);
+                    skills.setHealth(100);
+                    skills.setMaxMana(100);
+                    skills.setMana(skills.getMaxMana());
+                    // message, fired when the player joins for the first time
+                    //player.sendMessage(new StringTextComponent(player.getDisplayName().getString() +  " joined the for the first time!"), player.getUUID());
+                } else {
+                    player.getFoodData().setFoodLevel((skills.getMana() / skills.getMaxMana()) * 20);
+                    skills.setMaxHealth((float) (player.getMaxHealth() * 5f + Math.floor(player.experienceLevel / 5D)));
+                    skills.setHealth((player.getHealth() / player.getMaxHealth()) * skills.getMaxHealth());
+                    skills.setMana((int) ((player.getFoodData().getFoodLevel() / 20f) * skills.getMaxMana()));
+                    // another message, fired when the player doesn't join for the first time
+                    //player.sendMessage(new StringTextComponent("Welcome back, " + player.getDisplayName().getString() + "!"), player.getUUID());
+                }
+                // another message, fired when the players joined the server
+                //player.sendMessage(new StringTextComponent("You are using mod version: " + "SkyblockItemsPlusPlus v.0.5-072521a"), player.getUUID());
+
+            }
+
+        });
     }
 
     @SubscribeEvent
@@ -1285,5 +1344,13 @@ public class EventHandler {
             spawns.add(new MobSpawnInfo.Spawners(EntityTypeInit.ZEALOT.get(), 5, 1, 3));
         }
     }*/
+
+    @SubscribeEvent
+    public static void playerRespawn(PlayerEvent.PlayerRespawnEvent event) {
+        event.getPlayer().getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills -> {
+            skills.setMaxMana(skills.getBaseMaxMana());
+            skills.setMana(skills.getBaseMaxMana());
+        });
+    }
 
 }

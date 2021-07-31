@@ -51,7 +51,8 @@ public class CapabilityPlayerSkills {
             compoundNBT.putInt("baseStrength", instance.getBaseStrength());
 
             compoundNBT.putInt("mana", instance.getMana());
-            compoundNBT.putInt("baseMana", instance.getBaseMana());
+            compoundNBT.putInt("maxMana", instance.getMaxMana());
+            compoundNBT.putInt("baseMaxMana", instance.getBaseMaxMana());
 
             compoundNBT.putFloat("health", instance.getHealth());
             compoundNBT.putFloat("maxHealth", instance.getMaxHealth());
@@ -112,21 +113,23 @@ public class CapabilityPlayerSkills {
             instance.setAlchemyXp(alchemyXp);
 
             int strength = ((CompoundNBT)nbt).getInt("strength");
-            int manaReductionPercent = ((CompoundNBT)nbt).getInt("mana");
+            int mana = ((CompoundNBT)nbt).getInt("mana");
+            int maxMana = ((CompoundNBT)nbt).getInt("maxMana");
             int defense = ((CompoundNBT)nbt).getInt("defense");
             int coins = ((CompoundNBT)nbt).getInt("coins");
             int ultWiseLvl = ((CompoundNBT)nbt).getInt("ultWiseLvl");
             instance.setStrength(strength);
-            instance.setMana(manaReductionPercent);
+            instance.setMana(mana);
+            instance.setMaxMana(maxMana);
             instance.setDefense(defense);
             instance.setCoins(coins);
             instance.setUltWiseLvl(ultWiseLvl);
 
             int baseStrength = ((CompoundNBT)nbt).getInt("baseStrength");
-            int baseManaReductionPercent = ((CompoundNBT)nbt).getInt("baseMana");
+            int baseMaxMana = ((CompoundNBT)nbt).getInt("baseMaxMana");
             int baseDefense = ((CompoundNBT)nbt).getInt("baseDefense");
             instance.setBaseStrength(baseStrength);
-            instance.setBaseMana(baseManaReductionPercent);
+            instance.setBaseMaxMana(baseMaxMana);
             instance.setBaseDefense(baseDefense);
 
 

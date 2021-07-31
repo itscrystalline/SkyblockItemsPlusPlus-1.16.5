@@ -43,8 +43,10 @@ public interface IPlayerSkills {
 
     void setMana(int mana);
     int getMana();
-    void setBaseMana(int baseMana);
-    int getBaseMana();
+    void setMaxMana(int maxMana);
+    int getMaxMana();
+    void setBaseMaxMana(int baseMana);
+    int getBaseMaxMana();
 
     void setDefense(int defense);
     int getDefense();

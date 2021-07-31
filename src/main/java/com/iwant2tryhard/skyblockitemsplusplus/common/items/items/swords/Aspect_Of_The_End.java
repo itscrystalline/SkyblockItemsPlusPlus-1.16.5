@@ -62,7 +62,7 @@ public class Aspect_Of_The_End extends TaggedSwordItem {
             ClientUtils.SendPrivateMessage("MRP: " + skills.getMana());
             if (PlayerStats.isEnoughMana(manaUsage, skills.getMana(), skills.getUltWiseLvl(), player))
             {
-                int foodLevel = PlayerStats.calcManaUsage(manaUsage, skills.getMana(), skills.getUltWiseLvl());
+                //int foodLevel = PlayerStats.calcManaUsage(manaUsage, skills.getMana(), skills.getUltWiseLvl());
 
                 int multiplier = 0;
                 int yAdder = 0;
@@ -250,9 +250,9 @@ public class Aspect_Of_The_End extends TaggedSwordItem {
                 }
                 else
                 {
-                    player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - foodLevel);
+                    //player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - foodLevel);
                     worldIn.playSound(player, player, SoundEvents.ENDERMAN_TELEPORT,SoundCategory.NEUTRAL, 1.0f, 1.0f);
-                    Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("\u00A73" + "Used " + "\u00A76" + "Instant Transmission! " + "\u00A73" + "(" + (foodLevel * 5) + " Mana)"), false);
+                    Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("\u00A73" + "Used " + "\u00A76" + "Instant Transmission! " + "\u00A73" + "(" + (displayManaUsage  * (1f - (skills.getUltWiseLvl() * 0.1f))) + " Mana)"), false);
 
                     player.setPos(player.position().x + player.getLookAngle().x * multiplier,
                             player.position().y + player.getLookAngle().y * multiplier + (yAdder + 1),

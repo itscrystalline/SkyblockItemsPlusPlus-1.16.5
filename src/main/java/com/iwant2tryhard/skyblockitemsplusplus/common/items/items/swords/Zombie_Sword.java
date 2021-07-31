@@ -41,7 +41,7 @@ public class Zombie_Sword extends TaggedSwordItem {
         tooltip.add(new StringTextComponent("\u00A77" + "Damage: " + "\u00A7c" + "+100"));
         tooltip.add(new StringTextComponent("\u00A77" + "Strength: " + "\u00A7c" + "+50"));
         tooltip.add(new StringTextComponent(""));
-        tooltip.add(new StringTextComponent("\u00A77" + "Mana Reduction: " + ColorText.GREEN + "+25%"));
+        tooltip.add(new StringTextComponent("\u00A77" + "Mana: " + ColorText.GREEN + "+50"));
         tooltip.add(new StringTextComponent(""));
         tooltip.add(new StringTextComponent(ColorText.GOLD + "Item Ability: Instant Heal " + ColorText.YELLOW + ColorText.BOLD + "RIGHT CLICK"));
         tooltip.add(new StringTextComponent(ColorText.GRAY + "Heal for " + ColorText.RED + "1 + 5% Health"));
