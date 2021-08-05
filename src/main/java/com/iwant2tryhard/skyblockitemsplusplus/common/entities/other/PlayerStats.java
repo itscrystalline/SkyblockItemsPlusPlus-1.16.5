@@ -15,14 +15,14 @@ public class PlayerStats {
     public PlayerStats() {
     }
 
-    public static float damageEntity(float srcDamage, float targetDefense, float targetMaxHealth, boolean hasOFA, boolean hasEmeraldBlade, int strengthPercent, int coins)
+    public static float damageEntity(float srcDamage, float targetDefense, float targetMaxHealth, boolean hasOFA, boolean hasEmeraldBlade, int strengthPercent, int coins, int combatlvl)
     {
         float actualSrcDamage;
         actualSrcDamage = hasOFA ? srcDamage + 20 : srcDamage;
         actualSrcDamage += hasEmeraldBlade ? calcEmeraldBladeBoost(coins) : 0f;
+        actualSrcDamage += 5;
         float targetEHP = targetDefense * 10;
-        return (strengthPercent / 100f) * (actualSrcDamage / (targetEHP + (targetMaxHealth * 5)) * targetMaxHealth);
-
+        return (strengthPercent / 100f) * (actualSrcDamage / (targetEHP + (targetMaxHealth * 5)) * targetMaxHealth) * (1 + (combatlvl * 0.04f));
     }
 
     public static int calcManaUsage(float manaUsage, float manaReductionPercent, float ultWiseLvl)

@@ -25,6 +25,7 @@ import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.accessories.ca
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.accessories.farmingtalisman.Farming_Talisman;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.accessories.vaccinetalisman.Vaccine_Talisman;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.axes.Netherite_Plated_Diamond_Axe;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.bows.Terminator;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.hoes.Netherite_Plated_Diamond_Hoe;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.pickaxes.Netherite_Plated_Diamond_Pickaxe;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.shovels.Netherite_Plated_Diamond_Shovel;
@@ -131,8 +132,8 @@ public class ItemInit {
             () -> new Netherite_Plated_Diamond_Hoe(new NetheritePlatedDiamondSource(), 1, 0f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Tools).addToolType(ToolType.HOE, 3), CustomRarity.RARE));
 
     //bows
-    //public static final RegistryObject<Wither_Bow> WITHER_BOW = ITEMS.register("wither_bow",
-            //() -> new Wither_Bow(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat)));
+    public static final RegistryObject<Terminator> TERMINATOR = ITEMS.register("terminator",
+            () -> new Terminator(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat), CustomRarity.LEGENDARY));
 
     //armor
     public static final RegistryObject<Farm_Suit_Helmet> FARM_SUIT_HELMET = ITEMS.register("farm_suit_helmet",

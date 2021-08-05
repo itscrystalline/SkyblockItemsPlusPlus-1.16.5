@@ -3,7 +3,7 @@ modLoader="javafml" #mandatory
 
 loaderVersion="[36,)"
 
-license="All rights reserved"
+license="CC-BYNC"
 
 [[mods]]
 

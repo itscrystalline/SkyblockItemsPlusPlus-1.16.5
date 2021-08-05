@@ -60,6 +60,11 @@ public interface IPlayerSkills {
     void setBaseMaxHealth(float baseMaxHealth);
     float getBaseMaxHealth();
 
+    void setFerocity(int ferocity);
+    int getFerocity();
+    void setBaseFerocity(int baseFerocity);
+    int getBaseFerocity();
+
     void setCoins(int coins);
     int getCoins();
 

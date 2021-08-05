@@ -1,11 +1,13 @@
 package com.iwant2tryhard.skyblockitemsplusplus.capabilities.reforges;
 
+import java.util.UUID;
+
 public class DefaultItemReforges implements IItemReforges {
 
     private int reforgeItemType = -1;
     private int reforgeType = -1;
 
-    //private String owner;
+    //private UUID owner;
 
     @Override
     public void setReforgeItemType(int reforgeItemType) {
@@ -25,13 +27,13 @@ public class DefaultItemReforges implements IItemReforges {
         return this.reforgeType;
     }
 
-    /*@Override
-    public void setOwner(String owner) {
-        this.owner = owner;
-    }
+    //@Override
+    //public void setOwner(UUID owner) {
+        //this.owner = owner;
+    //}
 
-    @Override
-    public String getOwner() {
-        return owner;
-    }*/
+    //@Override
+    //public UUID getOwner() {
+        //return owner;
+    //}
 }

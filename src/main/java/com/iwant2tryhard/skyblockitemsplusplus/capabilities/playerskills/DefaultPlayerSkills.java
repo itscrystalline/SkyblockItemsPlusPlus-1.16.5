@@ -23,8 +23,8 @@ public class DefaultPlayerSkills implements IPlayerSkills {
     private int alchemyLvl;
     private int alchemyXp;
 
-    private int strength;
-    private int baseStrength;
+    private int strength = 100;
+    private int baseStrength = 100;
 
     private int mana = 100;
     private int maxMana = 100;
@@ -36,6 +36,9 @@ public class DefaultPlayerSkills implements IPlayerSkills {
     private float health = 100f;
     private float maxHealth = 100f;
     private float baseMaxHealth = 100f;
+
+    private int ferocity;
+    private int baseFerocity;
 
     private int coins;
 
@@ -268,6 +271,23 @@ public class DefaultPlayerSkills implements IPlayerSkills {
     @Override
     public float getBaseMaxHealth() {
         return this.baseMaxHealth;
+    }
+
+    @Override
+    public void setFerocity(int ferocity) {
+        this.ferocity = ferocity;
+    }
+    @Override
+    public int getFerocity() {
+        return ferocity;
+    }
+    @Override
+    public void setBaseFerocity(int baseFerocity) {
+        this.baseFerocity = baseFerocity;
+    }
+    @Override
+    public int getBaseFerocity() {
+        return 0;
     }
 
     public void AwardCombatXp(int xp)

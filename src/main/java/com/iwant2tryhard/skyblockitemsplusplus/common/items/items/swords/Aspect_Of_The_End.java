@@ -59,7 +59,7 @@ public class Aspect_Of_The_End extends TaggedSwordItem {
     @Override
     public ActionResult<ItemStack> use(World worldIn, PlayerEntity player, Hand hand) {
         player.getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills -> {
-            ClientUtils.SendPrivateMessage("MRP: " + skills.getMana());
+            //ClientUtils.SendPrivateMessage("MRP: " + skills.getMana());
             if (PlayerStats.isEnoughMana(manaUsage, skills.getMana(), skills.getUltWiseLvl(), player))
             {
                 //int foodLevel = PlayerStats.calcManaUsage(manaUsage, skills.getMana(), skills.getUltWiseLvl());
@@ -252,7 +252,19 @@ public class Aspect_Of_The_End extends TaggedSwordItem {
                 {
                     //player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - foodLevel);
                     worldIn.playSound(player, player, SoundEvents.ENDERMAN_TELEPORT,SoundCategory.NEUTRAL, 1.0f, 1.0f);
-                    Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("\u00A73" + "Used " + "\u00A76" + "Instant Transmission! " + "\u00A73" + "(" + (displayManaUsage  * (1f - (skills.getUltWiseLvl() * 0.1f))) + " Mana)"), false);
+                    player.displayClientMessage(ITextComponent.nullToEmpty("\u00A73" + "Used " + "\u00A76" + "Instant Transmission! " + "\u00A73" + "(" + (displayManaUsage  * (1f - (skills.getUltWiseLvl() * 0.1f))) + " Mana)"), false);
+
+                    /*ClientUtils.SendPrivateMessage("1-1:" + "(" + skills.getMana() + " / " + skills.getMaxMana() + ") * 20");
+                    ClientUtils.SendPrivateMessage("2-1:" + (skills.getMana() / skills.getMaxMana()) * 20);
+                    ClientUtils.SendPrivateMessage("3-1:" + player.getFoodData().getFoodLevel());*/
+                    if (skills.getMana() < displayManaUsage) {
+                        player.displayClientMessage(ITextComponent.nullToEmpty(ColorText.RED.toString() + "You don't have enough mana to use this!"), false);
+                    }else {
+                        skills.setMana(Math.round(skills.getMana() - displayManaUsage));
+                    }
+                    /*ClientUtils.SendPrivateMessage("1-2:" + "(" + skills.getMana() + " / " + skills.getMaxMana() + ") * 20");
+                    ClientUtils.SendPrivateMessage("2-2:" + (skills.getMana() / skills.getMaxMana()) * 20);
+                    ClientUtils.SendPrivateMessage("3-2:" + player.getFoodData().getFoodLevel());*/
 
                     player.setPos(player.position().x + player.getLookAngle().x * multiplier,
                             player.position().y + player.getLookAngle().y * multiplier + (yAdder + 1),

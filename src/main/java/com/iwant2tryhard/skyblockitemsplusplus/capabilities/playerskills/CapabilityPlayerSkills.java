@@ -58,6 +58,9 @@ public class CapabilityPlayerSkills {
             compoundNBT.putFloat("maxHealth", instance.getMaxHealth());
             compoundNBT.putFloat("baseMaxHealth", instance.getBaseMaxHealth());
 
+            compoundNBT.putInt("ferocity", instance.getFerocity());
+            compoundNBT.putInt("baseFerocity", instance.getBaseFerocity());
+
             compoundNBT.putInt("defense", instance.getDefense());
             compoundNBT.putInt("baseDefense", instance.getBaseDefense());
 
@@ -145,6 +148,18 @@ public class CapabilityPlayerSkills {
             instance.setSpiderSlayerLvl(spiderSlayerLvl);
             instance.setWolfSlayerLvl(wolfSlayerLvl);
             instance.setEndermanSlayerLvl(endermanSlayerLvl);
+
+            float health = ((CompoundNBT) nbt).getFloat("health");
+            float maxHealth = ((CompoundNBT) nbt).getFloat("maxHealth");
+            float baseMaxHealth = ((CompoundNBT) nbt).getFloat("baseMaxHealth");
+            instance.setHealth(health);
+            instance.setMaxHealth(maxHealth);
+            instance.setBaseMaxHealth(baseMaxHealth);
+
+            int ferocity = ((CompoundNBT) nbt).getInt("ferocity");
+            int baseFerocity = ((CompoundNBT) nbt).getInt("baseFerocity");
+            instance.setFerocity(ferocity);
+            instance.setBaseFerocity(baseFerocity);
         }
     }
 }
