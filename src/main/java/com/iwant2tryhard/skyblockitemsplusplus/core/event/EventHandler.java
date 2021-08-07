@@ -60,6 +60,7 @@ import net.minecraft.potion.Effects;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -68,6 +69,7 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.MobSpawnInfo;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.TickEvent;
@@ -361,34 +363,36 @@ public class EventHandler {
                     ferocityCount = hits;
                     //ClientUtils.SendPrivateMessage("ferocityCount: " + ferocityCount);
                     event.getEntityLiving().hurt(DamageSource.GENERIC, event.getAmount() * ((skills.getCombatLvl() * 0.01f) + 0.5f));
+                    //ticksSinceHit = 0;
                     //ClientUtils.SendPrivateMessage("hit: " + event.getAmount() * ((skills.getCombatLvl() * 0.01f) + 0.5f));
                 } else {
-                    //event.setAmount(event.getAmount() * ((skills.getCombatLvl() * 0.01f) + 0.5f));
-                    //ClientUtils.SendPrivateMessage("ferocityHit: " + event.getAmount() * ((skills.getCombatLvl() * 0.01f) + 0.5f));
-                    ferocityCount -= 1;
-                    //ClientUtils.SendPrivateMessage("ferocity: " + ferocityCount);
-                    ArmorStandEntity dmgTag = new ArmorStandEntity(worldIn, event.getEntity().position().x + (0.5f - Math.random()), event.getEntity().position().y + 0.5 + (0.5f - Math.random()), event.getEntity().position().z + (0.5f - Math.random()));
-                    //dmgTag.forceAddEffect(new EffectInstance(Effects.INVISIBILITY, 1000, 1));
-                    dmgTag.setCustomName(ITextComponent.nullToEmpty(ColorText.YELLOW.toString() + (5 * Math.round((initialDamage.get() * (skills.getStrength() / 100f) * (1 + (skills.getCombatLvl() * 0.04f))) + (hasEmeraldBlade ? PlayerStats.calcEmeraldBladeBoost(skills.getCoins()) : 0)))));
-                    dmgTag.setCustomNameVisible(true);
-                    dmgTag.setInvulnerable(true);
-                    dmgTag.noPhysics = true;
-                    dmgTag.setInvisible(true);
-                    worldIn.addFreshEntity(dmgTag);
-                    int rnd = MathHelper.nextInt(new Random(), 1, 6);
-                    if (rnd >= 4) {
-                        player.level.playSound((PlayerEntity) event.getSource().getEntity(), event.getSource().getEntity(), SoundEvents.ZOMBIE_BREAK_WOODEN_DOOR, SoundCategory.NEUTRAL, 1.0f, 1f);
-                        ClientUtils.SendPrivateMessage("played sound 1 : " + rnd);
-                    } else if (rnd >= 2) {
-                        player.level.playSound((PlayerEntity) event.getSource().getEntity(), event.getSource().getEntity(), SoundEvents.IRON_GOLEM_ATTACK, SoundCategory.NEUTRAL, 1.0f, 1f);
-                        ClientUtils.SendPrivateMessage("played sound 2 : " + rnd);
-                    } else {
-                        player.level.playSound((PlayerEntity) event.getSource().getEntity(), event.getSource().getEntity(), SoundEvents.FLINTANDSTEEL_USE, SoundCategory.NEUTRAL, 1.0f, 1f);
-                        ClientUtils.SendPrivateMessage("played sound 3 : " + rnd);
-                    }
-                    //ClientUtils.SendPrivateMessage("played sound 1 : " + rnd);
-                    event.getEntityLiving().hurt(DamageSource.playerAttack((PlayerEntity) event.getSource().getEntity()), event.getAmount() * ((skills.getCombatLvl() * 0.01f) + 0.5f));
-                    MinecraftForge.EVENT_BUS.post(new LivingHurtEvent(event.getEntityLiving(), DamageSource.playerAttack((PlayerEntity) event.getSource().getEntity()), event.getAmount() * ((skills.getCombatLvl() * 0.01f) + 0.5f)));
+                    //int rnd1 = worldIn.random.nextInt(2) + 1;
+                    //if (ticksSinceHit == rnd1){
+                        //event.setAmount(event.getAmount() * ((skills.getCombatLvl() * 0.01f) + 0.5f));
+                        //ClientUtils.SendPrivateMessage("ferocityHit: " + event.getAmount() * ((skills.getCombatLvl() * 0.01f) + 0.5f));
+                        ferocityCount -= 1;
+                        //ClientUtils.SendPrivateMessage("ferocity: " + ferocityCount);
+                        //dmgTag.forceAddEffect(new EffectInstance(Effects.INVISIBILITY, 1000, 1));
+                        ArmorStandEntity dmgTag = new ArmorStandEntity(worldIn, event.getEntity().position().x + (0.5f - Math.random()), event.getEntity().position().y + 0.5 + (0.5f - Math.random()), event.getEntity().position().z + (0.5f - Math.random()));
+                        if ((5 * Math.round((initialDamage.get() * (skills.getStrength() / 100f) * (1 + (skills.getCombatLvl() * 0.04f))) + (hasEmeraldBlade ? PlayerStats.calcEmeraldBladeBoost(skills.getCoins()) : 0))) > 0) {
+                            dmgTag.setCustomName(ITextComponent.nullToEmpty(ColorText.YELLOW.toString() + (5 * Math.round((initialDamage.get() * (skills.getStrength() / 100f) * (1 + (skills.getCombatLvl() * 0.04f))) + (hasEmeraldBlade ? PlayerStats.calcEmeraldBladeBoost(skills.getCoins()) : 0)))));
+                            dmgTag.setCustomNameVisible(true);
+                            dmgTag.setInvulnerable(true);
+                            dmgTag.noPhysics = true;
+                            dmgTag.setInvisible(true);
+                            worldIn.addFreshEntity(dmgTag);
+                        }
+                        int rnd = player.level.random.nextInt(5) + 1;
+                        SoundEvent sound;
+                        if(rnd >= 4) sound = SoundEvents.ZOMBIE_BREAK_WOODEN_DOOR;
+                        else if(rnd >= 2) sound = SoundEvents.IRON_GOLEM_ATTACK;
+                        else sound = SoundEvents.FLINTANDSTEEL_USE;
+                        dmgTag.level.playSound(null, dmgTag, sound, SoundCategory.NEUTRAL, 1.0f, 1f);
+                        //ticksSinceHit = 0;
+                        event.getEntityLiving().hurt(DamageSource.playerAttack((PlayerEntity) event.getSource().getEntity()), event.getAmount() * ((skills.getCombatLvl() * 0.01f) + 0.5f));
+                        MinecraftForge.EVENT_BUS.post(new LivingHurtEvent(event.getEntityLiving(), DamageSource.playerAttack((PlayerEntity) event.getSource().getEntity()), event.getAmount() * ((skills.getCombatLvl() * 0.01f) + 0.5f)));
+                    //}
+
                 }
             });
         }
@@ -474,6 +478,7 @@ public class EventHandler {
                     if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("calc: " + (1 - (event.getAmount() - (skills.getDefense() / (skills.getDefense() + 20f))))), false);}
                     //skills.setHealth(Math.round((event.getEntityLiving().getHealth() / event.getEntityLiving().getMaxHealth()) * skills.getMaxHealth()));
                     event.setAmount((event.getAmount() * (1 - (skills.getDefense() / (skills.getDefense() + 20f)))) / (skills.getMaxHealth() / 100));
+                    event.setAmount(event.getAmount() * 2);
                     if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("defense: " + skills.getDefense()), false);}
                     if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("damageTaken : " + event.getAmount()), false);}
                 }
@@ -568,7 +573,7 @@ public class EventHandler {
                 //player.playerNetServerHandler.sendPacket(packet);
                 //System.out.println(skills.getStrength());
 
-                strengthAdder += player.experienceLevel;
+                strengthAdder += player.experienceLevel / 5f;
 
                 if (EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ULTIMATE_WISE.get(), player.getOffhandItem()) > 0) {
                     skills.setUltWiseLvl(EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ULTIMATE_WISE.get(), player.getOffhandItem()));
@@ -617,13 +622,13 @@ public class EventHandler {
                 }
 
                 skills.setStrength(strengthAdder);
-                skills.setMaxMana(100 + player.experienceLevel +
+                skills.setMaxMana(100 + (Math.round(((float)(player.experienceLevel)) / 5f)) +
                         (player.getMainHandItem().getItem() instanceof Zombie_Sword || player.getOffhandItem().getItem() instanceof Zombie_Sword ? 50 : 0) +
                         (player.getMainHandItem().getItem() instanceof Ornate_Zombie_Sword || player.getOffhandItem().getItem() instanceof Ornate_Zombie_Sword ? 50 : 0) +
                         (player.getMainHandItem().getItem() instanceof Florid_Zombie_Sword || player.getOffhandItem().getItem() instanceof Florid_Zombie_Sword ? 100 : 0));
-                skills.setMaxHealth((float) (100f + Math.floor(player.experienceLevel / 2D)));
+                skills.setMaxHealth((float) (100f + Math.floor(player.experienceLevel / 10D)));
                 skills.setHealth(Math.round((event.getEntityLiving().getHealth() / event.getEntityLiving().getMaxHealth()) * skills.getMaxHealth()));
-                skills.setFerocity((int) Math.floor(((double)(player.experienceLevel)) / 5D));
+                skills.setFerocity((int) Math.floor(((double)(player.experienceLevel)) / 25D));
 
                 ColorText color;
                 if (player.hasEffect(Effects.WITHER)) {

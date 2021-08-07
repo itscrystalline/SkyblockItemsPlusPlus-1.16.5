@@ -302,7 +302,7 @@ public class DefaultPlayerSkills implements IPlayerSkills {
     }
     private void CheckCombatXP()
     {
-        if (combatXp > (Math.pow((combatLvl + 3), 3) - Math.pow((combatLvl + 1), 2)) * 5)
+        if (combatXp > (Math.pow((combatLvl + 3), 3) - Math.pow((combatLvl + 1), 2)) * 2)
         {
             ++combatLvl;
             combatXp = 0;
@@ -322,7 +322,7 @@ public class DefaultPlayerSkills implements IPlayerSkills {
     }
     private void CheckMiningXP()
     {
-        if (miningXp > (Math.pow((miningLvl + 3), 3) - Math.pow((miningLvl + 1), 2)) * 5)
+        if (miningXp > (Math.pow((miningLvl + 3), 3) - Math.pow((miningLvl + 1), 2)) * 2)
         {
             ++miningLvl;
             miningXp = 0;
@@ -341,7 +341,7 @@ public class DefaultPlayerSkills implements IPlayerSkills {
     }
     private void CheckFarmingXP()
     {
-        if (farmingXp > (Math.pow((farmingLvl + 3), 3) - Math.pow((farmingLvl + 1), 2)) * 5)
+        if (farmingXp > (Math.pow((farmingLvl + 3), 3) - Math.pow((farmingLvl + 1), 2)) * 2)
         {
             ++farmingLvl;
             farmingXp = 0;
@@ -360,7 +360,7 @@ public class DefaultPlayerSkills implements IPlayerSkills {
     }
     private void CheckEnchantingXP()
     {
-        if (enchantingXp > (Math.pow((enchantingLvl + 3), 3) - Math.pow((enchantingLvl + 1), 2)) * 5)
+        if (enchantingXp > (Math.pow((enchantingLvl + 3), 3) - Math.pow((enchantingLvl + 1), 2)) * 2)
         {
             ++enchantingLvl;
             enchantingXp = 0;
@@ -379,7 +379,7 @@ public class DefaultPlayerSkills implements IPlayerSkills {
     }
     private void CheckForagingXP()
     {
-        if (foragingXp > (Math.pow((foragingLvl + 3), 3) - Math.pow((foragingLvl + 1), 2)) * 5)
+        if (foragingXp > (Math.pow((foragingLvl + 3), 3) - Math.pow((foragingLvl + 1), 2)) * 2)
         {
             ++foragingLvl;
             foragingXp = 0;
@@ -398,7 +398,7 @@ public class DefaultPlayerSkills implements IPlayerSkills {
     }
     private void CheckFishingXP()
     {
-        if (fishingXp > (Math.pow((fishingLvl + 3), 3) - Math.pow((fishingLvl + 1), 2)) * 5)
+        if (fishingXp > (Math.pow((fishingLvl + 3), 3) - Math.pow((fishingLvl + 1), 2)) * 2)
         {
             ++fishingLvl;
             fishingXp = 0;
@@ -417,7 +417,7 @@ public class DefaultPlayerSkills implements IPlayerSkills {
     }
     private void CheckAlchemyXP()
     {
-        if (alchemyXp > (Math.pow((alchemyLvl + 3), 3) - Math.pow((alchemyLvl + 1), 2)) * 5)
+        if (alchemyXp > (Math.pow((alchemyLvl + 3), 3) - Math.pow((alchemyLvl + 1), 2)) * 2)
         {
             ++alchemyLvl;
             alchemyXp = 0;

@@ -67,15 +67,17 @@ public class Terminator extends ShortBow {
                         AbstractArrowEntity abstractarrowentity = arrowitem.createArrow(p_77615_2_, itemstack, playerentity);
                         abstractarrowentity = this.customArrow(abstractarrowentity);
                         abstractarrowentity.shootFromRotation(playerentity, playerentity.xRot, playerentity.yRot, 0.0F, f * 3.0F, 1.0F);
-                        abstractarrowentity.shootFromRotation(playerentity, playerentity.xRot + 1, playerentity.yRot, 0.0F, f * 3.0F, 1.0F);
-                        abstractarrowentity.shootFromRotation(playerentity, playerentity.xRot - 1, playerentity.yRot, 0.0F, f * 3.0F, 1.0F);
+                        abstractarrowentity.shootFromRotation(playerentity, playerentity.xRot + 1, playerentity.yRot, 1.0F, f * 3.0F, 1.0F);
+                        abstractarrowentity.shootFromRotation(playerentity, playerentity.xRot - 1, playerentity.yRot, -1.0F, f * 3.0F, 1.0F);
+
+                        abstractarrowentity.setBaseDamage(abstractarrowentity.getBaseDamage() + 310f);
                         if (f == 1.0F) {
                             abstractarrowentity.setCritArrow(true);
                         }
 
                         int j = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.POWER_ARROWS, p_77615_1_);
                         if (j > 0) {
-                            abstractarrowentity.setBaseDamage(abstractarrowentity.getBaseDamage() + (double)j * 0.5D + 0.5D);
+                            abstractarrowentity.setBaseDamage((abstractarrowentity.getBaseDamage() + (double)j * 0.5D + 0.5D));
                         }
 
                         int k = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.PUNCH_ARROWS, p_77615_1_);

@@ -46,8 +46,8 @@ public class PlayerSkillsEventHandler {
             PlayerEntity player = (PlayerEntity) event.getSource().getEntity();
             player.getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills -> {
                 skills.AwardCombatXp(event.getEntityLiving().getExperienceReward((PlayerEntity) event.getSource().getEntity()));
-                ClientUtils.SendPrivateMessage("Combat XP: " + skills.getCombatXp() + "/" + ((Math.pow((skills.getCombatLvl() + 3), 3) - Math.pow((skills.getCombatLvl() + 1), 2)) * 5));
-                ClientUtils.SendPrivateMessage("Progress: " + Math.round(skills.getCombatXp() / ((Math.pow((skills.getCombatLvl() + 3), 3) - Math.pow((skills.getCombatLvl() + 1), 2)) * 5) * 100) + "%");
+                ClientUtils.SendPrivateMessage("Combat XP: " + skills.getCombatXp() + "/" + ((Math.pow((skills.getCombatLvl() + 3), 3) - Math.pow((skills.getCombatLvl() + 1), 2)) * 2));
+                ClientUtils.SendPrivateMessage("Progress: " + Math.round(skills.getCombatXp() / ((Math.pow((skills.getCombatLvl() + 3), 3) - Math.pow((skills.getCombatLvl() + 1), 2)) * 2) * 100) + "%");
                 ClientUtils.SendPrivateMessage("Combat LVL: " + skills.getCombatLvl());
                 player.level.playSound(player, player, SoundEvents.EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 1f, 1f);
             });
@@ -64,8 +64,8 @@ public class PlayerSkillsEventHandler {
                 if (event.getState().is(BlockTags.CROPS))
                 {
                     skills.AwardFarmingXp(6);
-                    ClientUtils.SendPrivateMessage("Farming XP: " + skills.getFarmingXp() + "/" + ((Math.pow((skills.getFarmingLvl() + 3), 3) - Math.pow((skills.getFarmingLvl() + 1), 2)) * 5));
-                    ClientUtils.SendPrivateMessage("Progress: " + Math.round(skills.getFarmingXp() / ((Math.pow((skills.getFarmingLvl() + 3), 3) - Math.pow((skills.getFarmingLvl() + 1), 2)) * 5) * 100) + "%");
+                    ClientUtils.SendPrivateMessage("Farming XP: " + skills.getFarmingXp() + "/" + ((Math.pow((skills.getFarmingLvl() + 3), 3) - Math.pow((skills.getFarmingLvl() + 1), 2)) * 2));
+                    ClientUtils.SendPrivateMessage("Progress: " + Math.round(skills.getFarmingXp() / ((Math.pow((skills.getFarmingLvl() + 3), 3) - Math.pow((skills.getFarmingLvl() + 1), 2)) * 2) * 100) + "%");
                     ClientUtils.SendPrivateMessage("Mining LVL: " + skills.getFarmingLvl());
                     event.getPlayer().level.playSound(event.getPlayer(), event.getPlayer(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 1f, 1f);
 
@@ -73,16 +73,16 @@ public class PlayerSkillsEventHandler {
                 else if (event.getState().is(BlockTags.LOGS))
                 {
                     skills.AwardForagingXp(10);
-                    ClientUtils.SendPrivateMessage("Foraging XP: " + skills.getForagingXp() + "/" + ((Math.pow((skills.getForagingLvl() + 3), 3) - Math.pow((skills.getForagingLvl() + 1), 2)) * 5));
-                    ClientUtils.SendPrivateMessage("Progress: " + Math.round(skills.getForagingXp() / ((Math.pow((skills.getForagingLvl() + 3), 3) - Math.pow((skills.getForagingLvl() + 1), 2)) * 5) * 100) + "%");
+                    ClientUtils.SendPrivateMessage("Foraging XP: " + skills.getForagingXp() + "/" + ((Math.pow((skills.getForagingLvl() + 3), 3) - Math.pow((skills.getForagingLvl() + 1), 2)) * 2));
+                    ClientUtils.SendPrivateMessage("Progress: " + Math.round(skills.getForagingXp() / ((Math.pow((skills.getForagingLvl() + 3), 3) - Math.pow((skills.getForagingLvl() + 1), 2)) * 2) * 100) + "%");
                     ClientUtils.SendPrivateMessage("Mining LVL: " + skills.getForagingLvl());
                     event.getPlayer().level.playSound(event.getPlayer(), event.getPlayer(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 1f, 1f);
                 }
                 else
                 {
                     skills.AwardMiningXp(((event.getState().getHarvestLevel() + 1) * 5) + (event.getExpToDrop() * 2));
-                    ClientUtils.SendPrivateMessage("Mining XP: " + skills.getMiningXp() + "/" + ((Math.pow((skills.getMiningLvl() + 3), 3) - Math.pow((skills.getMiningLvl() + 1), 2)) * 5));
-                    ClientUtils.SendPrivateMessage("Progress: " + Math.round(skills.getMiningXp() / ((Math.pow((skills.getMiningLvl() + 3), 3) - Math.pow((skills.getMiningLvl() + 1), 2)) * 5) * 100) + "%");
+                    ClientUtils.SendPrivateMessage("Mining XP: " + skills.getMiningXp() + "/" + ((Math.pow((skills.getMiningLvl() + 3), 3) - Math.pow((skills.getMiningLvl() + 1), 2)) * 2));
+                    ClientUtils.SendPrivateMessage("Progress: " + Math.round(skills.getMiningXp() / ((Math.pow((skills.getMiningLvl() + 3), 3) - Math.pow((skills.getMiningLvl() + 1), 2)) * 2) * 100) + "%");
                     ClientUtils.SendPrivateMessage("Mining LVL: " + skills.getMiningLvl());
                     event.getPlayer().level.playSound(event.getPlayer(), event.getPlayer(), SoundEvents.EXPERIENCE_ORB_PICKUP, SoundCategory.PLAYERS, 1f, 1f);
                 }
@@ -94,8 +94,8 @@ public class PlayerSkillsEventHandler {
     public static void AwardAlchemyStats(final PotionBrewEvent event)
     {
         //skills.AwardAlchemyXP(10);
-        /*ClientUtils.SendPrivateMessage("Mining XP: " + PlayerSkills.miningXp + "/" + ((Math.pow((PlayerSkills.miningLvl + 3), 3) - Math.pow((PlayerSkills.miningLvl + 1), 2)) * 5));
-        ClientUtils.SendPrivateMessage("Progress: " + Math.round(PlayerSkills.miningXp / ((Math.pow((PlayerSkills.miningLvl + 3), 3) - Math.pow((PlayerSkills.miningLvl + 1), 2)) * 5) * 100) + "%");
+        /*ClientUtils.SendPrivateMessage("Mining XP: " + PlayerSkills.miningXp + "/" + ((Math.pow((PlayerSkills.miningLvl + 3), 3) - Math.pow((PlayerSkills.miningLvl + 1), 2)) * 2));
+        ClientUtils.SendPrivateMessage("Progress: " + Math.round(PlayerSkills.miningXp / ((Math.pow((PlayerSkills.miningLvl + 3), 3) - Math.pow((PlayerSkills.miningLvl + 1), 2)) * 2) * 100) + "%");
         ClientUtils.SendPrivateMessage("Mining LVL: " + PlayerSkills.miningLvl);*/
     }
 
@@ -131,7 +131,7 @@ public class PlayerSkillsEventHandler {
                     slayerStatus.setSlayerStatus(slayerStatus.getSlayerStatus() + 1);
                 }
                 ClientUtils.SendPrivateMessage("Your slayer status is set to: " + SlayerStatus.fromId(slayerStatus.getSlayerStatus()).name.getString());
-                player.level.playSound(event.getPlayer(), event.getPlayer(), SoundEvents.NOTE_BLOCK_SNARE, SoundCategory.NEUTRAL, 1.0f, 1.5f);
+                player.level.playSound(event.getPlayer(), event.getPlayer(), SoundEvents.NOTE_BLOCK_SNARE, SoundCategory.NEUTRAL, 10000000f, 100000f);
             });
         }
     }

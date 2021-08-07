@@ -5,13 +5,11 @@ import com.iwant2tryhard.skyblockitemsplusplus.capabilities.playerskills.IPlayer
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ColorText;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.TaggedSwordItem;
 import com.iwant2tryhard.skyblockitemsplusplus.common.util.CustomRarity;
-import com.sun.corba.se.spi.ior.TaggedComponentBase;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.SwordItem;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
