@@ -7,8 +7,8 @@ import com.iwant2tryhard.skyblockitemsplusplus.client.util.ColorText;
 import com.iwant2tryhard.skyblockitemsplusplus.common.entities.other.PlayerStats;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.TaggedSwordItem;
 import com.iwant2tryhard.skyblockitemsplusplus.common.util.CustomRarity;
+import com.iwant2tryhard.skyblockitemsplusplus.core.event.EventHandler;
 import net.minecraft.block.AirBlock;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,7 +16,10 @@ import net.minecraft.item.IItemTier;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
-import net.minecraft.util.*;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -248,19 +251,21 @@ public class Aspect_Of_The_End extends TaggedSwordItem {
                 {
                     ClientUtils.SendPrivateMessage(ColorText.RED + "There are blocks in the way!");
                 }
-                else
-                {
+                else {
                     //player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - foodLevel);
-                    worldIn.playSound(player, player, SoundEvents.ENDERMAN_TELEPORT,SoundCategory.NEUTRAL, 1.0f, 1.0f);
-                    player.displayClientMessage(ITextComponent.nullToEmpty("\u00A73" + "Used " + "\u00A76" + "Instant Transmission! " + "\u00A73" + "(" + (displayManaUsage  * (1f - (skills.getUltWiseLvl() * 0.1f))) + " Mana)"), false);
+                    worldIn.playSound(player, player, SoundEvents.ENDERMAN_TELEPORT, SoundCategory.NEUTRAL, 1.0f, 1.0f);
+                    player.displayClientMessage(ITextComponent.nullToEmpty("\u00A73" + "Used " + "\u00A76" + "Instant Transmission! " + "\u00A73" + "(" + (displayManaUsage * (1f - (skills.getUltWiseLvl() * 0.1f))) + " Mana)"), false);
+                    EventHandler.abilityShowTimer = 20;
+                    EventHandler.abilityShowText = ColorText.AQUA + "-" + (displayManaUsage * (1f - (skills.getUltWiseLvl() * 0.1f))) + " Mana (" + "\u00A76" + "Instant Transmission" + ColorText.AQUA + ")";
+                    EventHandler.ticksSinceManaHeal = 60;
 
                     /*ClientUtils.SendPrivateMessage("1-1:" + "(" + skills.getMana() + " / " + skills.getMaxMana() + ") * 20");
                     ClientUtils.SendPrivateMessage("2-1:" + (skills.getMana() / skills.getMaxMana()) * 20);
                     ClientUtils.SendPrivateMessage("3-1:" + player.getFoodData().getFoodLevel());*/
                     if (skills.getMana() < displayManaUsage) {
-                        player.displayClientMessage(ITextComponent.nullToEmpty(ColorText.RED.toString() + "You don't have enough mana to use this!"), false);
-                    }else {
-                        skills.setMana(Math.round(skills.getMana() - displayManaUsage));
+                        player.displayClientMessage(ITextComponent.nullToEmpty(ColorText.RED + "You don't have enough mana to use this!"), false);
+                    } else {
+                        skills.setMana(Math.round(skills.getMana() - (displayManaUsage * (1f - (skills.getUltWiseLvl() * 0.1f)))));
                     }
                     /*ClientUtils.SendPrivateMessage("1-2:" + "(" + skills.getMana() + " / " + skills.getMaxMana() + ") * 20");
                     ClientUtils.SendPrivateMessage("2-2:" + (skills.getMana() / skills.getMaxMana()) * 20);
@@ -328,7 +333,7 @@ public class Aspect_Of_The_End extends TaggedSwordItem {
         super.inventoryTick(p_77663_1_, p_77663_2_, player, p_77663_4_, p_77663_5_);
         if (player instanceof PlayerEntity)
         {
-            ((PlayerEntity) player).getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills -> {
+            player.getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills -> {
                 iskills = skills;
             });
         }

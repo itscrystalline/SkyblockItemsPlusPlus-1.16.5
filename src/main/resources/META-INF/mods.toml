@@ -3,13 +3,13 @@ modLoader="javafml" #mandatory
 
 loaderVersion="[36,)"
 
-license="CC-BYNC"
+license = "CC-BY-NC"
 
 [[mods]]
 
 modId="skyblockitemsplusplus"
 
-version="0.6-073121a"
+version = "0.7-080721a"
 
 displayName="SkyblockItems++"
 

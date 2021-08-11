@@ -34,10 +34,10 @@ public class Terminator extends ShortBow {
         tooltip.add(new StringTextComponent("\u00A77" + "Crit Damage: " + "\u00A7c" + "+250%"));
         tooltip.add(new StringTextComponent("\u00A77" + "Bonus Attack Speed: " + "\u00A7c" + "+40%"));
         tooltip.add(new StringTextComponent(""));
-        tooltip.add(new StringTextComponent(ColorText.GOLD.toString() + "Shortbow: Instantly shoots!"));
-        tooltip.add(new StringTextComponent(ColorText.GRAY.toString() + "Shoots " + ColorText.AQUA.toString() + "3" + ColorText.GRAY.toString() + " arrows at once."));
-        tooltip.add(new StringTextComponent(ColorText.GRAY.toString() + "Can damage endermen."));
-        tooltip.add(new StringTextComponent(ColorText.GRAY.toString() + "This item can be reforged!"));
+        tooltip.add(new StringTextComponent(ColorText.GOLD + "Shortbow: Instantly shoots!"));
+        tooltip.add(new StringTextComponent(ColorText.GRAY + "Shoots " + ColorText.AQUA + "3" + ColorText.GRAY + " arrows at once."));
+        tooltip.add(new StringTextComponent(ColorText.GRAY + "Can damage endermen."));
+        tooltip.add(new StringTextComponent(ColorText.GRAY + "This item can be reforged!"));
         tooltip.add(new StringTextComponent(ColorText.BOLD.toString() + rarity + "BOW"));
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
     }
@@ -63,14 +63,12 @@ public class Terminator extends ShortBow {
                 if (!((double)f < 0.1D)) {
                     boolean flag1 = playerentity.abilities.instabuild || itemstack.getItem() instanceof ArrowItem && ((ArrowItem)itemstack.getItem()).isInfinite(itemstack, p_77615_1_, playerentity);
                     if (!p_77615_2_.isClientSide) {
-                        ArrowItem arrowitem = (ArrowItem)((ArrowItem)(itemstack.getItem() instanceof ArrowItem ? itemstack.getItem() : Items.ARROW));
+                        ArrowItem arrowitem = (ArrowItem) (itemstack.getItem() instanceof ArrowItem ? itemstack.getItem() : Items.ARROW);
                         AbstractArrowEntity abstractarrowentity = arrowitem.createArrow(p_77615_2_, itemstack, playerentity);
                         abstractarrowentity = this.customArrow(abstractarrowentity);
                         abstractarrowentity.shootFromRotation(playerentity, playerentity.xRot, playerentity.yRot, 0.0F, f * 3.0F, 1.0F);
-                        abstractarrowentity.shootFromRotation(playerentity, playerentity.xRot + 1, playerentity.yRot, 1.0F, f * 3.0F, 1.0F);
-                        abstractarrowentity.shootFromRotation(playerentity, playerentity.xRot - 1, playerentity.yRot, -1.0F, f * 3.0F, 1.0F);
 
-                        abstractarrowentity.setBaseDamage(abstractarrowentity.getBaseDamage() + 310f);
+                        abstractarrowentity.setBaseDamage((abstractarrowentity.getBaseDamage() + 310f) / 12f);
                         if (f == 1.0F) {
                             abstractarrowentity.setCritArrow(true);
                         }
@@ -99,7 +97,7 @@ public class Terminator extends ShortBow {
                         p_77615_2_.addFreshEntity(abstractarrowentity);
                     }
 
-                    p_77615_2_.playSound((PlayerEntity)null, playerentity.getX(), playerentity.getY(), playerentity.getZ(), SoundEvents.ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+                    p_77615_2_.playSound(null, playerentity.getX(), playerentity.getY(), playerentity.getZ(), SoundEvents.ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
                     if (!flag1 && !playerentity.abilities.instabuild) {
                         itemstack.shrink(1);
                         if (itemstack.isEmpty()) {

@@ -19,6 +19,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 @EventBusSubscriber(modid = SkyblockItemsPlusPlus.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientEvents {
 
+
     public static void clientSetup(final FMLClientSetupEvent event)
     {
         ScreenManager.register(ContainerInit.ELECTRIC_CRAFTING_TABLE.get(), ElectricCraftingTableScreen::new);
@@ -31,4 +32,6 @@ public class ClientEvents {
     public static void setAttributes(EntityAttributeCreationEvent event) {
         event.put(EntityTypeInit.SLAYER_DEALER.get(), SlayerDealerEntity.setAttributes().build());
     }
+
+
 }

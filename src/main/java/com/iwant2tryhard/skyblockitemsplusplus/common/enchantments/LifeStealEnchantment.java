@@ -3,7 +3,6 @@ package com.iwant2tryhard.skyblockitemsplusplus.common.enchantments;
 import com.iwant2tryhard.skyblockitemsplusplus.core.init.EnchantmentInit;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.inventory.EquipmentSlotType;
 
 public class LifeStealEnchantment extends Enchantment {
@@ -28,6 +27,6 @@ public class LifeStealEnchantment extends Enchantment {
 
     @Override
     protected boolean checkCompatibility(Enchantment ench) {
-        return !ench.equals(EnchantmentInit.LIFE_STEAL);
+        return !ench.equals(EnchantmentInit.LIFE_STEAL.get());
     }
 }

@@ -125,7 +125,7 @@ public class ItemInit {
 
     //shovels
     public static final RegistryObject<Netherite_Plated_Diamond_Shovel> NETHERITE_PLATED_DIAMOND_SHOVEL = ITEMS.register("netherite_plated_diamond_shovel",
-            () -> new Netherite_Plated_Diamond_Shovel(new NetheritePlatedDiamondSource(), (int) 5.5f, -3f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Tools).addToolType(ToolType.SHOVEL, 3), CustomRarity.RARE));
+            () -> new Netherite_Plated_Diamond_Shovel(new NetheritePlatedDiamondSource(), 5.5f, -3f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Tools).addToolType(ToolType.SHOVEL, 3), CustomRarity.RARE));
 
     //hoes
     public static final RegistryObject<Netherite_Plated_Diamond_Hoe> NETHERITE_PLATED_DIAMOND_HOE = ITEMS.register("netherite_plated_diamond_hoe",
@@ -133,7 +133,7 @@ public class ItemInit {
 
     //bows
     public static final RegistryObject<Terminator> TERMINATOR = ITEMS.register("terminator",
-            () -> new Terminator(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat), CustomRarity.LEGENDARY));
+            () -> new Terminator(new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat).durability(1350), CustomRarity.LEGENDARY));
 
     //armor
     public static final RegistryObject<Farm_Suit_Helmet> FARM_SUIT_HELMET = ITEMS.register("farm_suit_helmet",

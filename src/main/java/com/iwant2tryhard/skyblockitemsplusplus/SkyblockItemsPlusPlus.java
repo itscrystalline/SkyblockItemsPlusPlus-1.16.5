@@ -1,20 +1,15 @@
 package com.iwant2tryhard.skyblockitemsplusplus;
 
 import com.iwant2tryhard.skyblockitemsplusplus.client.event.ClientEvents;
-import com.iwant2tryhard.skyblockitemsplusplus.common.entities.ZealotEntity;
 import com.iwant2tryhard.skyblockitemsplusplus.core.event.ModInit;
 import com.iwant2tryhard.skyblockitemsplusplus.core.init.*;
-import com.iwant2tryhard.skyblockitemsplusplus.slayers.entity.slayerdealer.SlayerDealerEntity;
 import com.iwant2tryhard.skyblockitemsplusplus.world.OreGeneration;
-import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -36,7 +31,9 @@ public class SkyblockItemsPlusPlus
 
     public SkyblockItemsPlusPlus() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
-        bus.addListener(this::setup);
+        bus.addListener(ModInit::init);
+        bus.addListener(ClientEvents::clientSetup);
+        //bus.addListener(ModServerInit::registerCommands);
 
         EnchantmentInit.ENCHANTMENTS.register(bus);
         BlockInit.BLOCKS.register(bus);
@@ -47,24 +44,7 @@ public class SkyblockItemsPlusPlus
 
         MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH, OreGeneration::generateOres);
 
-        // Register the setup method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(ModInit::init);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientEvents::clientSetup);
-
         MinecraftForge.EVENT_BUS.register(this);
-
-    }
-
-    private void setup(final FMLCommonSetupEvent event)
-    {
-        //ScreenManager.register(ContainerInit.ELECTRIC_CRFATING_TABLE.get(), ElectricCraftingTableScreen::new);
-        DeferredWorkQueue.runLater(() -> {
-            GlobalEntityTypeAttributes.put(EntityTypeInit.ZEALOT.get(), ZealotEntity.setAttributes().build());
-        });
-        /*DeferredWorkQueue.runLater(() -> {
-            GlobalEntityTypeAttributes.put(EntityTypeInit.SLAYER_DEALER.get(), SlayerDealerEntity.setAttributes().build());
-        });*/
-
     }
 
     public static class SkyblockItemsCombat extends ItemGroup

@@ -1,6 +1,5 @@
 package com.iwant2tryhard.skyblockitemsplusplus.common.items.items.shovels;
 
-import com.iwant2tryhard.skyblockitemsplusplus.client.util.ColorText;
 import com.iwant2tryhard.skyblockitemsplusplus.common.util.CustomRarity;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.IItemTier;
@@ -15,7 +14,7 @@ import java.util.List;
 
 public class Netherite_Plated_Diamond_Shovel extends ShovelItem {
     private final CustomRarity rarity;
-    public Netherite_Plated_Diamond_Shovel(IItemTier itemTier, int damage, float attackSpeed, Properties properties, CustomRarity rarity) {
+    public Netherite_Plated_Diamond_Shovel(IItemTier itemTier, float damage, float attackSpeed, Properties properties, CustomRarity rarity) {
         super(itemTier, damage, attackSpeed, properties);
         this.rarity = rarity;
     }
