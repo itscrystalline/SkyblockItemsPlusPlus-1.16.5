@@ -1,6 +1,7 @@
 package com.iwant2tryhard.skyblockitemsplusplus.core.event;
 
 import com.iwant2tryhard.skyblockitemsplusplus.SkyblockItemsPlusPlus;
+import com.iwant2tryhard.skyblockitemsplusplus.capabilities.entitylevel.CapabilityMobLevel;
 import com.iwant2tryhard.skyblockitemsplusplus.capabilities.playerskills.CapabilityPlayerSkills;
 import com.iwant2tryhard.skyblockitemsplusplus.capabilities.reforges.CapabilityItemReforges;
 import com.iwant2tryhard.skyblockitemsplusplus.client.util.ClientUtils;
@@ -30,7 +31,6 @@ import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.hoes.Netherite
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.pickaxes.Netherite_Plated_Diamond_Pickaxe;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.shovels.Netherite_Plated_Diamond_Shovel;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.swords.*;
-import com.iwant2tryhard.skyblockitemsplusplus.core.enums.MobStats;
 import com.iwant2tryhard.skyblockitemsplusplus.core.init.EnchantmentInit;
 import com.iwant2tryhard.skyblockitemsplusplus.core.init.EntityTypeInit;
 import com.iwant2tryhard.skyblockitemsplusplus.core.init.ItemInit;
@@ -45,33 +45,29 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.boss.WitherEntity;
-import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonPartEntity;
 import net.minecraft.entity.item.ArmorStandEntity;
 import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.merchant.villager.VillagerEntity;
-import net.minecraft.entity.monster.*;
-import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ArmorItem;
-import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.potion.Potion;
-import net.minecraft.util.*;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.MobSpawnInfo;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -90,7 +86,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class EventHandler {
 
 
-    private static int ferocityCount = 0;
+    private static final int ferocityCount = 0;
 
     public static int skillShowTimer = 0;
     public static String skillShowText = "";
@@ -101,7 +97,7 @@ public class EventHandler {
     //private static int ticksSinceHit = 0;
     @SubscribeEvent
     public static void onLivingEntityHurt(final LivingHurtEvent event) {
-        World worldIn = event.getEntity().level;
+        /*World worldIn = event.getEntity().level;
 
         AtomicReference<Float> initialDamage = new AtomicReference<>(event.getAmount());
 
@@ -122,6 +118,41 @@ public class EventHandler {
                         Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("initialDamage : " + event.getAmount()), false);
                     }
 
+                    int headDefense;
+                    int chestDefense;
+                    int legsDefense;
+                    int feetDefense;
+
+                    if (target.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof ArmorItem) {
+                        ArmorItem head = (ArmorItem) target.getItemBySlot(EquipmentSlotType.HEAD).getItem();
+                        headDefense = head.getDefense();
+                    } else {
+                        headDefense = 0;
+                    }
+
+                    if (target.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof ArmorItem) {
+                        ArmorItem chest = (ArmorItem) target.getItemBySlot(EquipmentSlotType.CHEST).getItem();
+                        chestDefense = chest.getDefense();
+                    } else {
+                        chestDefense = 0;
+                    }
+
+                    if (target.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof ArmorItem) {
+                        ArmorItem legs = (ArmorItem) target.getItemBySlot(EquipmentSlotType.LEGS).getItem();
+                        legsDefense = legs.getDefense();
+                    } else {
+                        legsDefense = 0;
+                    }
+
+                    if (target.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof ArmorItem) {
+                        ArmorItem feet = (ArmorItem) target.getItemBySlot(EquipmentSlotType.FEET).getItem();
+                        feetDefense = feet.getDefense();
+                    } else {
+                        feetDefense = 0;
+                    }
+
+                    int totalDefense = headDefense + chestDefense + legsDefense + feetDefense;
+
                     if (!(player.getMainHandItem().getItem() instanceof TaggedSwordItem) | event.getSource().getDirectEntity() instanceof AbstractArrowEntity) {
                         event.setAmount(event.getAmount() * 12);
                         //ClientUtils.SendPrivateMessage("x12");
@@ -131,78 +162,78 @@ public class EventHandler {
 
                         if (target instanceof ZombieEntity) {
                             if (player.getMainHandItem().getItem() instanceof Undead_Sword) {
-                                event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.ZOMBIE.defense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl())));
+                                event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.ZOMBIE.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl())));
                                 initialDamage.updateAndGet(v -> new Float(v * 2));
                             } else {
-                                event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.ZOMBIE.defense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
+                                event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.ZOMBIE.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
                             }
                         } else if (target instanceof SkeletonEntity) {
                             if (player.getMainHandItem().getItem() instanceof Undead_Sword) {
-                                event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.SKELETON.defense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl())));
+                                event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.SKELETON.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl())));
                                 initialDamage.updateAndGet(v -> new Float(v * 2));
                             } else {
-                                event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.SKELETON.defense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
+                                event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.SKELETON.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
                             }
                         } else if (target instanceof EndermanEntity) {
                             if (player.getMainHandItem().getItem() instanceof End_Sword) {
-                                event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.ENDERMAN.defense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl())));
+                                event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.ENDERMAN.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl())));
                                 initialDamage.updateAndGet(v -> new Float(v * 2));
                             } else {
-                                event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.ENDERMAN.defense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
+                                event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.ENDERMAN.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
                             }
                         } else if (target instanceof ZealotEntity) {
                             if (player.getMainHandItem().getItem() instanceof End_Sword) {
-                                event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.ZEALOT.defense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl())));
+                                event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.ZEALOT.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl())));
                                 initialDamage.updateAndGet(v -> new Float(v * 2));
                             } else {
-                                event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.ZEALOT.defense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
+                                event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.ZEALOT.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
                             }
                         } else if (target instanceof EndermiteEntity) {
                             if (player.getMainHandItem().getItem() instanceof End_Sword) {
-                                event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.ENDERMITE.defense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl())));
+                                event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.ENDERMITE.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl())));
                                 initialDamage.updateAndGet(v -> new Float(v * 2));
                             } else {
-                                event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.ENDERMITE.defense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
+                                event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.ENDERMITE.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
                             }
                         } else if (target instanceof CreeperEntity) {
-                            event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.CREEPER.defense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
+                            event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.CREEPER.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
                         } else if (target instanceof SlimeEntity) {
-                            event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.SLIME.defense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
+                            event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.SLIME.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
                         } else if (target instanceof SpiderEntity) {
-                            event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.SPIDER.defense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
+                            event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.SPIDER.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
                         } else if (target instanceof CaveSpiderEntity) {
-                            event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.CAVE_SPIDER.defense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
+                            event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.CAVE_SPIDER.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
                         } else if (target instanceof VillagerEntity) {
-                            event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.VILLAGER.defense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
+                            event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.VILLAGER.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
                         } else if (target instanceof IronGolemEntity) {
-                            event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.IRON_GOLEM.defense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
+                            event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.IRON_GOLEM.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
                         } else if (target instanceof ZombifiedPiglinEntity) {
                             if (player.getMainHandItem().getItem() instanceof Undead_Sword) {
-                                event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.ZOMBIE_PIGMAN.defense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl())));
+                                event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.ZOMBIE_PIGMAN.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl())));
                                 initialDamage.updateAndGet(v -> new Float(v * 2));
                             } else {
-                                event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.ZOMBIE_PIGMAN.defense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
+                                event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.ZOMBIE_PIGMAN.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
                             }
                         } else if (target instanceof WitherSkeletonEntity) {
                             if (player.getMainHandItem().getItem() instanceof Undead_Sword) {
-                                event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.WITHER_SKELETON.defense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl())));
+                                event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.WITHER_SKELETON.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl())));
                                 initialDamage.updateAndGet(v -> new Float(v * 2));
                             } else {
-                                event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.WITHER_SKELETON.defense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
+                                event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.WITHER_SKELETON.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
                             }
                         } else if (target instanceof WitherEntity) {
                             if (player.getMainHandItem().getItem() instanceof Undead_Sword) {
-                                event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.WITHER.defense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl())));
+                                event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.WITHER.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl())));
                                 initialDamage.updateAndGet(v -> new Float(v * 2));
                             } else {
-                                event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.WITHER.defense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
+                                event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.WITHER.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
                             }
                         } else if (target instanceof EnderDragonEntity) {
                             if (player.getMainHandItem().getItem() instanceof End_Sword) {
-                                event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.ENDER_DRAGON.defense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl())));
+                                event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.ENDER_DRAGON.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl())));
                                 initialDamage.updateAndGet(v -> new Float(v * 2));
                             } else {
-                                event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.ENDER_DRAGON.defense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
+                                event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.ENDER_DRAGON.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
                             }
                         } else if (target instanceof PlayerEntity) {
                             event.setAmount(event.getAmount());
@@ -301,40 +332,7 @@ public class EventHandler {
                         target.setSecondsOnFire(3);
                     }
 
-                    int headDefense;
-                    int chestDefense;
-                    int legsDefense;
-                    int feetDefense;
 
-                    if (target.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof ArmorItem) {
-                        ArmorItem head = (ArmorItem) target.getItemBySlot(EquipmentSlotType.HEAD).getItem();
-                        headDefense = head.getDefense();
-                    } else {
-                        headDefense = 0;
-                    }
-
-                    if (target.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof ArmorItem) {
-                        ArmorItem chest = (ArmorItem) target.getItemBySlot(EquipmentSlotType.CHEST).getItem();
-                        chestDefense = chest.getDefense();
-                    } else {
-                        chestDefense = 0;
-                    }
-
-                    if (target.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof ArmorItem) {
-                        ArmorItem legs = (ArmorItem) target.getItemBySlot(EquipmentSlotType.LEGS).getItem();
-                        legsDefense = legs.getDefense();
-                    } else {
-                        legsDefense = 0;
-                    }
-
-                    if (target.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof ArmorItem) {
-                        ArmorItem feet = (ArmorItem) target.getItemBySlot(EquipmentSlotType.FEET).getItem();
-                        feetDefense = feet.getDefense();
-                    } else {
-                        feetDefense = 0;
-                    }
-
-                    int totalDefense = headDefense + chestDefense + legsDefense + feetDefense;
 
                     event.setAmount(event.getAmount() * (1 - (totalDefense / (totalDefense + 20f))));
                     event.setAmount(event.getAmount() * ((10f - lightlvl) * 0.1f));
@@ -466,7 +464,7 @@ public class EventHandler {
                     event.setAmount((event.getAmount() / skills.getMaxHealth()) * 100);
                     //ClientUtils.SendPrivateMessage("fallMultiplier: " + fallDamageMultiplier);
                     //ClientUtils.SendPrivateMessage("final: " + event.getAmount());
-                    target.level.playSound(target, target, SoundEvents.ANVIL_LAND, SoundCategory.NEUTRAL, 1.0f, 1.5f);
+                    target.level.playSound(null, target, SoundEvents.ANVIL_LAND, SoundCategory.NEUTRAL, 1.0f, 1.5f);
 
                 } else if (event.getSource().isBypassArmor()) {
                     if (event.getSource() == DamageSource.WITHER | event.getSource() == DamageSource.MAGIC | event.getSource() == DamageSource.FLY_INTO_WALL | event.getSource() == DamageSource.ON_FIRE | event.getSource() == DamageSource.DRAGON_BREATH | event.getSource() == DamageSource.LAVA | event.getSource() == DamageSource.HOT_FLOOR | event.getSource() == DamageSource.indirectMagic(event.getSource().getEntity(), event.getEntity())) {
@@ -487,7 +485,6 @@ public class EventHandler {
                     if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("calc: " + (1 - (event.getAmount() - (skills.getDefense() / (skills.getDefense() + 20f))))), false);}
                     //skills.setHealth(Math.round((event.getEntityLiving().getHealth() / event.getEntityLiving().getMaxHealth()) * skills.getMaxHealth()));
                     event.setAmount((event.getAmount() * (1 - (skills.getDefense() / (skills.getDefense() + 20f)))) / (skills.getMaxHealth() / 100));
-                    event.setAmount(event.getAmount() * 2);
                     if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("defense: " + skills.getDefense()), false);}
                     if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("damageTaken : " + event.getAmount()), false);}
                 }
@@ -531,6 +528,382 @@ public class EventHandler {
             {
                 event.setAmount(event.getAmount() * 2);
             }
+        }*/
+
+        World world = event.getEntityLiving().level;
+        LivingEntity target = event.getEntityLiving();
+        //int targetTotalDefense = 0;
+        AtomicReference<Integer> targetTotalDefense = new AtomicReference<>(0);
+        if (target != null) {
+            targetTotalDefense.updateAndGet(v -> target.getArmorValue());
+        }
+
+        LivingEntity attacker = (LivingEntity) event.getSource().getEntity();
+        AtomicReference<Integer> attackerTotalDefense = new AtomicReference<>(0);
+        if (attacker != null) {
+            attackerTotalDefense.updateAndGet(v -> attacker.getArmorValue());
+        }
+
+        if (attacker != null) {
+            if (!(attacker.getMainHandItem().getItem() instanceof TaggedSwordItem) | event.getSource().getDirectEntity() instanceof AbstractArrowEntity) {
+                event.setAmount(event.getAmount() * 12);
+            } else {
+                event.setAmount(event.getAmount());
+            }
+        } else {
+            event.setAmount(event.getAmount());
+        }
+
+        if (attacker instanceof PlayerEntity) {
+            PlayerEntity attacker1 = (PlayerEntity) attacker;
+            attacker1.getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills -> {
+                boolean hasOneForAll = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ONE_FOR_ALL.get(), attacker1.getMainHandItem()) > 0;
+                int lifeStealLvl = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.LIFE_STEAL.get(), attacker1.getMainHandItem());
+                int lightlvl = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.LIGHT.get(), attacker1.getMainHandItem());
+                boolean hasEmeraldBlade = attacker1.getMainHandItem().getItem() instanceof Emerald_Blade;
+                float actualAmount = event.getAmount();
+                actualAmount += hasOneForAll ? 20f : 0f;
+                actualAmount += hasEmeraldBlade ? PlayerStats.calcEmeraldBladeBoost(skills.getCoins()) : 0f;
+                event.setAmount(actualAmount * (skills.getStrength() / 100f) * (1f + skills.getCombatLvl() * 0.04f));
+
+                if (lifeStealLvl > 0) {
+                    int rnd = MathHelper.nextInt(new Random(), 1, 40 - (lifeStealLvl * 10));
+
+                    if (rnd == 1 && PlayerStats.isEnoughMana(6f, skills.getMana(), skills.getUltWiseLvl(), attacker1)) {
+                        float healAmnt = target.getHealth() * (lifeStealLvl * 0.05f * PlayerStats.getLifeStealDamageMultiplier((attacker1.getArmorValue() / 3f) * 10f));
+                        if (PlayerStats.debugLogging) {
+                            ClientUtils.SendPrivateMessage("armorVal: " + attacker1.getArmorValue());
+                        }
+                        attacker1.heal(healAmnt);
+                        target.setHealth(target.getHealth() - (healAmnt / 2f));
+                        int mana = PlayerStats.calcManaUsage(6f, skills.getMana(), skills.getUltWiseLvl());
+                        attacker1.getFoodData().setFoodLevel(attacker1.getFoodData().getFoodLevel() - mana);
+                        ClientUtils.SendPrivateMessage(ColorText.GREEN + "Your " + ColorText.GRAY + "Life Steal " + lifeStealLvl + ColorText.GREEN + " Stole " + ColorText.RED + Math.round(healAmnt / 2) + " health " + ColorText.GREEN + "from " + ColorText.GOLD + "PLACEHOLDER_ENTITY" + ColorText.GREEN + "! " + ColorText.AQUA + "(" + (mana * 5) + " Mana)");
+                    }
+
+
+                }
+                //Refined netherite armor
+                if (attacker1.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof Refined_Netherite_Helmet
+                        & attacker1.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Refined_Netherite_Chestplate
+                        & attacker1.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Refined_Netherite_Leggings
+                        & attacker1.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Refined_Netherite_Boots) {
+                    if ((attacker1.getMainHandItem().getItem() == Items.NETHERITE_SWORD) |
+                            (attacker1.getMainHandItem().getItem() instanceof Hardened_Refined_Netherite_Sword) |
+                            (attacker1.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Sword) |
+                            (attacker1.getMainHandItem().getItem() == Items.NETHERITE_AXE) |
+                            (attacker1.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Axe) |
+                            (attacker1.getMainHandItem().getItem() == Items.NETHERITE_HOE) |
+                            (attacker1.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Hoe) |
+                            (attacker1.getMainHandItem().getItem() == Items.NETHERITE_SHOVEL) |
+                            (attacker1.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Shovel) |
+                            (attacker1.getMainHandItem().getItem() == Items.NETHERITE_PICKAXE) |
+                            (attacker1.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Pickaxe)) {
+                        if (PlayerStats.debugLogging) {
+                            ClientUtils.SendPrivateMessage("before: " + event.getAmount());
+                        }
+                        event.setAmount(event.getAmount() * 1.2f);
+                        if (PlayerStats.debugLogging) {
+                            ClientUtils.SendPrivateMessage("after: " + event.getAmount());
+                        }
+                        if (PlayerStats.debugLogging) {
+                            ClientUtils.SendPrivateMessage("from: 2/1");
+                        }
+                    }
+                }
+                //Hardened Refined netherite armor
+                else if (attacker1.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof Hardened_Refined_Netherite_Helmet
+                        & attacker1.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Hardened_Refined_Netherite_Chestplate
+                        & attacker1.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Hardened_Refined_Netherite_Leggings
+                        & attacker1.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Hardened_Refined_Netherite_Boots) {
+                    if ((attacker1.getMainHandItem().getItem() == Items.NETHERITE_SWORD) |
+                            (attacker1.getMainHandItem().getItem() instanceof Hardened_Refined_Netherite_Sword) |
+                            (attacker1.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Sword) |
+                            (attacker1.getMainHandItem().getItem() == Items.NETHERITE_AXE) |
+                            (attacker1.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Axe) |
+                            (attacker1.getMainHandItem().getItem() == Items.NETHERITE_HOE) |
+                            (attacker1.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Hoe) |
+                            (attacker1.getMainHandItem().getItem() == Items.NETHERITE_SHOVEL) |
+                            (attacker1.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Shovel) |
+                            (attacker1.getMainHandItem().getItem() == Items.NETHERITE_PICKAXE) |
+                            (attacker1.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Pickaxe)) {
+                        if (PlayerStats.debugLogging) {
+                            ClientUtils.SendPrivateMessage("before: " + event.getAmount());
+                        }
+                        event.setAmount(event.getAmount() * 1.4f);
+                        if (PlayerStats.debugLogging) {
+                            ClientUtils.SendPrivateMessage("after: " + event.getAmount());
+                        }
+                        if (PlayerStats.debugLogging) {
+                            ClientUtils.SendPrivateMessage("from: 2/2");
+                        }
+                    }
+                }
+
+                ArmorStandEntity dmgTag = new ArmorStandEntity(world, event.getEntity().position().x + (0.5f - Math.random()), event.getEntity().position().y + 0.5 + (0.5f - Math.random()), event.getEntity().position().z + (0.5f - Math.random()));
+                dmgTag.setCustomName(ITextComponent.nullToEmpty(ColorText.YELLOW.toString() + Math.round(event.getAmount())));
+                dmgTag.setCustomNameVisible(true);
+                dmgTag.setInvulnerable(true);
+                dmgTag.noPhysics = true;
+                dmgTag.setInvisible(true);
+                world.addFreshEntity(dmgTag);
+            });
+        }
+
+        if (attacker instanceof MobEntity) {
+            MobEntity attacker2 = (MobEntity) attacker;
+            attacker2.getCapability(CapabilityMobLevel.MOB_LEVEL_CAPABILITY).ifPresent(mobLevel -> {
+                boolean hasOneForAll = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ONE_FOR_ALL.get(), attacker2.getMainHandItem()) > 0;
+                int lifeStealLvl = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.LIFE_STEAL.get(), attacker2.getMainHandItem());
+                int lightlvl = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.LIGHT.get(), attacker2.getMainHandItem());
+
+                float actualAmount = event.getAmount();
+                actualAmount += hasOneForAll ? 20f : 0f;
+                event.setAmount(actualAmount * (((((mobLevel.getMobLevel() / 2f) - 1f) * 50f) + 100f) / 100f) * (1f + (mobLevel.getMobLevel() / 4f) * 0.04f));
+
+                //Refined netherite armor
+                if (attacker2.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof Refined_Netherite_Helmet
+                        & attacker2.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Refined_Netherite_Chestplate
+                        & attacker2.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Refined_Netherite_Leggings
+                        & attacker2.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Refined_Netherite_Boots) {
+                    if ((attacker2.getMainHandItem().getItem() == Items.NETHERITE_SWORD) |
+                            (attacker2.getMainHandItem().getItem() instanceof Hardened_Refined_Netherite_Sword) |
+                            (attacker2.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Sword) |
+                            (attacker2.getMainHandItem().getItem() == Items.NETHERITE_AXE) |
+                            (attacker2.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Axe) |
+                            (attacker2.getMainHandItem().getItem() == Items.NETHERITE_HOE) |
+                            (attacker2.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Hoe) |
+                            (attacker2.getMainHandItem().getItem() == Items.NETHERITE_SHOVEL) |
+                            (attacker2.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Shovel) |
+                            (attacker2.getMainHandItem().getItem() == Items.NETHERITE_PICKAXE) |
+                            (attacker2.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Pickaxe)) {
+                        if (PlayerStats.debugLogging) {
+                            ClientUtils.SendPrivateMessage("before: " + event.getAmount());
+                        }
+                        event.setAmount(event.getAmount() * 1.2f);
+                        if (PlayerStats.debugLogging) {
+                            ClientUtils.SendPrivateMessage("after: " + event.getAmount());
+                        }
+                        if (PlayerStats.debugLogging) {
+                            ClientUtils.SendPrivateMessage("from: 2/1");
+                        }
+                    }
+                }
+                //Hardened Refined netherite armor
+                else if (attacker2.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof Hardened_Refined_Netherite_Helmet
+                        & attacker2.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Hardened_Refined_Netherite_Chestplate
+                        & attacker2.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Hardened_Refined_Netherite_Leggings
+                        & attacker2.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Hardened_Refined_Netherite_Boots) {
+                    if ((attacker2.getMainHandItem().getItem() == Items.NETHERITE_SWORD) |
+                            (attacker2.getMainHandItem().getItem() instanceof Hardened_Refined_Netherite_Sword) |
+                            (attacker2.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Sword) |
+                            (attacker2.getMainHandItem().getItem() == Items.NETHERITE_AXE) |
+                            (attacker2.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Axe) |
+                            (attacker2.getMainHandItem().getItem() == Items.NETHERITE_HOE) |
+                            (attacker2.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Hoe) |
+                            (attacker2.getMainHandItem().getItem() == Items.NETHERITE_SHOVEL) |
+                            (attacker2.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Shovel) |
+                            (attacker2.getMainHandItem().getItem() == Items.NETHERITE_PICKAXE) |
+                            (attacker2.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Pickaxe)) {
+                        if (PlayerStats.debugLogging) {
+                            ClientUtils.SendPrivateMessage("before: " + event.getAmount());
+                        }
+                        event.setAmount(event.getAmount() * 1.4f);
+                        if (PlayerStats.debugLogging) {
+                            ClientUtils.SendPrivateMessage("after: " + event.getAmount());
+                        }
+                        if (PlayerStats.debugLogging) {
+                            ClientUtils.SendPrivateMessage("from: 2/2");
+                        }
+                    }
+                }
+
+                ArmorStandEntity dmgTag = new ArmorStandEntity(world, event.getEntity().position().x + (0.5f - Math.random()), event.getEntity().position().y + 0.5 + (0.5f - Math.random()), event.getEntity().position().z + (0.5f - Math.random()));
+                dmgTag.setCustomName(ITextComponent.nullToEmpty(ColorText.YELLOW.toString() + Math.round(event.getAmount())));
+                dmgTag.setCustomNameVisible(true);
+                dmgTag.setInvulnerable(true);
+                dmgTag.noPhysics = true;
+                dmgTag.setInvisible(true);
+                world.addFreshEntity(dmgTag);
+            });
+        }
+
+        if (target instanceof PlayerEntity) {
+            target.getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills -> {
+                if (event.getSource() == DamageSource.FALL) {
+                    if (PlayerStats.debugLogging) {
+                        Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("initialDamage: " + event.getAmount()), false);
+                    }
+                    if (PlayerStats.debugLogging) {
+                        Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("calc: " + "(1 - (event.getAmount() - (" + skills.getDefense() + " / (" + skills.getDefense() + " + 20f))))"), false);
+                    }
+                    if (PlayerStats.debugLogging) {
+                        Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("calc: " + (1 - (event.getAmount() - (skills.getDefense() / (skills.getDefense() + 20f))))), false);
+                    }
+                    if (PlayerStats.debugLogging) {
+                        Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("defense: " + skills.getDefense()), false);
+                    }
+                    if (PlayerStats.debugLogging) {
+                        Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("damageTaken : " + event.getAmount()), false);
+                    }
+                    float fallDamageMultiplier = 0f;
+
+                    if (target.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof Refined_Netherite_Helmet) {
+                        fallDamageMultiplier += 0.25f;
+                    }
+                    if (target.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Refined_Netherite_Chestplate) {
+                        fallDamageMultiplier += 0.25f;
+                    }
+                    if (target.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Refined_Netherite_Leggings) {
+                        fallDamageMultiplier += 0.25f;
+                    }
+                    if (target.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Refined_Netherite_Boots) {
+                        fallDamageMultiplier += 0.25f;
+                    }
+
+                    if (target.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof Hardened_Refined_Netherite_Helmet) {
+                        fallDamageMultiplier += 0.5f;
+                    }
+                    if (target.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Hardened_Refined_Netherite_Chestplate) {
+                        fallDamageMultiplier += 0.5f;
+                    }
+                    if (target.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Hardened_Refined_Netherite_Leggings) {
+                        fallDamageMultiplier += 0.5f;
+                    }
+                    if (target.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Hardened_Refined_Netherite_Boots) {
+                        fallDamageMultiplier += 0.5f;
+                    }
+
+                    ArmorStandEntity dmgTag = new ArmorStandEntity(world, event.getEntity().position().x + (0.5f - Math.random()), event.getEntity().position().y + 0.5 + (0.5f - Math.random()), event.getEntity().position().z + (0.5f - Math.random()));
+                    dmgTag.setCustomName(ITextComponent.nullToEmpty(ColorText.YELLOW.toString() + (Math.round(event.getAmount() + event.getAmount() * fallDamageMultiplier) * 5)));
+                    dmgTag.setCustomNameVisible(true);
+                    dmgTag.setInvulnerable(true);
+                    dmgTag.noPhysics = true;
+                    dmgTag.setInvisible(true);
+                    world.addFreshEntity(dmgTag);
+                    event.setAmount(event.getAmount() + event.getAmount() * fallDamageMultiplier);
+                    event.setAmount(event.getAmount() * (target.getMaxHealth() / skills.getMaxHealth()));
+                    //ClientUtils.SendPrivateMessage("fallMultiplier: " + fallDamageMultiplier);
+                    //ClientUtils.SendPrivateMessage("final: " + event.getAmount());
+                    if (fallDamageMultiplier > 0)
+                        target.level.playSound(null, target, SoundEvents.ANVIL_LAND, SoundCategory.NEUTRAL, 1.0f, 1.5f);
+
+                } else if (event.getSource().isBypassArmor()) {
+                    if (event.getSource() == DamageSource.WITHER | event.getSource() == DamageSource.MAGIC | event.getSource() == DamageSource.FLY_INTO_WALL | event.getSource() == DamageSource.ON_FIRE | event.getSource() == DamageSource.DRAGON_BREATH | event.getSource() == DamageSource.LAVA | event.getSource() == DamageSource.HOT_FLOOR | event.getSource() == DamageSource.indirectMagic(event.getSource().getEntity(), event.getEntity())) {
+                        event.setAmount(event.getAmount() * (target.getMaxHealth() / skills.getMaxHealth()));
+                    }
+
+                } else {
+                    /*ArmorStandEntity dmgTag = new ArmorStandEntity(world, event.getEntity().position().x + (0.5f - Math.random()), event.getEntity().position().y + 0.5 + (0.5f - Math.random()), event.getEntity().position().z + (0.5f - Math.random()));
+                    dmgTag.setCustomName(ITextComponent.nullToEmpty(ColorText.YELLOW.toString() + (Math.round((event.getAmount() * (1 - (skills.getDefense() / (skills.getDefense() + 20f)))) / (skills.getMaxHealth() / 100)) * 5)));
+                    dmgTag.setCustomNameVisible(true);
+                    dmgTag.setInvulnerable(true);
+                    dmgTag.noPhysics = true;
+                    dmgTag.setInvisible(true);
+                    world.addFreshEntity(dmgTag);*/
+                    if (PlayerStats.debugLogging) {
+                        Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("initialDamage: " + event.getAmount()), false);
+                    }
+                    if (PlayerStats.debugLogging) {
+                        Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("calc: " + "(1 - (event.getAmount() - (" + skills.getDefense() + " / (" + skills.getDefense() + " + 20f))))"), false);
+                    }
+                    if (PlayerStats.debugLogging) {
+                        Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("calc: " + (1 - (event.getAmount() - (skills.getDefense() / (skills.getDefense() + 20f))))), false);
+                    }
+                    //skills.setHealth(Math.round((event.getEntityLiving().getHealth() / event.getEntityLiving().getMaxHealth()) * skills.getMaxHealth()));
+                    event.setAmount((event.getAmount() * (1 - (skills.getDefense() / (skills.getDefense() + 20f)))) * (target.getMaxHealth() / skills.getMaxHealth()));
+                    if (PlayerStats.debugLogging) {
+                        Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("defense: " + skills.getDefense()), false);
+                    }
+                    if (PlayerStats.debugLogging) {
+                        Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("damageTaken : " + event.getAmount()), false);
+                    }
+                }
+            });
+        }
+
+        if (target instanceof MobEntity) {
+            target.getCapability(CapabilityMobLevel.MOB_LEVEL_CAPABILITY).ifPresent(skills -> {
+                if (event.getSource() == DamageSource.FALL) {
+                    /*if (PlayerStats.debugLogging) {
+                        Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("initialDamage: " + event.getAmount()), false);
+                    }
+                    if (PlayerStats.debugLogging) {
+                        Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("calc: " + "(1 - (event.getAmount() - (" + skills.getDefense() + " / (" + skills.getDefense() + " + 20f))))"), false);
+                    }
+                    if (PlayerStats.debugLogging) {
+                        Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("calc: " + (1 - (event.getAmount() - (skills.getDefense() / (skills.getDefense() + 20f))))), false);
+                    }
+                    if (PlayerStats.debugLogging) {
+                        Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("defense: " + skills.getDefense()), false);
+                    }
+                    if (PlayerStats.debugLogging) {
+                        Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("damageTaken : " + event.getAmount()), false);
+                    }*/
+                    float fallDamageMultiplier = 0f;
+
+                    if (target.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof Refined_Netherite_Helmet) {
+                        fallDamageMultiplier += 0.25f;
+                    }
+                    if (target.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Refined_Netherite_Chestplate) {
+                        fallDamageMultiplier += 0.25f;
+                    }
+                    if (target.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Refined_Netherite_Leggings) {
+                        fallDamageMultiplier += 0.25f;
+                    }
+                    if (target.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Refined_Netherite_Boots) {
+                        fallDamageMultiplier += 0.25f;
+                    }
+
+                    if (target.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof Hardened_Refined_Netherite_Helmet) {
+                        fallDamageMultiplier += 0.5f;
+                    }
+                    if (target.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Hardened_Refined_Netherite_Chestplate) {
+                        fallDamageMultiplier += 0.5f;
+                    }
+                    if (target.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Hardened_Refined_Netherite_Leggings) {
+                        fallDamageMultiplier += 0.5f;
+                    }
+                    if (target.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Hardened_Refined_Netherite_Boots) {
+                        fallDamageMultiplier += 0.5f;
+                    }
+
+                    ArmorStandEntity dmgTag = new ArmorStandEntity(world, event.getEntity().position().x + (0.5f - Math.random()), event.getEntity().position().y + 0.5 + (0.5f - Math.random()), event.getEntity().position().z + (0.5f - Math.random()));
+                    dmgTag.setCustomName(ITextComponent.nullToEmpty(ColorText.YELLOW.toString() + (Math.round(event.getAmount() + event.getAmount() * fallDamageMultiplier))));
+                    dmgTag.setCustomNameVisible(true);
+                    dmgTag.setInvulnerable(true);
+                    dmgTag.noPhysics = true;
+                    dmgTag.setInvisible(true);
+                    world.addFreshEntity(dmgTag);
+                    event.setAmount(event.getAmount() + event.getAmount() * fallDamageMultiplier);
+                    event.setAmount((event.getAmount() * (target.getMaxHealth() / (skills.getMobLevel() * 2.5f * target.getMaxHealth()))));
+                    //ClientUtils.SendPrivateMessage("fallMultiplier: " + fallDamageMultiplier);
+                    //ClientUtils.SendPrivateMessage("final: " + event.getAmount());
+                    if (fallDamageMultiplier > 0)
+                        target.level.playSound(null, target, SoundEvents.ANVIL_LAND, SoundCategory.NEUTRAL, 1.0f, 1.5f);
+
+                } else if (event.getSource().isBypassArmor()) {
+                    if (event.getSource() == DamageSource.WITHER | event.getSource() == DamageSource.MAGIC | event.getSource() == DamageSource.FLY_INTO_WALL | event.getSource() == DamageSource.ON_FIRE | event.getSource() == DamageSource.DRAGON_BREATH | event.getSource() == DamageSource.LAVA | event.getSource() == DamageSource.HOT_FLOOR | event.getSource() == DamageSource.indirectMagic(event.getSource().getEntity(), event.getEntity())) {
+                        event.setAmount(event.getAmount() * (target.getMaxHealth() / (skills.getMobLevel() * 2.5f * target.getMaxHealth())));
+                    }
+
+                } else {
+                    /*ArmorStandEntity dmgTag = new ArmorStandEntity(world, event.getEntity().position().x + (0.5f - Math.random()), event.getEntity().position().y + 0.5 + (0.5f - Math.random()), event.getEntity().position().z + (0.5f - Math.random()));
+                    dmgTag.setCustomName(ITextComponent.nullToEmpty(ColorText.YELLOW.toString() + (Math.round((event.getAmount() * (1 - (targetTotalDefense.get() / (targetTotalDefense.get() + 20f)))) / ((target.getMaxHealth() * 5 * skills.getMobLevel()) / 100)))));
+                    dmgTag.setCustomNameVisible(true);
+                    dmgTag.setInvulnerable(true);
+                    dmgTag.noPhysics = true;
+                    dmgTag.setInvisible(true);
+                    world.addFreshEntity(dmgTag);*/
+                    //if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("initialDamage: " + event.getAmount()), false);}
+                    //if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("calc: " + "(1 - (event.getAmount() - (" + skills.getDefense() + " / (" + skills.getDefense() + " + 20f))))"), false);}
+                    //if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("calc: " + (1 - (event.getAmount() - (skills.getDefense() / (skills.getDefense() + 20f))))), false);}
+                    //skills.setHealth(Math.round((event.getEntityLiving().getHealth() / event.getEntityLiving().getMaxHealth()) * skills.getMaxHealth()));
+                    event.setAmount(event.getAmount() * (1 - (targetTotalDefense.get() / (targetTotalDefense.get() + 20f))) * (target.getMaxHealth() / (skills.getMobLevel() * 2.5f * target.getMaxHealth())));
+                    //if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("defense: " + skills.getDefense()), false);}
+                    //if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("damageTaken : " + event.getAmount()), false);}
+                }
+            });
         }
 
     }
@@ -1048,10 +1421,12 @@ public class EventHandler {
             });
         } else if (event.getEntityLiving() instanceof MobEntity) {
             LivingEntity entity = event.getEntityLiving();
-            entity.setCustomNameVisible(true);
-            entity.setCustomName(ITextComponent.nullToEmpty(ColorText.GRAY + "[Lv." + ColorText.RED + "?" + ColorText.GRAY + "] " +
-                    entity.getType().getDescription().getString() +
-                    " " + ColorText.RED + Math.round((entity.getHealth() + entity.getAbsorptionAmount()) * 5) + "/" + Math.round(entity.getMaxHealth() * 5)));
+            entity.getCapability(CapabilityMobLevel.MOB_LEVEL_CAPABILITY).ifPresent(mobLevel -> {
+                entity.setCustomNameVisible(true);
+                entity.setCustomName(ITextComponent.nullToEmpty(ColorText.GRAY + "[Lv." + ColorText.RED + (mobLevel.getMobLevel()) + ColorText.GRAY + "] " +
+                        entity.getType().getDescription().getString() +
+                        " " + ColorText.RED + Math.round((entity.getHealth() + entity.getAbsorptionAmount()) * 5 * (mobLevel.getMobLevel() / 2f)) + "/" + Math.round(entity.getMaxHealth() * 5 * (mobLevel.getMobLevel() / 2f))));
+            });
         }
     }
 
@@ -1117,7 +1492,7 @@ public class EventHandler {
                     Ink_Wand wand = (Ink_Wand) player.getMainHandItem().getItem();
                     if (!player.getCooldowns().isOnCooldown(wand))
                     {
-                        target.hurt(DamageSource.playerAttack(player), ((10000 + (skills.getMana() * 10) + 100) / 100));
+                        target.hurt(DamageSource.playerAttack(player), ((10000f + (skills.getMana() * 10f) + 100f) / 100f));
                         target.addEffect(new EffectInstance(Effects.BLINDNESS, 200, 0));
                         target.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 200, 11));
                         target.addEffect(new EffectInstance(Effects.WITHER, 200, 2));
@@ -1278,14 +1653,13 @@ public class EventHandler {
             PlayerEntity player = (PlayerEntity) event.getEntity();
             player.getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills -> {
                 float foodAmnt = event.getItem().getItem().getFoodProperties().getNutrition();
-                if (skills.getMana() + (((foodAmnt / 20f) * skills.getMaxMana()) * (.5f + (((float) (skills.getMaxMana())) / (((float) (skills.getMaxMana())) + ((float) (skills.getBaseMaxMana())))))) > skills.getMaxMana()) {
+                if (skills.getMana() + (((foodAmnt / 20f) * skills.getMaxMana()) * (((((float) (skills.getMaxMana())) / (((float) (skills.getMaxMana())) + ((float) (skills.getBaseMaxMana())))) * -1f) + 1.5f)) > skills.getMaxMana()) {
                     skills.setMana(skills.getMaxMana());
                 } else {
-                    skills.setMana(Math.round(skills.getMana() + (((foodAmnt / 20f) * skills.getMaxMana()) * (.5f + (((float) (skills.getMaxMana())) / (((float) (skills.getMaxMana())) + ((float) (skills.getBaseMaxMana()))))))));
+                    skills.setMana(Math.round(skills.getMana() + (((foodAmnt / 20f) * skills.getMaxMana()) * (((((float) (skills.getMaxMana())) / (((float) (skills.getMaxMana())) + ((float) (skills.getBaseMaxMana())))) * -1f) + 1.5f))));
                 }
             });
         }
     }
-
 
 }

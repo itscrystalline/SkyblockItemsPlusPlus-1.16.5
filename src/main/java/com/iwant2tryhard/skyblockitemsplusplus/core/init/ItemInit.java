@@ -86,34 +86,34 @@ public class ItemInit {
     public static final RegistryObject<Aspect_Of_The_Jerry> ASPECT_OF_THE_JERRY = ITEMS.register("aspect_of_the_jerry",
             () -> new Aspect_Of_The_Jerry(new AspectOfTheJerrySource(), 1, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat), CustomRarity.COMMON));
     public static final RegistryObject<Rogue_Sword> ROGUE_SWORD = ITEMS.register("rogue_sword",
-            () -> new Rogue_Sword(new RogueSwordSource(), 20, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat), CustomRarity.COMMON));
+            () -> new Rogue_Sword(new RogueSwordSource(), 19, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat), CustomRarity.COMMON));
     public static final RegistryObject<Hardened_Refined_Netherite_Sword> HARDENED_REFINED_NETHERITE_SWORD = ITEMS.register("hardened_refined_netherite_sword",
-            () -> new Hardened_Refined_Netherite_Sword(new HardenedRefinedNetheriteSwordSorce(), 350, -3.5f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat), CustomRarity.SUPREME));
+            () -> new Hardened_Refined_Netherite_Sword(new HardenedRefinedNetheriteSwordSorce(), 349, -3.5f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat), CustomRarity.SUPREME));
     public static final RegistryObject<Aspect_Of_The_End> ASPECT_OF_THE_END = ITEMS.register("aspect_of_the_end",
-            () -> new Aspect_Of_The_End(new AspectOfTheEndSource(), 100, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat), CustomRarity.RARE));
+            () -> new Aspect_Of_The_End(new AspectOfTheEndSource(), 99, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat), CustomRarity.RARE));
     public static final RegistryObject<Undead_Sword> UNDEAD_SWORD = ITEMS.register("undead_sword",
-            () -> new Undead_Sword(new UndeadSwordSource(), 30, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat), CustomRarity.COMMON));
+            () -> new Undead_Sword(new UndeadSwordSource(), 29, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat), CustomRarity.COMMON));
     public static final RegistryObject<Netherite_Plated_Diamond_Sword> NETHERITE_PLATED_DIAMOND_SWORD = ITEMS.register("netherite_plated_diamond_sword",
             () -> new Netherite_Plated_Diamond_Sword(new NetheritePlatedDiamondSource(), 7, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat), CustomRarity.RARE));
     public static final RegistryObject<End_Sword> END_SWORD = ITEMS.register("end_sword",
-            () -> new End_Sword(new EndSwordSource(), 35, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat), CustomRarity.UNCOMMON));
+            () -> new End_Sword(new EndSwordSource(), 34, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat), CustomRarity.UNCOMMON));
     public static final RegistryObject<Flame_Sword> FLAME_SWORD = ITEMS.register("flame_sword",
-            () -> new Flame_Sword(new FlameSwordSource(), 50, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat)
+            () -> new Flame_Sword(new FlameSwordSource(), 49, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat)
                     .fireResistant(), CustomRarity.UNCOMMON));
     public static final RegistryObject<Zombie_Sword> ZOMBIE_SWORD = ITEMS.register("zombie_sword",
-            () -> new Zombie_Sword(new ZombieSwordSource(), 100, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat), CustomRarity.RARE));
+            () -> new Zombie_Sword(new ZombieSwordSource(), 99, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat), CustomRarity.RARE));
     public static final RegistryObject<Ornate_Zombie_Sword> ORNATE_ZOMBIE_SWORD = ITEMS.register("ornate_zombie_sword",
-            () -> new Ornate_Zombie_Sword(new ZombieSwordSource(), 110, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat), CustomRarity.EPIC));
+            () -> new Ornate_Zombie_Sword(new ZombieSwordSource(), 109, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat), CustomRarity.EPIC));
     public static final RegistryObject<Florid_Zombie_Sword> FLORID_ZOMBIE_SWORD = ITEMS.register("florid_zombie_sword",
-            () -> new Florid_Zombie_Sword(new ZombieSwordSource(), 150, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat), CustomRarity.LEGENDARY));
+            () -> new Florid_Zombie_Sword(new ZombieSwordSource(), 149, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat), CustomRarity.LEGENDARY));
     public static final RegistryObject<Hunter_Knife> HUNTER_KNIFE = ITEMS.register("hunter_knife",
-            () -> new Hunter_Knife(new HunterKnifeSource(), 50, -2f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat), CustomRarity.UNCOMMON));
+            () -> new Hunter_Knife(new HunterKnifeSource(), 49, -2f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat), CustomRarity.UNCOMMON));
     public static final RegistryObject<Ink_Wand> INK_WAND = ITEMS.register("ink_wand",
-            () -> new Ink_Wand(new InkWandSource(), 130, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat), CustomRarity.EPIC));
+            () -> new Ink_Wand(new InkWandSource(), 129, -2.4f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat), CustomRarity.EPIC));
     public static final RegistryObject<Silver_Fang> SILVER_FANG = ITEMS.register("silver_fang",
-            () -> new Silver_Fang(new SilverFangSource(), 100, -2.2f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat), CustomRarity.UNCOMMON));
+            () -> new Silver_Fang(new SilverFangSource(), 99, -2.2f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat), CustomRarity.UNCOMMON));
     public static final RegistryObject<Emerald_Blade> EMERALD_BLADE = ITEMS.register("emerald_blade",
-            () -> new Emerald_Blade(new EmeraldBladeSource(), 130, -2.8f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat), CustomRarity.EPIC));
+            () -> new Emerald_Blade(new EmeraldBladeSource(), 129, -2.8f, new Item.Properties().tab(SkyblockItemsPlusPlus.SkyblockItems_Combat), CustomRarity.EPIC));
 
     //pickaxes
     public static final RegistryObject<Netherite_Plated_Diamond_Pickaxe> NETHERITE_PLATED_DIAMOND_PICKAXE = ITEMS.register("netherite_plated_diamond_pickaxe",

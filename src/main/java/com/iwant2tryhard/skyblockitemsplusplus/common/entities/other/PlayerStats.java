@@ -21,8 +21,9 @@ public class PlayerStats {
         actualSrcDamage = hasOFA ? srcDamage + 20 : srcDamage;
         actualSrcDamage += hasEmeraldBlade ? calcEmeraldBladeBoost(coins) : 0f;
         actualSrcDamage += 5;
-        float targetEHP = targetDefense * 10;
-        return (strengthPercent / 100f) * (actualSrcDamage / (targetEHP + (targetMaxHealth * 5)) * targetMaxHealth) * (1 + (combatlvl * 0.04f));
+
+        float n = (strengthPercent / 100f) * (actualSrcDamage / (targetMaxHealth * 5) * 20) * (1 + (combatlvl * 0.04f));
+        return n * (1 - (targetDefense / (targetDefense + 20f)));
     }
 
     public static int calcManaUsage(float manaUsage, float manaReductionPercent, float ultWiseLvl)
