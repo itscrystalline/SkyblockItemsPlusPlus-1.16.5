@@ -28,8 +28,10 @@ public class Hardened_Refined_Netherite_Boots extends ArmorItem {
         tooltip.add(new StringTextComponent(ColorText.GOLD + "Full Set Bonus: Power of The Netherite"));
         tooltip.add(new StringTextComponent(ColorText.GRAY + "Gain a " + ColorText.RED + " +40% Boost " + ColorText.GRAY + "on ALL netherite items in your inventory."));
         tooltip.add(new StringTextComponent(""));
-        tooltip.add(new StringTextComponent(ColorText.GOLD + "Piece Bonus: Heavy"));
+        tooltip.add(new StringTextComponent(ColorText.GOLD + "Piece Property: Heavy"));
         tooltip.add(new StringTextComponent(ColorText.GRAY + "Fall damage is added by " + ColorText.BLUE + "+50%" + ColorText.GRAY + " per piece; Max: " + ColorText.BLUE + "+200%"));
+        tooltip.add(new StringTextComponent(ColorText.GRAY + "Lose " + ColorText.RED + "-" + ColorText.WHITE + "2 Speed"));
+        tooltip.add(new StringTextComponent(ColorText.GRAY + "Lose an extra " + ColorText.RED + "-" + ColorText.WHITE + "0.5 Speed " + ColorText.GRAY + "every 10 seconds"));
         tooltip.add(new StringTextComponent(""));
         tooltip.add(new StringTextComponent("\u00A77" + "This item can be reforged!"));
         tooltip.add(new StringTextComponent(rarity + "BOOTS"));

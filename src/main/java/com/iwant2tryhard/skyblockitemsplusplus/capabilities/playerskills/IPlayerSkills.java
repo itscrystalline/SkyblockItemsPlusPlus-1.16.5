@@ -55,29 +55,92 @@ public interface IPlayerSkills {
 
     void setHealth(float health);
     float getHealth();
+
     void setMaxHealth(float maxHealth);
+
     float getMaxHealth();
+
     void setBaseMaxHealth(float baseMaxHealth);
+
     float getBaseMaxHealth();
 
     void setFerocity(int ferocity);
+
     int getFerocity();
+
     void setBaseFerocity(int baseFerocity);
+
     int getBaseFerocity();
 
+    void setSpeed(float speed);
+
+    float getSpeed();
+
+    void setBaseSpeed(float baseSpeed);
+
+    float getBaseSpeed();
+
     void setCoins(int coins);
+
     int getCoins();
 
     void setUltWiseLvl(int ultWiseLvl);
+
     int getUltWiseLvl();
+
+    void setRBootTimer(int rbootTimer);
+
+    int getRBootTimer();
+
+    void setRHelmTimer(int rhelmTimer);
+
+    int getRHelmTimer();
+
+    void setHRBootTimer(int hrbootTimer);
+
+    int getHRBootTimer();
+
+    void setHRHelmTimer(int hrhelmTimer);
+
+    int getHRHelmTimer();
+
+    void setDiamondTimer(int diamondTimer);
+
+    float getBootSlowFactor();
+
+    void setBootSlowFactor(float bootSlowFactor);
+
+    int getDiamondTimer();
+
+    void setNetheriteTimer(int netheriteTimer);
+
+    int getNetheriteTimer();
+
+    void setNetheritePlatedDiamondTimer(int netheritePlatedDiamondTimer);
+
+    int getNetheritePlatedDiamondTimer();
+
+    void setDiamondStrBoost(int diamondStrBoost);
+
+    int getDiamondStrBoost();
+
+    void setNetheriteStrBoost(int netheriteStrBoost);
+
+    int getNetheriteStrBoost();
 
 
     void AwardCombatXp(int xp);
+
     void AwardMiningXp(int xp);
+
     void AwardFarmingXp(int xp);
+
     void AwardForagingXp(int xp);
+
     void AwardEnchantingXp(int xp);
+
     void AwardFishingXp(int xp);
+
     void AwardAlchemyXp(int xp);
 
 

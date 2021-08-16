@@ -68,6 +68,17 @@ public class CapabilityPlayerSkills {
 
             compoundNBT.putInt("ultWiseLvl", instance.getUltWiseLvl());
 
+            compoundNBT.putInt("rbootTimer", instance.getRBootTimer());
+            compoundNBT.putInt("rhelmTimer", instance.getRHelmTimer());
+            compoundNBT.putInt("hrbootTimer", instance.getHRBootTimer());
+            compoundNBT.putInt("hrhelmTimer", instance.getHRHelmTimer());
+            compoundNBT.putFloat("bootSlowFactor", instance.getBootSlowFactor());
+            compoundNBT.putInt("diamondTimer", instance.getMaxMana());
+            compoundNBT.putInt("netheriteTimer", instance.getBaseMaxMana());
+            compoundNBT.putInt("netheritePlatedDiamondTimer", instance.getNetheritePlatedDiamondTimer());
+            compoundNBT.putInt("diamondStrBoost", instance.getDiamondStrBoost());
+            compoundNBT.putInt("netheriteStrBoost", instance.getNetheriteStrBoost());
+
 
             compoundNBT.putInt("slayerStatus", instance.getSlayerStatus());
             compoundNBT.putInt("mobCount", instance.getMobCount());
@@ -128,12 +139,33 @@ public class CapabilityPlayerSkills {
             instance.setCoins(coins);
             instance.setUltWiseLvl(ultWiseLvl);
 
-            int baseStrength = ((CompoundNBT)nbt).getInt("baseStrength");
-            int baseMaxMana = ((CompoundNBT)nbt).getInt("baseMaxMana");
-            int baseDefense = ((CompoundNBT)nbt).getInt("baseDefense");
+            int baseStrength = ((CompoundNBT) nbt).getInt("baseStrength");
+            int baseMaxMana = ((CompoundNBT) nbt).getInt("baseMaxMana");
+            int baseDefense = ((CompoundNBT) nbt).getInt("baseDefense");
             instance.setBaseStrength(baseStrength);
             instance.setBaseMaxMana(baseMaxMana);
             instance.setBaseDefense(baseDefense);
+
+            int rbootTimer = ((CompoundNBT) nbt).getInt("rbootTimer");
+            int rhelmTimer = ((CompoundNBT) nbt).getInt("rhelmTimer");
+            int hrbootTimer = ((CompoundNBT) nbt).getInt("hrbootTimer");
+            int hrhelmTimer = ((CompoundNBT) nbt).getInt("hrhelmTimer");
+            float bootSlowFactor = ((CompoundNBT) nbt).getFloat("bootSlowFactor");
+            int diamondTimer = ((CompoundNBT) nbt).getInt("diamondTimer");
+            int netheriteTimer = ((CompoundNBT) nbt).getInt("netheriteTimer");
+            int netheritePlatedDiamondTimer = ((CompoundNBT) nbt).getInt("netheritePlatedDiamondTimer");
+            int diamondStrBoost = ((CompoundNBT) nbt).getInt("diamondStrBoost");
+            int netheriteStrBoost = ((CompoundNBT) nbt).getInt("netheriteStrBoost");
+            instance.setRBootTimer(rbootTimer);
+            instance.setRHelmTimer(rhelmTimer);
+            instance.setHRBootTimer(hrbootTimer);
+            instance.setHRHelmTimer(hrhelmTimer);
+            instance.setBootSlowFactor(bootSlowFactor);
+            instance.setDiamondTimer(diamondTimer);
+            instance.setNetheriteTimer(netheriteTimer);
+            instance.setNetheritePlatedDiamondTimer(netheritePlatedDiamondTimer);
+            instance.setDiamondStrBoost(diamondStrBoost);
+            instance.setNetheriteStrBoost(netheriteStrBoost);
 
 
             int slayerStatus = ((CompoundNBT) nbt).getInt("slayerStatus");

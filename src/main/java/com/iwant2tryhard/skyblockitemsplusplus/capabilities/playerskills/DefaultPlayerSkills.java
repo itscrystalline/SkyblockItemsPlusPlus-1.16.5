@@ -40,6 +40,9 @@ public class DefaultPlayerSkills implements IPlayerSkills {
     private int ferocity;
     private int baseFerocity;
 
+    private float speed = 100f;
+    private float baseSpeed = 100f;
+
     private int coins;
 
     private int ultWiseLvl;
@@ -52,14 +55,30 @@ public class DefaultPlayerSkills implements IPlayerSkills {
     private int wolfSlayerLvl = -1;
     private int endermanSlayerLvl = -1;
 
+    private int rbootTimer;
+    private int rhelmTimer;
+    private int hrbootTimer;
+    private int hrhelmTimer;
+
+    private float bootSlowFactor;
+
+    private int diamondTimer;
+    private int netheriteTimer;
+    private int netheritePlatedDiamondTimer;
+
+    private int diamondStrBoost;
+    private int netheriteStrBoost;
+
     @Override
     public void setCombatXp(int xp) {
         this.combatXp = xp;
     }
+
     @Override
     public int getCombatXp() {
         return this.combatXp;
     }
+
     @Override
     public void setCombatLvl(int lvl) {
         this.combatLvl = lvl;
@@ -226,19 +245,122 @@ public class DefaultPlayerSkills implements IPlayerSkills {
     public int getUltWiseLvl() {
         return this.ultWiseLvl;
     }
+
     @Override
     public void setUltWiseLvl(int ultWiseLvl) {
         this.ultWiseLvl = ultWiseLvl;
     }
 
     @Override
+    public void setRBootTimer(int rbootTimer) {
+        this.rbootTimer = rbootTimer;
+    }
+
+    @Override
+    public int getRBootTimer() {
+        return this.rbootTimer;
+    }
+
+    @Override
+    public void setRHelmTimer(int rhelmTimer) {
+        this.rhelmTimer = rhelmTimer;
+    }
+
+    @Override
+    public int getRHelmTimer() {
+        return this.rhelmTimer;
+    }
+
+    @Override
+    public void setHRBootTimer(int hrbootTimer) {
+        this.hrbootTimer = hrbootTimer;
+    }
+
+    @Override
+    public int getHRBootTimer() {
+        return this.hrbootTimer;
+    }
+
+    @Override
+    public void setHRHelmTimer(int hrhelmTimer) {
+        this.hrhelmTimer = hrhelmTimer;
+    }
+
+    @Override
+    public int getHRHelmTimer() {
+        return this.hrhelmTimer;
+    }
+
+    @Override
+    public void setBootSlowFactor(float bootSlowFactor) {
+        this.bootSlowFactor = bootSlowFactor;
+    }
+
+    @Override
+    public float getBootSlowFactor() {
+        return this.bootSlowFactor;
+    }
+
+    @Override
+    public void setDiamondTimer(int diamondTimer) {
+        this.diamondTimer = diamondTimer;
+    }
+
+    @Override
+    public int getDiamondTimer() {
+        return this.diamondTimer;
+    }
+
+    @Override
+    public void setNetheriteTimer(int netheriteTimer) {
+        this.netheriteTimer = netheriteTimer;
+    }
+
+    @Override
+    public int getNetheriteTimer() {
+        return this.netheriteTimer;
+    }
+
+    @Override
+    public void setNetheritePlatedDiamondTimer(int netheritePlatedDiamondTimer) {
+        this.netheritePlatedDiamondTimer = netheritePlatedDiamondTimer;
+    }
+
+    @Override
+    public int getNetheritePlatedDiamondTimer() {
+        return this.netheritePlatedDiamondTimer;
+    }
+
+    @Override
+    public void setDiamondStrBoost(int diamondStrBoost) {
+        this.diamondStrBoost = diamondStrBoost;
+    }
+
+    @Override
+    public int getDiamondStrBoost() {
+        return this.diamondStrBoost;
+    }
+
+    @Override
+    public void setNetheriteStrBoost(int netheriteStrBoost) {
+        this.netheriteStrBoost = netheriteStrBoost;
+    }
+
+    @Override
+    public int getNetheriteStrBoost() {
+        return this.netheriteStrBoost;
+    }
+
+    @Override
     public void setDefense(int defense) {
         this.defense = defense;
     }
+
     @Override
     public int getDefense() {
         return this.defense;
     }
+
     @Override
     public void setBaseDefense(int baseDefense) {
         this.baseDefense = baseDefense;
@@ -281,20 +403,40 @@ public class DefaultPlayerSkills implements IPlayerSkills {
     public int getFerocity() {
         return ferocity;
     }
+
     @Override
     public void setBaseFerocity(int baseFerocity) {
         this.baseFerocity = baseFerocity;
     }
+
     @Override
     public int getBaseFerocity() {
         return 0;
     }
 
-    public void AwardCombatXp(int xp)
-    {
+    @Override
+    public void setSpeed(float speed) {
+        this.speed = speed;
+    }
+
+    @Override
+    public float getSpeed() {
+        return this.speed;
+    }
+
+    @Override
+    public void setBaseSpeed(float baseSpeed) {
+        this.baseSpeed = baseSpeed;
+    }
+
+    @Override
+    public float getBaseSpeed() {
+        return this.baseSpeed;
+    }
+
+    public void AwardCombatXp(int xp) {
         int qxp = xp;
-        while (qxp > 0)
-        {
+        while (qxp > 0) {
             ++combatXp;
             CheckCombatXP();
             qxp -= 1;

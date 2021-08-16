@@ -10,7 +10,7 @@ import net.minecraft.util.SoundEvents;
 public class MushroomArmorSource implements IArmorMaterial {
     private static final int[] baseDurability = {100, 120, 110, 100};
     private final int durabilityMultiplier = 1;
-    private final int[] baseDefense = {0, 2, 1, 0};
+    private final int[] baseDefense = {0, 1, 0, 0};
 
     @Override
     public int getDurabilityForSlot(EquipmentSlotType slotType) {

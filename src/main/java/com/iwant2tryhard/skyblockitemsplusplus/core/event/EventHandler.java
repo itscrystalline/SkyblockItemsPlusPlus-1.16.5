@@ -27,6 +27,7 @@ import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.refined_n
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.armoritems.refined_netherite_armor.Refined_Netherite_Leggings;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.axes.Netherite_Plated_Diamond_Axe;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.bows.ShortBow;
+import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.bows.Terminator;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.hoes.Netherite_Plated_Diamond_Hoe;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.pickaxes.Netherite_Plated_Diamond_Pickaxe;
 import com.iwant2tryhard.skyblockitemsplusplus.common.items.items.shovels.Netherite_Plated_Diamond_Shovel;
@@ -97,445 +98,12 @@ public class EventHandler {
     //private static int ticksSinceHit = 0;
     @SubscribeEvent
     public static void onLivingEntityHurt(final LivingHurtEvent event) {
-        /*World worldIn = event.getEntity().level;
-
-        AtomicReference<Float> initialDamage = new AtomicReference<>(event.getAmount());
-
-
-        //System.out.println("Hit " + target + " " + event.getSource());
-        if (event.getSource().getEntity() instanceof PlayerEntity) {
-            LivingEntity target = event.getEntityLiving();
-            PlayerEntity player = (PlayerEntity) event.getSource().getEntity();
-            player.getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills -> {
-                boolean hasOneForAll = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ONE_FOR_ALL.get(), player.getMainHandItem()) > 0;
-                int lifeStealLvl = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.LIFE_STEAL.get(), player.getMainHandItem());
-                int lightlvl = EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.LIGHT.get(), player.getMainHandItem());
-                boolean hasEmeraldBlade = player.getMainHandItem().getItem() instanceof Emerald_Blade;
-
-                //ClientUtils.SendPrivateMessage("ferocityCount1: " + ferocityCount);
-                if (ferocityCount == 0) {
-                    if (PlayerStats.debugLogging) {
-                        Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("initialDamage : " + event.getAmount()), false);
-                    }
-
-                    int headDefense;
-                    int chestDefense;
-                    int legsDefense;
-                    int feetDefense;
-
-                    if (target.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof ArmorItem) {
-                        ArmorItem head = (ArmorItem) target.getItemBySlot(EquipmentSlotType.HEAD).getItem();
-                        headDefense = head.getDefense();
-                    } else {
-                        headDefense = 0;
-                    }
-
-                    if (target.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof ArmorItem) {
-                        ArmorItem chest = (ArmorItem) target.getItemBySlot(EquipmentSlotType.CHEST).getItem();
-                        chestDefense = chest.getDefense();
-                    } else {
-                        chestDefense = 0;
-                    }
-
-                    if (target.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof ArmorItem) {
-                        ArmorItem legs = (ArmorItem) target.getItemBySlot(EquipmentSlotType.LEGS).getItem();
-                        legsDefense = legs.getDefense();
-                    } else {
-                        legsDefense = 0;
-                    }
-
-                    if (target.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof ArmorItem) {
-                        ArmorItem feet = (ArmorItem) target.getItemBySlot(EquipmentSlotType.FEET).getItem();
-                        feetDefense = feet.getDefense();
-                    } else {
-                        feetDefense = 0;
-                    }
-
-                    int totalDefense = headDefense + chestDefense + legsDefense + feetDefense;
-
-                    if (!(player.getMainHandItem().getItem() instanceof TaggedSwordItem) | event.getSource().getDirectEntity() instanceof AbstractArrowEntity) {
-                        event.setAmount(event.getAmount() * 12);
-                        //ClientUtils.SendPrivateMessage("x12");
-                    } else {
-                        event.setAmount(event.getAmount());
-                    }
-
-                        if (target instanceof ZombieEntity) {
-                            if (player.getMainHandItem().getItem() instanceof Undead_Sword) {
-                                event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.ZOMBIE.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl())));
-                                initialDamage.updateAndGet(v -> new Float(v * 2));
-                            } else {
-                                event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.ZOMBIE.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
-                            }
-                        } else if (target instanceof SkeletonEntity) {
-                            if (player.getMainHandItem().getItem() instanceof Undead_Sword) {
-                                event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.SKELETON.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl())));
-                                initialDamage.updateAndGet(v -> new Float(v * 2));
-                            } else {
-                                event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.SKELETON.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
-                            }
-                        } else if (target instanceof EndermanEntity) {
-                            if (player.getMainHandItem().getItem() instanceof End_Sword) {
-                                event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.ENDERMAN.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl())));
-                                initialDamage.updateAndGet(v -> new Float(v * 2));
-                            } else {
-                                event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.ENDERMAN.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
-                            }
-                        } else if (target instanceof ZealotEntity) {
-                            if (player.getMainHandItem().getItem() instanceof End_Sword) {
-                                event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.ZEALOT.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl())));
-                                initialDamage.updateAndGet(v -> new Float(v * 2));
-                            } else {
-                                event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.ZEALOT.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
-                            }
-                        } else if (target instanceof EndermiteEntity) {
-                            if (player.getMainHandItem().getItem() instanceof End_Sword) {
-                                event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.ENDERMITE.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl())));
-                                initialDamage.updateAndGet(v -> new Float(v * 2));
-                            } else {
-                                event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.ENDERMITE.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
-                            }
-                        } else if (target instanceof CreeperEntity) {
-                            event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.CREEPER.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
-                        } else if (target instanceof SlimeEntity) {
-                            event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.SLIME.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
-                        } else if (target instanceof SpiderEntity) {
-                            event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.SPIDER.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
-                        } else if (target instanceof CaveSpiderEntity) {
-                            event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.CAVE_SPIDER.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
-                        } else if (target instanceof VillagerEntity) {
-                            event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.VILLAGER.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
-                        } else if (target instanceof IronGolemEntity) {
-                            event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.IRON_GOLEM.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
-                        } else if (target instanceof ZombifiedPiglinEntity) {
-                            if (player.getMainHandItem().getItem() instanceof Undead_Sword) {
-                                event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.ZOMBIE_PIGMAN.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl())));
-                                initialDamage.updateAndGet(v -> new Float(v * 2));
-                            } else {
-                                event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.ZOMBIE_PIGMAN.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
-                            }
-                        } else if (target instanceof WitherSkeletonEntity) {
-                            if (player.getMainHandItem().getItem() instanceof Undead_Sword) {
-                                event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.WITHER_SKELETON.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl())));
-                                initialDamage.updateAndGet(v -> new Float(v * 2));
-                            } else {
-                                event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.WITHER_SKELETON.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
-                            }
-                        } else if (target instanceof WitherEntity) {
-                            if (player.getMainHandItem().getItem() instanceof Undead_Sword) {
-                                event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.WITHER.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl())));
-                                initialDamage.updateAndGet(v -> new Float(v * 2));
-                            } else {
-                                event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.WITHER.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
-                            }
-                        } else if (target instanceof EnderDragonEntity) {
-                            if (player.getMainHandItem().getItem() instanceof End_Sword) {
-                                event.setAmount(2 * (PlayerStats.damageEntity(event.getAmount(), MobStats.ENDER_DRAGON.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl())));
-                                initialDamage.updateAndGet(v -> new Float(v * 2));
-                            } else {
-                                event.setAmount(PlayerStats.damageEntity(event.getAmount(), MobStats.ENDER_DRAGON.defense + totalDefense, target.getMaxHealth(), hasOneForAll, hasEmeraldBlade, skills.getStrength(), skills.getCoins(), skills.getCombatLvl()));
-                            }
-                        } else if (target instanceof PlayerEntity) {
-                            event.setAmount(event.getAmount());
-                        }
-
-                        if (lifeStealLvl > 0) {
-                            int rnd = MathHelper.nextInt(new Random(), 1, 40 - (lifeStealLvl * 10));
-
-                            if (rnd == 1 && PlayerStats.isEnoughMana(6f, skills.getMana(), skills.getUltWiseLvl(), player)) {
-                                float healAmnt = target.getHealth() * (lifeStealLvl * 0.05f * PlayerStats.getLifeStealDamageMultiplier((player.getArmorValue() / 3f) * 10f));
-                                if (PlayerStats.debugLogging) {
-                                    ClientUtils.SendPrivateMessage("armorVal: " + player.getArmorValue());
-                                }
-                                player.heal(healAmnt);
-                                target.setHealth(target.getHealth() - (healAmnt / 2f));
-                                int mana = PlayerStats.calcManaUsage(6f, skills.getMana(), skills.getUltWiseLvl());
-                                player.getFoodData().setFoodLevel(player.getFoodData().getFoodLevel() - mana);
-                                ClientUtils.SendPrivateMessage(ColorText.GREEN + "Your " + ColorText.GRAY + "Life Steal " + lifeStealLvl + ColorText.GREEN + " Stole " + ColorText.RED + Math.round(healAmnt / 2) + " health " + ColorText.GREEN + "from " + ColorText.GOLD + "PLACEHOLDER_ENTITY" + ColorText.GREEN + "! " + ColorText.AQUA + "(" + (mana * 5) + " Mana)");
-                            }
-
-
-                        }
-                        //Refined netherite armor
-                        if (player.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof Refined_Netherite_Helmet
-                                & player.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Refined_Netherite_Chestplate
-                                & player.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Refined_Netherite_Leggings
-                                & player.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Refined_Netherite_Boots) {
-                            if ((player.getMainHandItem().getItem() == Items.NETHERITE_SWORD) |
-                                    (player.getMainHandItem().getItem() instanceof Hardened_Refined_Netherite_Sword) |
-                                    (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Sword) |
-                                    (player.getMainHandItem().getItem() == Items.NETHERITE_AXE) |
-                                    (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Axe) |
-                                    (player.getMainHandItem().getItem() == Items.NETHERITE_HOE) |
-                                    (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Hoe) |
-                                    (player.getMainHandItem().getItem() == Items.NETHERITE_SHOVEL) |
-                                    (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Shovel) |
-                                    (player.getMainHandItem().getItem() == Items.NETHERITE_PICKAXE) |
-                                    (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Pickaxe)) {
-                                if (PlayerStats.debugLogging) {
-                                    ClientUtils.SendPrivateMessage("before: " + event.getAmount());
-                                }
-                                event.setAmount(event.getAmount() * 1.2f);
-                                initialDamage.updateAndGet(v -> new Float(v * 1.2f));
-                                if (PlayerStats.debugLogging) {
-                                    ClientUtils.SendPrivateMessage("after: " + event.getAmount());
-                                }
-                                if (PlayerStats.debugLogging) {
-                                    ClientUtils.SendPrivateMessage("from: 2/1");
-                                }
-                            }
-                        }
-                        //Hardened Refined netherite armor
-                        else if (player.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof Hardened_Refined_Netherite_Helmet
-                                & player.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Hardened_Refined_Netherite_Chestplate
-                                & player.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Hardened_Refined_Netherite_Leggings
-                                & player.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Hardened_Refined_Netherite_Boots) {
-                            if ((player.getMainHandItem().getItem() == Items.NETHERITE_SWORD) |
-                                    (player.getMainHandItem().getItem() instanceof Hardened_Refined_Netherite_Sword) |
-                                    (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Sword) |
-                                    (player.getMainHandItem().getItem() == Items.NETHERITE_AXE) |
-                                    (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Axe) |
-                                    (player.getMainHandItem().getItem() == Items.NETHERITE_HOE) |
-                                    (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Hoe) |
-                                    (player.getMainHandItem().getItem() == Items.NETHERITE_SHOVEL) |
-                                    (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Shovel) |
-                                    (player.getMainHandItem().getItem() == Items.NETHERITE_PICKAXE) |
-                                    (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Pickaxe)) {
-                                if (PlayerStats.debugLogging) {
-                                    ClientUtils.SendPrivateMessage("before: " + event.getAmount());
-                                }
-                                event.setAmount(event.getAmount() * 1.4f);
-                                initialDamage.updateAndGet(v -> new Float(v * 1.4f));
-                                if (PlayerStats.debugLogging) {
-                                    ClientUtils.SendPrivateMessage("after: " + event.getAmount());
-                                }
-                                if (PlayerStats.debugLogging) {
-                                    ClientUtils.SendPrivateMessage("from: 2/2");
-                                }
-                            }
-                        }
-                        //ClientUtils.SendPrivateMessage("damage: " + event.getAmount());
-                        //ClientUtils.SendPrivateMessage("serength: " + skills.getStrength());
-
-
-
-                    if (player.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof Mushroom_Helmet
-                            & player.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Mushroom_Chestplate
-                            & player.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Mushroom_Leggings
-                            & player.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Mushroom_Boots) {
-                        if (player.level.getTimeOfDay(1f) > 13000 | player.level.getTimeOfDay(1f) < 1000) {
-                            event.setAmount(event.getAmount() / 3f);
-                        }
-                    }
-
-                    if (player.getMainHandItem().getItem() instanceof Flame_Sword) {
-                        target.setSecondsOnFire(3);
-                    }
-
-
-
-                    event.setAmount(event.getAmount() * (1 - (totalDefense / (totalDefense + 20f))));
-                    event.setAmount(event.getAmount() * ((10f - lightlvl) * 0.1f));
-                    ArmorStandEntity dmgTag = new ArmorStandEntity(worldIn, event.getEntity().position().x + (0.5f - Math.random()), event.getEntity().position().y + 0.5 + (0.5f - Math.random()), event.getEntity().position().z + (0.5f - Math.random()));
-                    //dmgTag.forceAddEffect(new EffectInstance(Effects.INVISIBILITY, 1000, 1));
-                    dmgTag.setCustomName(ITextComponent.nullToEmpty(ColorText.YELLOW.toString() + Math.round(10 * event.getAmount())));
-                    dmgTag.setCustomNameVisible(true);
-                    dmgTag.setInvulnerable(true);
-                    dmgTag.noPhysics = true;
-                    dmgTag.setInvisible(true);
-                    worldIn.addFreshEntity(dmgTag);
-                    //dmgTag.kill();
-
-                    if (PlayerStats.debugLogging) {
-                        Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("calculatedDamage : " + event.getAmount()), false);
-                    }
-                    //ClientUtils.SendPrivateMessage("damage: " + event.getAmount());
-                    //ferocity
-                    int hits = (int) Math.floor(skills.getFerocity() / 100.0);
-                    //ClientUtils.SendPrivateMessage("hits: " + hits);
-                    int bonusChance = skills.getFerocity() - (hits * 100);
-                    //ClientUtils.SendPrivateMessage("bonusChance: " + bonusChance);
-                    int rnd = MathHelper.nextInt(new Random(), 1, 100);
-                    if (rnd <= bonusChance) {
-                        hits += 1;
-                        //ClientUtils.SendPrivateMessage("bonus");
-                    }
-                    ferocityCount = hits;
-                    //ClientUtils.SendPrivateMessage("ferocityCount: " + ferocityCount);
-                    event.getEntityLiving().hurt(DamageSource.GENERIC, event.getAmount() * ((skills.getCombatLvl() * 0.01f) + 0.5f));
-                    //ticksSinceHit = 0;
-                    //ClientUtils.SendPrivateMessage("hit: " + event.getAmount() * ((skills.getCombatLvl() * 0.01f) + 0.5f));
-                } else {
-                    //int rnd1 = worldIn.random.nextInt(2) + 1;
-                    //if (ticksSinceHit == rnd1){
-                        //event.setAmount(event.getAmount() * ((skills.getCombatLvl() * 0.01f) + 0.5f));
-                        //ClientUtils.SendPrivateMessage("ferocityHit: " + event.getAmount() * ((skills.getCombatLvl() * 0.01f) + 0.5f));
-                        ferocityCount -= 1;
-                        //ClientUtils.SendPrivateMessage("ferocity: " + ferocityCount);
-                        //dmgTag.forceAddEffect(new EffectInstance(Effects.INVISIBILITY, 1000, 1));
-                        ArmorStandEntity dmgTag = new ArmorStandEntity(worldIn, event.getEntity().position().x + (0.5f - Math.random()), event.getEntity().position().y + 0.5 + (0.5f - Math.random()), event.getEntity().position().z + (0.5f - Math.random()));
-                    if ((5 * Math.round((initialDamage.get() * (skills.getStrength() / 100f) * (1 + (skills.getCombatLvl() * 0.04f))) + (hasEmeraldBlade ? PlayerStats.calcEmeraldBladeBoost(skills.getCoins()) : 0))) > 0) {
-                        dmgTag.setCustomName(ITextComponent.nullToEmpty(ColorText.YELLOW.toString() + (5 * Math.round((initialDamage.get() * (skills.getStrength() / 100f) * (1 + (skills.getCombatLvl() * 0.04f))) + (hasEmeraldBlade ? PlayerStats.calcEmeraldBladeBoost(skills.getCoins()) : 0)))));
-                        dmgTag.setCustomNameVisible(true);
-                        dmgTag.setInvulnerable(true);
-                        dmgTag.noPhysics = true;
-                        dmgTag.setInvisible(true);
-                        worldIn.addFreshEntity(dmgTag);
-                    }
-                    int rnd = player.level.random.nextInt(5) + 1;
-                    SoundEvent sound;
-                    float pitch = 1f;
-                    if (rnd >= 4) {
-                        sound = SoundEvents.ZOMBIE_BREAK_WOODEN_DOOR;
-                        pitch = 0.75f;
-                    } else if (rnd >= 2) {
-                        sound = SoundEvents.IRON_GOLEM_ATTACK;
-                    } else {
-                        sound = SoundEvents.FLINTANDSTEEL_USE;
-                        pitch = 0.5f;
-                    }
-                    dmgTag.level.playSound(null, dmgTag, sound, SoundCategory.NEUTRAL, 1f, pitch);
-                    //ticksSinceHit = 0;
-                    event.getEntityLiving().hurt(DamageSource.playerAttack((PlayerEntity) event.getSource().getEntity()), event.getAmount() * ((skills.getCombatLvl() * 0.01f) + 0.5f));
-                    MinecraftForge.EVENT_BUS.post(new LivingHurtEvent(event.getEntityLiving(), DamageSource.playerAttack((PlayerEntity) event.getSource().getEntity()), event.getAmount() * ((skills.getCombatLvl() * 0.01f) + 0.5f)));
-                    //}
-
-                }
-            });
-        }
-
-        if (event.getEntity() instanceof PlayerEntity)
-        {
-            PlayerEntity target = (PlayerEntity) event.getEntity();
-            target.getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills -> {
-                if (event.getSource() == DamageSource.FALL) {
-                    ArmorStandEntity dmgTag = new ArmorStandEntity(worldIn, event.getEntity().position().x + (0.5f - Math.random()), event.getEntity().position().y + 0.5 + (0.5f - Math.random()), event.getEntity().position().z + (0.5f - Math.random()));
-                    //dmgTag.forceAddEffect(new EffectInstance(Effects.INVISIBILITY, 1000, 1));
-                    dmgTag.setCustomName(ITextComponent.nullToEmpty(ColorText.YELLOW.toString() + (Math.round(initialDamage.get()) * 5)));
-                    dmgTag.setCustomNameVisible(true);
-                    dmgTag.setInvulnerable(true);
-                    dmgTag.noPhysics = true;
-                    dmgTag.setInvisible(true);
-                    worldIn.addFreshEntity(dmgTag);
-                    if (PlayerStats.debugLogging) {
-                        Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("initialDamage: " + event.getAmount()), false);
-                    }
-                    if (PlayerStats.debugLogging) {
-                        Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("calc: " + "(1 - (event.getAmount() - (" + skills.getDefense() + " / (" + skills.getDefense() + " + 20f))))"), false);
-                    }
-                    if (PlayerStats.debugLogging) {
-                        Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("calc: " + (1 - (event.getAmount() - (skills.getDefense() / (skills.getDefense() + 20f))))), false);
-                    }
-                    if (PlayerStats.debugLogging) {
-                        Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("defense: " + skills.getDefense()), false);
-                    }
-                    if (PlayerStats.debugLogging) {
-                        Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("damageTaken : " + event.getAmount()), false);
-                    }
-                    float fallDamageMultiplier = 0f;
-
-                    if (target.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof Refined_Netherite_Helmet) {
-                        fallDamageMultiplier += 0.25f;
-                    }
-                    if (target.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Refined_Netherite_Chestplate) {
-                        fallDamageMultiplier += 0.25f;
-                    }
-                    if (target.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Refined_Netherite_Leggings) {
-                        fallDamageMultiplier += 0.25f;
-                    }
-                    if (target.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Refined_Netherite_Boots) {
-                        fallDamageMultiplier += 0.25f;
-                    }
-
-                    if (target.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof Hardened_Refined_Netherite_Helmet) {
-                        fallDamageMultiplier += 0.5f;
-                    }
-                    if (target.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Hardened_Refined_Netherite_Chestplate) {
-                        fallDamageMultiplier += 0.5f;
-                    }
-                    if (target.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Hardened_Refined_Netherite_Leggings) {
-                        fallDamageMultiplier += 0.5f;
-                    }
-                    if (target.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Hardened_Refined_Netherite_Boots) {
-                        fallDamageMultiplier += 0.5f;
-                    }
-
-                    event.setAmount(event.getAmount() + event.getAmount() * fallDamageMultiplier);
-                    event.setAmount((event.getAmount() / skills.getMaxHealth()) * 100);
-                    //ClientUtils.SendPrivateMessage("fallMultiplier: " + fallDamageMultiplier);
-                    //ClientUtils.SendPrivateMessage("final: " + event.getAmount());
-                    target.level.playSound(null, target, SoundEvents.ANVIL_LAND, SoundCategory.NEUTRAL, 1.0f, 1.5f);
-
-                } else if (event.getSource().isBypassArmor()) {
-                    if (event.getSource() == DamageSource.WITHER | event.getSource() == DamageSource.MAGIC | event.getSource() == DamageSource.FLY_INTO_WALL | event.getSource() == DamageSource.ON_FIRE | event.getSource() == DamageSource.DRAGON_BREATH | event.getSource() == DamageSource.LAVA | event.getSource() == DamageSource.HOT_FLOOR | event.getSource() == DamageSource.indirectMagic(event.getSource().getEntity(), event.getEntity())) {
-                        event.setAmount((event.getAmount() / skills.getMaxHealth()) * 20);
-                    }
-
-                }else{
-                    ArmorStandEntity dmgTag = new ArmorStandEntity(worldIn, event.getEntity().position().x + (0.5f - Math.random()), event.getEntity().position().y + 0.5 + (0.5f - Math.random()), event.getEntity().position().z + (0.5f - Math.random()));
-                    //dmgTag.forceAddEffect(new EffectInstance(Effects.INVISIBILITY, 1000, 1));
-                    dmgTag.setCustomName(ITextComponent.nullToEmpty(ColorText.YELLOW.toString() + (Math.round(initialDamage.get()) * 5)));
-                    dmgTag.setCustomNameVisible(true);
-                    dmgTag.setInvulnerable(true);
-                    dmgTag.noPhysics = true;
-                    dmgTag.setInvisible(true);
-                    worldIn.addFreshEntity(dmgTag);
-                    if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("initialDamage: " + event.getAmount()), false);}
-                    if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("calc: " + "(1 - (event.getAmount() - (" + skills.getDefense() + " / (" + skills.getDefense() + " + 20f))))"), false);}
-                    if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("calc: " + (1 - (event.getAmount() - (skills.getDefense() / (skills.getDefense() + 20f))))), false);}
-                    //skills.setHealth(Math.round((event.getEntityLiving().getHealth() / event.getEntityLiving().getMaxHealth()) * skills.getMaxHealth()));
-                    event.setAmount((event.getAmount() * (1 - (skills.getDefense() / (skills.getDefense() + 20f)))) / (skills.getMaxHealth() / 100));
-                    if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("defense: " + skills.getDefense()), false);}
-                    if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("damageTaken : " + event.getAmount()), false);}
-                }
-            });
-
-            //float EHP = (target.getMaxHealth() * 5) * ((PlayerStats.getDefense() / 100) + 1);
-
-
-
-        }
-        if (!(event.getEntityLiving() instanceof PlayerEntity))
-        {
-            LivingEntity target =  event.getEntityLiving();
-            Item head = target.getItemBySlot(EquipmentSlotType.HEAD).getItem();
-            Item chest = target.getItemBySlot(EquipmentSlotType.CHEST).getItem();
-            Item legs = target.getItemBySlot(EquipmentSlotType.LEGS).getItem();
-            Item boot = target.getItemBySlot(EquipmentSlotType.FEET).getItem();
-            if (((head == Items.NETHERITE_HELMET) &
-                    (chest == Items.NETHERITE_CHESTPLATE) &
-                    (legs == Items.NETHERITE_LEGGINGS) &
-                    (boot == Items.NETHERITE_BOOTS)) |
-                    ((head == Items.DIAMOND_HELMET) &
-                            (chest == Items.DIAMOND_CHESTPLATE) &
-                            (legs == Items.DIAMOND_LEGGINGS) &
-                            (boot == Items.DIAMOND_BOOTS)) |
-                    ((head == Items.GOLDEN_HELMET) &
-                            (chest == Items.GOLDEN_CHESTPLATE) &
-                            (legs == Items.GOLDEN_LEGGINGS) &
-                            (boot == Items.GOLDEN_BOOTS)) |
-                    ((head == Items.IRON_HELMET) &
-                            (chest == Items.IRON_CHESTPLATE) &
-                            (legs == Items.IRON_LEGGINGS) &
-                            (boot == Items.IRON_BOOTS)) |
-                    ((head == Items.LEATHER_HELMET) &
-                            (chest == Items.LEATHER_CHESTPLATE) &
-                            (legs == Items.LEATHER_LEGGINGS) &
-                            (boot == Items.LEATHER_BOOTS)))
-            {
-                event.setAmount(event.getAmount());
-            }else
-            {
-                event.setAmount(event.getAmount() * 2);
-            }
-        }*/
-
         World world = event.getEntityLiving().level;
         LivingEntity target = event.getEntityLiving();
         //int targetTotalDefense = 0;
         AtomicReference<Integer> targetTotalDefense = new AtomicReference<>(0);
         if (target != null) {
-            targetTotalDefense.updateAndGet(v -> target.getArmorValue());
+            targetTotalDefense.updateAndGet(v -> target.getArmorValue() * 20);
         }
 
         LivingEntity attacker = (LivingEntity) event.getSource().getEntity();
@@ -546,7 +114,7 @@ public class EventHandler {
 
         if (attacker != null) {
             if (!(attacker.getMainHandItem().getItem() instanceof TaggedSwordItem) | event.getSource().getDirectEntity() instanceof AbstractArrowEntity) {
-                event.setAmount(event.getAmount() * 12);
+                event.setAmount(event.getAmount() * 20);
             } else {
                 event.setAmount(event.getAmount());
             }
@@ -789,9 +357,10 @@ public class EventHandler {
                         target.level.playSound(null, target, SoundEvents.ANVIL_LAND, SoundCategory.NEUTRAL, 1.0f, 1.5f);
 
                 } else if (event.getSource().isBypassArmor()) {
-                    if (event.getSource() == DamageSource.WITHER | event.getSource() == DamageSource.MAGIC | event.getSource() == DamageSource.FLY_INTO_WALL | event.getSource() == DamageSource.ON_FIRE | event.getSource() == DamageSource.DRAGON_BREATH | event.getSource() == DamageSource.LAVA | event.getSource() == DamageSource.HOT_FLOOR | event.getSource() == DamageSource.indirectMagic(event.getSource().getEntity(), event.getEntity())) {
+                    /*if (event.getSource() == DamageSource.WITHER | event.getSource() == DamageSource.MAGIC | event.getSource() == DamageSource.FLY_INTO_WALL | event.getSource() == DamageSource.ON_FIRE | event.getSource() == DamageSource.DRAGON_BREATH | event.getSource() == DamageSource.LAVA | event.getSource() == DamageSource.HOT_FLOOR | event.getSource() == DamageSource.indirectMagic(event.getSource().getEntity(), event.getEntity())) {
                         event.setAmount(event.getAmount() * (target.getMaxHealth() / skills.getMaxHealth()));
-                    }
+                    }*/
+                    event.setAmount(event.getAmount() * (target.getMaxHealth() / skills.getMaxHealth()));
 
                 } else {
                     /*ArmorStandEntity dmgTag = new ArmorStandEntity(world, event.getEntity().position().x + (0.5f - Math.random()), event.getEntity().position().y + 0.5 + (0.5f - Math.random()), event.getEntity().position().z + (0.5f - Math.random()));
@@ -811,7 +380,7 @@ public class EventHandler {
                         Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("calc: " + (1 - (event.getAmount() - (skills.getDefense() / (skills.getDefense() + 20f))))), false);
                     }
                     //skills.setHealth(Math.round((event.getEntityLiving().getHealth() / event.getEntityLiving().getMaxHealth()) * skills.getMaxHealth()));
-                    event.setAmount((event.getAmount() * (1 - (skills.getDefense() / (skills.getDefense() + 20f)))) * (target.getMaxHealth() / skills.getMaxHealth()));
+                    event.setAmount((event.getAmount() * (1 - (skills.getDefense() / (skills.getDefense() + 100f)))) * (target.getMaxHealth() / skills.getMaxHealth()));
                     if (PlayerStats.debugLogging) {
                         Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("defense: " + skills.getDefense()), false);
                     }
@@ -899,7 +468,7 @@ public class EventHandler {
                     //if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("calc: " + "(1 - (event.getAmount() - (" + skills.getDefense() + " / (" + skills.getDefense() + " + 20f))))"), false);}
                     //if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("calc: " + (1 - (event.getAmount() - (skills.getDefense() / (skills.getDefense() + 20f))))), false);}
                     //skills.setHealth(Math.round((event.getEntityLiving().getHealth() / event.getEntityLiving().getMaxHealth()) * skills.getMaxHealth()));
-                    event.setAmount(event.getAmount() * (1 - (targetTotalDefense.get() / (targetTotalDefense.get() + 20f))) * (target.getMaxHealth() / (skills.getMobLevel() * 2.5f * target.getMaxHealth())));
+                    event.setAmount(event.getAmount() * (1 - (targetTotalDefense.get() / (targetTotalDefense.get() + 100f))) * (target.getMaxHealth() / (skills.getMobLevel() * 2.5f * target.getMaxHealth())));
                     //if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("defense: " + skills.getDefense()), false);}
                     //if (PlayerStats.debugLogging) {Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("damageTaken : " + event.getAmount()), false);}
                 }
@@ -934,6 +503,136 @@ public class EventHandler {
             abilityShowText = abilityShowTimer < 1 ? "" : abilityShowText;
             ticksSinceManaHeal -= 1;
             player.getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills -> {
+                if (player.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Refined_Netherite_Boots) {
+                    skills.setRBootTimer(skills.getRBootTimer() + 1);
+                } else {
+                    if (skills.getRBootTimer() > 0) {
+                        skills.setRBootTimer(skills.getRBootTimer() - 1);
+                    }
+                }
+                if (player.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof Refined_Netherite_Helmet) {
+                    skills.setRHelmTimer((skills.getRHelmTimer() + 1));
+                } else {
+                    if (skills.getRHelmTimer() > 0) {
+                        skills.setRHelmTimer((skills.getRHelmTimer() - 1));
+                    }
+                }
+                if (player.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Hardened_Refined_Netherite_Boots) {
+                    skills.setHRBootTimer(skills.getHRBootTimer() + 1);
+                } else {
+                    if (skills.getHRBootTimer() > 0) {
+                        skills.setHRBootTimer(skills.getHRBootTimer() - 1);
+                    }
+                }
+                if (player.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof Hardened_Refined_Netherite_Helmet) {
+                    skills.setHRHelmTimer((skills.getHRHelmTimer() + 1));
+                } else {
+                    if (skills.getHRHelmTimer() > 0) {
+                        skills.setHRHelmTimer((skills.getHRHelmTimer() - 1));
+                    }
+                }
+
+                if (player.getItemInHand(Hand.MAIN_HAND).getItem() == Items.DIAMOND_SWORD | player.getItemInHand(Hand.OFF_HAND).getItem() == Items.DIAMOND_SWORD) {
+                    skills.setDiamondTimer((skills.getDiamondTimer() + 1));
+                } else {
+                    if (skills.getDiamondTimer() > 0) {
+                        skills.setDiamondTimer((skills.getDiamondTimer() - 1));
+                    }
+                }
+                if (player.getItemInHand(Hand.MAIN_HAND).getItem() == Items.NETHERITE_SWORD | player.getItemInHand(Hand.OFF_HAND).getItem() == Items.NETHERITE_SWORD) {
+                    skills.setNetheriteTimer((skills.getNetheriteTimer() + 1));
+                } else {
+                    if (skills.getNetheriteTimer() > 0) {
+                        skills.setNetheriteTimer((skills.getNetheriteTimer() - 1));
+                    }
+                }
+                if (player.getItemInHand(Hand.MAIN_HAND).getItem() instanceof Netherite_Plated_Diamond_Sword | player.getItemInHand(Hand.OFF_HAND).getItem() instanceof Netherite_Plated_Diamond_Sword) {
+                    skills.setNetheritePlatedDiamondTimer((skills.getNetheritePlatedDiamondTimer() + 1));
+                } else {
+                    if (skills.getNetheritePlatedDiamondTimer() > 0) {
+                        skills.setNetheritePlatedDiamondTimer((skills.getNetheritePlatedDiamondTimer() - 1));
+                    }
+                }
+
+                //RHelm Abilty
+                if (skills.getRHelmTimer() % 20 == 0) {
+                    if (skills.getRHelmTimer() > 64000) {
+                        skills.setMana(skills.getMana() - 256);
+                        player.hurt(DamageSource.GENERIC, 16);
+                        player.addEffect(new EffectInstance(Effects.BLINDNESS, 8, 0));
+                    } else if (skills.getRHelmTimer() > 32000) {
+                        skills.setMana(skills.getMana() - 128);
+                        player.hurt(DamageSource.GENERIC, 8);
+                        player.addEffect(new EffectInstance(Effects.BLINDNESS, 4, 0));
+                    } else if (skills.getRHelmTimer() > 16000) {
+                        skills.setMana(skills.getMana() - 64);
+                        player.hurt(DamageSource.GENERIC, 4);
+                        player.addEffect(new EffectInstance(Effects.BLINDNESS, 2, 0));
+                    } else if (skills.getRHelmTimer() > 8000) {
+                        skills.setMana(skills.getMana() - 32);
+                        player.hurt(DamageSource.GENERIC, 2);
+                        player.addEffect(new EffectInstance(Effects.BLINDNESS, 1, 0));
+                    } else if (skills.getRHelmTimer() > 4000) {
+                        skills.setMana(skills.getMana() - 16);
+                    } else if (skills.getRHelmTimer() > 2000) {
+                        skills.setMana(skills.getMana() - 8);
+                    } else if (skills.getRHelmTimer() > 1000) {
+                        skills.setMana(skills.getMana() - 4);
+                    } else if (skills.getRHelmTimer() > 500) {
+                        skills.setMana(skills.getMana() - 2);
+                    }
+                }
+
+                //HRHelm ability
+                if (skills.getHRHelmTimer() % 20 == 0) {
+                    if (skills.getHRHelmTimer() > 25600) {
+                        skills.setMana(skills.getMana() - 384);
+                        player.hurt(DamageSource.GENERIC, 12);
+                        player.addEffect(new EffectInstance(Effects.BLINDNESS, 12, 254));
+                    } else if (skills.getHRHelmTimer() > 12800) {
+                        skills.setMana(skills.getMana() - 192);
+                        player.hurt(DamageSource.GENERIC, 9);
+                        player.addEffect(new EffectInstance(Effects.BLINDNESS, 6, 254));
+                    } else if (skills.getHRHelmTimer() > 6400) {
+                        skills.setMana(skills.getMana() - 96);
+                        player.hurt(DamageSource.GENERIC, 6);
+                        player.addEffect(new EffectInstance(Effects.BLINDNESS, 3, 254));
+                    } else if (skills.getHRHelmTimer() > 3200) {
+                        skills.setMana(skills.getMana() - 48);
+                        player.hurt(DamageSource.GENERIC, 3);
+                        player.addEffect(new EffectInstance(Effects.BLINDNESS, 1, 254));
+                    } else if (skills.getHRHelmTimer() > 1600) {
+                        skills.setMana(skills.getMana() - 24);
+                    } else if (skills.getHRHelmTimer() > 800) {
+                        skills.setMana(skills.getMana() - 12);
+                    } else if (skills.getHRHelmTimer() > 400) {
+                        skills.setMana(skills.getMana() - 6);
+                    } else if (skills.getHRHelmTimer() > 200) {
+                        skills.setMana(skills.getMana() - 3);
+                    }
+                }
+                //Boots
+                skills.setBootSlowFactor((float) (Math.floor(skills.getRBootTimer() / 200f) * 0.2f + Math.floor(skills.getHRBootTimer() / 200f) * 0.5f));
+                //Diamond
+                if (skills.getDiamondTimer() >= 40000 + (skills.getDiamondStrBoost() * 20)) {
+                    skills.setDiamondStrBoost(skills.getDiamondStrBoost() + 1);
+                    skills.setDiamondTimer(1);
+                }
+                //Netherite
+                if (skills.getNetheriteTimer() >= 20000 + (skills.getNetheriteStrBoost() * 20)) {
+                    skills.setNetheriteStrBoost(skills.getNetheriteStrBoost() + 1);
+                    skills.setNetheriteTimer(1);
+                }
+                //Netherite plated diamond
+                if (skills.getNetheritePlatedDiamondTimer() >= 30000 + ((skills.getNetheriteStrBoost() / 4f + (skills.getDiamondStrBoost() / 4f * 3f)) * 20f)) {
+                    int rnd = player.level.random.nextInt(3) + 1;
+                    if (rnd < 3) {
+                        skills.setDiamondStrBoost(skills.getDiamondStrBoost() + 1);
+                    } else {
+                        skills.setNetheriteStrBoost(skills.getNetheriteStrBoost() + 1);
+                    }
+                    skills.setNetheritePlatedDiamondTimer(1);
+                }
                 //mana regen
                 if (ticksSinceManaHeal < 0 && skills.getMana() < skills.getMaxMana()) {
                     if (skills.getMana() + (skills.getMaxMana() * 0.02D) > skills.getMaxMana()) {
@@ -949,25 +648,27 @@ public class EventHandler {
                 if (skills.getMana() > skills.getMaxMana()) {
                     skills.setMana(skills.getMaxMana());
                 }
+                if (skills.getMana() < 0) {
+                    skills.setMana(0);
+                }
                 player.getFoodData().setFoodLevel(Math.round((((float) (skills.getMana())) / ((float) (skills.getMaxMana()))) * 20f));
                 //end of mana regen
 
                 int strengthAdder = 100;
+                int speedAdder = 100;
 
                 strengthAdder += player.experienceLevel / 5f;
+                strengthAdder += player.experienceLevel / 10f;
 
                 if (EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ULTIMATE_WISE.get(), player.getOffhandItem()) > 0) {
                     skills.setUltWiseLvl(EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ULTIMATE_WISE.get(), player.getOffhandItem()));
-                } else if (EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ULTIMATE_WISE.get(), player.getMainHandItem()) > 0) {
-                    skills.setUltWiseLvl(EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ULTIMATE_WISE.get(), player.getMainHandItem()));
-                } else {
-                    skills.setUltWiseLvl(0);
-                }
+                } else
+                    skills.setUltWiseLvl(Math.max(EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.ULTIMATE_WISE.get(), player.getMainHandItem()), 0));
 
                 //emeralds to coins
                 skills.setCoins((player.inventory.countItem(Items.EMERALD) * 6) + (player.inventory.countItem(Items.EMERALD_BLOCK) * 54) + (player.inventory.countItem(ItemInit.REFINED_EMERALD.get()) * 960) + (player.inventory.countItem(ItemInit.REFINED_EMERALD_BLOCK.get()) * 8640));
 
-
+                speedAdder -= skills.getBootSlowFactor();
                 if (player.getMainHandItem().getItem() instanceof Aspect_Of_The_End || player.getOffhandItem().getItem() instanceof Aspect_Of_The_End) {
                     strengthAdder += 100;
                 }
@@ -984,36 +685,38 @@ public class EventHandler {
                     strengthAdder += 80;
                 }
                 if (player.getMainHandItem().getItem() instanceof Hunter_Knife || player.getOffhandItem().getItem() instanceof Hunter_Knife) {
-                    player.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, 20, 0));
+                    speedAdder += 20;
                 }
                 if (player.getMainHandItem().getItem() instanceof Ink_Wand || player.getOffhandItem().getItem() instanceof Ink_Wand) {
                     strengthAdder += 90;
+                }
+                if (player.getMainHandItem().getItem() == Items.NETHERITE_SWORD || player.getOffhandItem().getItem() == Items.NETHERITE_SWORD) {
+                    strengthAdder += 50 + skills.getDiamondStrBoost();
+                }
+                if (player.getMainHandItem().getItem() == Items.DIAMOND_SWORD || player.getOffhandItem().getItem() == Items.DIAMOND_SWORD) {
+                    strengthAdder += 25 + skills.getDiamondStrBoost();
+                }
+                if (player.getMainHandItem().getItem() == Items.NETHERITE_AXE || player.getOffhandItem().getItem() == Items.NETHERITE_AXE) {
+                    strengthAdder += 60;
+                }
+                if (player.getMainHandItem().getItem() == Items.DIAMOND_AXE || player.getOffhandItem().getItem() == Items.DIAMOND_AXE) {
+                    strengthAdder += 35;
+                }
+                if (player.getMainHandItem().getItem() instanceof Terminator || player.getOffhandItem().getItem() instanceof Terminator) {
+                    strengthAdder += 50;
+                }
+                if (player.getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Sword || player.getOffhandItem().getItem() instanceof Netherite_Plated_Diamond_Sword) {
+                    strengthAdder += 30 + Math.round((skills.getNetheriteStrBoost() / 4f) + (skills.getDiamondStrBoost() / 4f * 3f));
                 }
                 if (EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.LIGHT.get(), player.getMainHandItem()) > 0) {
                     player.getAttribute(Attributes.ATTACK_SPEED).setBaseValue(player.getAttribute(Attributes.ATTACK_SPEED).getValue() * (1f + ((10f - EnchantmentHelper.getItemEnchantmentLevel(EnchantmentInit.LIGHT.get(), player.getMainHandItem())) * 0.1f)));
                 }
 
-                if (player.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Refined_Netherite_Leggings
-                        & player.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Refined_Netherite_Boots) {
-                    player.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 20, 0));
-                }
-                if (player.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Hardened_Refined_Netherite_Boots) {
-                    player.addEffect(new EffectInstance(Effects.MOVEMENT_SLOWDOWN, 20, 0));
-                }
-
-                skills.setStrength(strengthAdder);
-                skills.setMaxMana(100 + (Math.round(((float)(player.experienceLevel)) / 5f)) +
-                        (player.getMainHandItem().getItem() instanceof Zombie_Sword || player.getOffhandItem().getItem() instanceof Zombie_Sword ? 50 : 0) +
-                        (player.getMainHandItem().getItem() instanceof Ornate_Zombie_Sword || player.getOffhandItem().getItem() instanceof Ornate_Zombie_Sword ? 50 : 0) +
-                        (player.getMainHandItem().getItem() instanceof Florid_Zombie_Sword || player.getOffhandItem().getItem() instanceof Florid_Zombie_Sword ? 100 : 0));
-                skills.setMaxHealth((float) (100f + Math.floor(player.experienceLevel / 10D)));
-                skills.setHealth(Math.round(((event.getEntityLiving().getHealth() + event.getEntityLiving().getAbsorptionAmount()) / event.getEntityLiving().getMaxHealth()) * skills.getMaxHealth()));
-                skills.setFerocity((int) Math.floor(((double) (player.experienceLevel)) / 25D));
 
                 ColorText color;
                 if (player.hasEffect(Effects.WITHER)) {
                     color = ColorText.DARK_GRAY;
-                }else if (player.hasEffect(Effects.ABSORPTION)){
+                } else if (player.hasEffect(Effects.ABSORPTION)) {
                     color = ColorText.GOLD;
                 }else{
                     color = ColorText.RED;
@@ -1033,6 +736,24 @@ public class EventHandler {
                         player.inventory.contains(ItemInit.CAMPFIRE_ADAPT_BADGE.get().asItem().getDefaultInstance()) |
                         player.inventory.contains(ItemInit.CAMPFIRE_SCION_BADGE.get().asItem().getDefaultInstance()) |
                         player.inventory.contains(ItemInit.CAMPFIRE_GOD_BADGE.get().asItem().getDefaultInstance());
+                //farming
+                Block aboveFeetBlock = player.level
+                        .getBlockState(new BlockPos(player.position().x, player.position().y + 1, player.position().z))
+                        .getBlock();
+                Block feetBlock = player.level
+                        .getBlockState(new BlockPos(player.position().x, player.position().y, player.position().z))
+                        .getBlock();
+                Block belowFeetBlock = player.level
+                        .getBlockState(new BlockPos(player.position().x, player.position().y - 1, player.position().z))
+                        .getBlock();
+
+                if (feetBlock instanceof BushBlock || belowFeetBlock instanceof BushBlock || aboveFeetBlock instanceof BushBlock ||
+                        feetBlock instanceof SugarCaneBlock || belowFeetBlock instanceof SugarCaneBlock || aboveFeetBlock instanceof SugarCaneBlock ||
+                        feetBlock instanceof FarmlandBlock || belowFeetBlock instanceof FarmlandBlock || aboveFeetBlock instanceof FarmlandBlock) {
+                    {
+                        speedAdder += 1;
+                    }
+                }
                 //campfire
                 if (hasCampfireBadge) {
                     if (!((player.inventory.countItem(ItemInit.CAMPFIRE_INITIATE_BADGE.get().asItem()) > 1) |
@@ -1052,8 +773,8 @@ public class EventHandler {
                                     //ClientUtils.SendPrivateMessage("you are on fire mor than 3s!");
                                     int rnd = MathHelper.nextInt(new Random(), 1, 20);
                                     if (rnd == 10) {
-                                        ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
-                                        ClientUtils.SendPrivateMessage("you healed!");
+                                        //ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
+                                        //ClientUtils.SendPrivateMessage("you healed!");
                                         player.heal(1f);
                                     }
                                     ticksSinceOnFire += 1;
@@ -1074,8 +795,8 @@ public class EventHandler {
                                     //ClientUtils.SendPrivateMessage("you are on fire mor than 3s!");
                                     int rnd = MathHelper.nextInt(new Random(), 1, 30);
                                     if (rnd == 10) {
-                                        ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
-                                        ClientUtils.SendPrivateMessage("you healed!");
+                                        //ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
+                                        //ClientUtils.SendPrivateMessage("you healed!");
                                         player.heal(1f);
                                     }
                                     ticksSinceOnFire += 1;
@@ -1097,8 +818,8 @@ public class EventHandler {
                                     //ClientUtils.SendPrivateMessage("you are on fire mor than 3s!");
                                     int rnd = MathHelper.nextInt(new Random(), 1, 20);
                                     if (rnd == 10) {
-                                        ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
-                                        ClientUtils.SendPrivateMessage("you healed!");
+                                        //ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
+                                        //ClientUtils.SendPrivateMessage("you healed!");
                                         player.heal(1f);
                                     }
                                     ticksSinceOnFire += 1;
@@ -1120,8 +841,8 @@ public class EventHandler {
                                     //ClientUtils.SendPrivateMessage("you are on fire mor than 3s!");
                                     int rnd = MathHelper.nextInt(new Random(), 1, 20);
                                     if (rnd == 10) {
-                                        ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
-                                        ClientUtils.SendPrivateMessage("you healed!");
+                                        //ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
+                                        //ClientUtils.SendPrivateMessage("you healed!");
                                         player.heal(1f);
                                     }
                                     ticksSinceOnFire += 1;
@@ -1143,8 +864,8 @@ public class EventHandler {
                                     //ClientUtils.SendPrivateMessage("you are on fire mor than 3s!");
                                     int rnd = MathHelper.nextInt(new Random(), 1, 20);
                                     if (rnd == 10) {
-                                        ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
-                                        ClientUtils.SendPrivateMessage("you healed!");
+                                        //ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
+                                        //ClientUtils.SendPrivateMessage("you healed!");
                                         player.heal(1f);
                                     }
                                     ticksSinceOnFire += 1;
@@ -1163,8 +884,8 @@ public class EventHandler {
                                     //ClientUtils.SendPrivateMessage("you are on fire mor than 3s!");
                                     int rnd = MathHelper.nextInt(new Random(), 1, 40);
                                     if (rnd == 10) {
-                                        ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
-                                        ClientUtils.SendPrivateMessage("you healed!");
+                                        //ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
+                                        //ClientUtils.SendPrivateMessage("you healed!");
                                         player.heal(1f);
                                     }
                                     ticksSinceOnFire += 1;
@@ -1184,8 +905,8 @@ public class EventHandler {
                                     //ClientUtils.SendPrivateMessage("you are on fire mor than 3s!");
                                     int rnd = MathHelper.nextInt(new Random(), 1, 30);
                                     if (rnd == 10) {
-                                        ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
-                                        ClientUtils.SendPrivateMessage("you healed!");
+                                        //ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
+                                        //ClientUtils.SendPrivateMessage("you healed!");
                                         player.heal(1f);
                                     }
                                     ticksSinceOnFire += 1;
@@ -1206,8 +927,8 @@ public class EventHandler {
                                     //ClientUtils.SendPrivateMessage("you are on fire mor than 3s!");
                                     int rnd = MathHelper.nextInt(new Random(), 1, 20);
                                     if (rnd == 10) {
-                                        ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
-                                        ClientUtils.SendPrivateMessage("you healed!");
+                                        //ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
+                                        //ClientUtils.SendPrivateMessage("you healed!");
                                         player.heal(1f);
                                     }
                                     ticksSinceOnFire += 1;
@@ -1227,8 +948,8 @@ public class EventHandler {
                                     //ClientUtils.SendPrivateMessage("you are on fire mor than 3s!");
                                     int rnd = MathHelper.nextInt(new Random(), 1, 30);
                                     if (rnd == 10) {
-                                        ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
-                                        ClientUtils.SendPrivateMessage("you healed!");
+                                        //ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
+                                        //ClientUtils.SendPrivateMessage("you healed!");
                                         player.heal(1f);
                                     }
                                     ticksSinceOnFire += 1;
@@ -1249,8 +970,8 @@ public class EventHandler {
                                     //ClientUtils.SendPrivateMessage("you are on fire mor than 3s!");
                                     int rnd = MathHelper.nextInt(new Random(), 1, 20);
                                     if (rnd == 10) {
-                                        ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
-                                        ClientUtils.SendPrivateMessage("you healed!");
+                                        //ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
+                                        //ClientUtils.SendPrivateMessage("you healed!");
                                         player.heal(1f);
                                     }
                                     ticksSinceOnFire += 1;
@@ -1271,8 +992,8 @@ public class EventHandler {
                                     //ClientUtils.SendPrivateMessage("you are on fire mor than 3s!");
                                     int rnd = MathHelper.nextInt(new Random(), 1, 20);
                                     if (rnd == 10) {
-                                        ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
-                                        ClientUtils.SendPrivateMessage("you healed!");
+                                        //ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
+                                        //ClientUtils.SendPrivateMessage("you healed!");
                                         player.heal(1f);
                                     }
                                     ticksSinceOnFire += 1;
@@ -1290,8 +1011,8 @@ public class EventHandler {
                                     //ClientUtils.SendPrivateMessage("you are on fire mor than 3s!");
                                     int rnd = MathHelper.nextInt(new Random(), 1, 50);
                                     if (rnd == 10) {
-                                        ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
-                                        ClientUtils.SendPrivateMessage("you healed!");
+                                        //ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
+                                        //ClientUtils.SendPrivateMessage("you healed!");
                                         player.heal(1f);
                                     }
                                     ticksSinceOnFire += 1;
@@ -1309,8 +1030,8 @@ public class EventHandler {
                                     //ClientUtils.SendPrivateMessage("you are on fire mor than 3s!");
                                     int rnd = MathHelper.nextInt(new Random(), 1, 40);
                                     if (rnd == 10) {
-                                        ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
-                                        ClientUtils.SendPrivateMessage("you healed!");
+                                        //ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
+                                        //ClientUtils.SendPrivateMessage("you healed!");
                                         player.heal(1f);
                                     }
                                     ticksSinceOnFire += 1;
@@ -1329,8 +1050,8 @@ public class EventHandler {
                                     //ClientUtils.SendPrivateMessage("you are on fire mor than 3s!");
                                     int rnd = MathHelper.nextInt(new Random(), 1, 30);
                                     if (rnd == 10) {
-                                        ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
-                                        ClientUtils.SendPrivateMessage("you healed!");
+                                        //ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
+                                        //ClientUtils.SendPrivateMessage("you healed!");
                                         player.heal(1f);
                                     }
                                     ticksSinceOnFire += 1;
@@ -1350,8 +1071,8 @@ public class EventHandler {
                                     //ClientUtils.SendPrivateMessage("you are on fire mor than 3s!");
                                     int rnd = MathHelper.nextInt(new Random(), 1, 20);
                                     if (rnd == 10) {
-                                        ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
-                                        ClientUtils.SendPrivateMessage("you healed!");
+                                        //ClientUtils.SendPrivateMessage("ticksSinceOnFire: " + ticksSinceOnFire);
+                                        //ClientUtils.SendPrivateMessage("you healed!");
                                         player.heal(1f);
                                     }
                                     ticksSinceOnFire += 1;
@@ -1379,7 +1100,7 @@ public class EventHandler {
 
                 if (player.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof ArmorItem) { ArmorItem feet = (ArmorItem) player.getItemBySlot(EquipmentSlotType.FEET).getItem();feetDefense = feet.getDefense(); }else { feetDefense = 0; }
 
-                skills.setDefense(headDefense + chestDefense + legsDefense + feetDefense);
+                skills.setDefense((headDefense + chestDefense + legsDefense + feetDefense) * 20);
 
 
                 //Armor abilities
@@ -1389,21 +1110,12 @@ public class EventHandler {
                         & player.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Farm_Suit_Chestplate
                         & player.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Farm_Suit_Leggings
                         & player.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Farm_Suit_Boots) {
-                    Block aboveFeetBlock = event.getEntity().getCommandSenderWorld()
-                            .getBlockState(new BlockPos(player.position().x, player.position().y + 1, player.position().z))
-                            .getBlock();
-                    Block feetBlock = event.getEntity().getCommandSenderWorld()
-                            .getBlockState(new BlockPos(player.position().x, player.position().y, player.position().z))
-                            .getBlock();
-                    Block belowFeetBlock = event.getEntity().getCommandSenderWorld()
-                            .getBlockState(new BlockPos(player.position().x, player.position().y - 1, player.position().z))
-                            .getBlock();
                     //Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("block: " + feetBlock + " ," + belowFeetBlock), false);
                     if (feetBlock instanceof BushBlock || belowFeetBlock instanceof BushBlock || aboveFeetBlock instanceof BushBlock ||
                             feetBlock instanceof SugarCaneBlock || belowFeetBlock instanceof SugarCaneBlock || aboveFeetBlock instanceof SugarCaneBlock ||
                             feetBlock instanceof FarmlandBlock || belowFeetBlock instanceof FarmlandBlock || aboveFeetBlock instanceof FarmlandBlock) {
                         //Minecraft.getInstance().player.displayClientMessage(ITextComponent.nullToEmpty("on cropblock!"), false);
-                        player.addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, 60, 2));
+                        speedAdder += 2;
                     }
                 }
 
@@ -1416,7 +1128,46 @@ public class EventHandler {
                     }
                 }
 
+                if (player.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof Refined_Netherite_Helmet) {
+                    speedAdder -= 1;
+                }
+                if (player.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Refined_Netherite_Chestplate) {
+                    speedAdder -= 1;
+                }
+                if (player.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Refined_Netherite_Leggings) {
+                    speedAdder -= 1;
+                }
+                if (player.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Refined_Netherite_Boots) {
+                    speedAdder -= 1;
+                }
+
+                if (player.getItemBySlot(EquipmentSlotType.HEAD).getItem() instanceof Hardened_Refined_Netherite_Helmet) {
+                    speedAdder -= 2;
+                }
+                if (player.getItemBySlot(EquipmentSlotType.CHEST).getItem() instanceof Hardened_Refined_Netherite_Chestplate) {
+                    speedAdder -= 2;
+                }
+                if (player.getItemBySlot(EquipmentSlotType.LEGS).getItem() instanceof Hardened_Refined_Netherite_Leggings) {
+                    speedAdder -= 2;
+                }
+                if (player.getItemBySlot(EquipmentSlotType.FEET).getItem() instanceof Hardened_Refined_Netherite_Boots) {
+                    speedAdder -= 2;
+                }
+
                 //skills.setMana(manaReductionPercentAdder);
+                skills.setStrength(strengthAdder);
+                skills.setMaxMana(100 + (Math.round(((float) (player.experienceLevel)) / 5f)) +
+                        (player.getMainHandItem().getItem() instanceof Zombie_Sword || player.getOffhandItem().getItem() instanceof Zombie_Sword ? 50 : 0) +
+                        (player.getMainHandItem().getItem() instanceof Ornate_Zombie_Sword || player.getOffhandItem().getItem() instanceof Ornate_Zombie_Sword ? 50 : 0) +
+                        (player.getMainHandItem().getItem() instanceof Florid_Zombie_Sword || player.getOffhandItem().getItem() instanceof Florid_Zombie_Sword ? 100 : 0));
+                skills.setMaxHealth((float) (100f + Math.floor(player.experienceLevel / 10D)));
+                skills.setHealth(Math.round(((event.getEntityLiving().getHealth() + event.getEntityLiving().getAbsorptionAmount()) / event.getEntityLiving().getMaxHealth()) * skills.getMaxHealth()));
+                skills.setFerocity((int) Math.floor(((double) (player.experienceLevel)) / 25D));
+                skills.setSpeed(speedAdder);
+                player.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(skills.getSpeed() / 1000D);
+                //ClientUtils.SendPrivateMessage("1: " + (player.getAttribute(Attributes.MOVEMENT_SPEED).getValue()));
+                //ClientUtils.SendPrivateMessage("1: " + (skills.getSpeed() / 1000f));
+                //ClientUtils.SendPrivateMessage("2: " + player.getSpeed());
 
             });
         } else if (event.getEntityLiving() instanceof MobEntity) {
@@ -1639,11 +1390,71 @@ public class EventHandler {
     }
 
     @SubscribeEvent
-    public static void OnLeftClickBow(final PlayerInteractEvent.LeftClickEmpty event) {
+    public static void OnLeftClickEmpty(final PlayerInteractEvent.LeftClickEmpty event) {
         if (event.getPlayer().getMainHandItem().getItem() instanceof ShortBow) {
             ShortBow bow = (ShortBow) event.getPlayer().getMainHandItem().getItem();
             bow.use(event.getWorld(), event.getPlayer(), Hand.MAIN_HAND);
             ClientUtils.SendPrivateMessage("shot");
+        }
+        if (event.getPlayer().getMainHandItem().getItem() == Items.DIAMOND_SWORD) {
+            event.getPlayer().getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills -> {
+                if (skills.getDiamondStrBoost() > 0) {
+                    skills.setDiamondStrBoost(skills.getDiamondStrBoost() - 1);
+                }
+            });
+        }
+        if (event.getPlayer().getMainHandItem().getItem() == Items.NETHERITE_SWORD) {
+            event.getPlayer().getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills -> {
+                if (skills.getNetheriteStrBoost() > 1) {
+                    skills.setNetheriteStrBoost(skills.getNetheriteStrBoost() - 2);
+                }
+            });
+        }
+        if (event.getPlayer().getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Sword) {
+            event.getPlayer().getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills -> {
+                int rnd = event.getPlayer().level.random.nextInt(3) + 1;
+                if (rnd < 3) {
+                    if (skills.getDiamondStrBoost() > 0) {
+                        skills.setDiamondStrBoost(skills.getDiamondStrBoost() - 1);
+                    }
+                } else {
+                    if (skills.getNetheriteStrBoost() > 1) {
+                        skills.setNetheriteStrBoost(skills.getNetheriteStrBoost() - 2);
+                    }
+                }
+            });
+        }
+    }
+
+    @SubscribeEvent
+    public static void OnLeftClickBlock(final PlayerInteractEvent.LeftClickBlock event) {
+        if (event.getPlayer().getMainHandItem().getItem() == Items.DIAMOND_SWORD) {
+            event.getPlayer().getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills -> {
+                if (skills.getDiamondStrBoost() > 0) {
+                    skills.setDiamondStrBoost(skills.getDiamondStrBoost() - 1);
+                }
+            });
+        }
+        if (event.getPlayer().getMainHandItem().getItem() == Items.NETHERITE_SWORD) {
+            event.getPlayer().getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills -> {
+                if (skills.getNetheriteStrBoost() > 1) {
+                    skills.setNetheriteStrBoost(skills.getNetheriteStrBoost() - 2);
+                }
+            });
+        }
+        if (event.getPlayer().getMainHandItem().getItem() instanceof Netherite_Plated_Diamond_Sword) {
+            event.getPlayer().getCapability(CapabilityPlayerSkills.PLAYER_STATS_CAPABILITY).ifPresent(skills -> {
+                int rnd = event.getPlayer().level.random.nextInt(3) + 1;
+                if (rnd < 3) {
+                    if (skills.getDiamondStrBoost() > 0) {
+                        skills.setDiamondStrBoost(skills.getDiamondStrBoost() - 1);
+                    }
+                } else {
+                    if (skills.getNetheriteStrBoost() > 1) {
+                        skills.setNetheriteStrBoost(skills.getNetheriteStrBoost() - 2);
+                    }
+                }
+            });
         }
     }
 

@@ -3,7 +3,6 @@ package com.iwant2tryhard.skyblockitemsplusplus.common.materials.armor;
 import com.iwant2tryhard.skyblockitemsplusplus.core.init.ItemInit;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IArmorMaterial;
-import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
@@ -11,7 +10,7 @@ import net.minecraft.util.SoundEvents;
 public class RefinedNetheriteArmorSource implements IArmorMaterial {
     private static final int[] baseDurability = {610, 888, 832, 721};
     private final int durabilityMultiplier = 1;
-    private final int[] baseDefense = {15, 40, 30, 15};
+    private final int[] baseDefense = {8, 20, 15, 8};
 
     @Override
     public int getDurabilityForSlot(EquipmentSlotType slotType) {

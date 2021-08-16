@@ -28,8 +28,11 @@ public class Refined_Netherite_Helmet extends ArmorItem {
         tooltip.add(new StringTextComponent(ColorText.GOLD + "Full Set Bonus: Power of The Netherite"));
         tooltip.add(new StringTextComponent(ColorText.GRAY + "Gain a " + ColorText.RED + " +20% Boost " + ColorText.GRAY + "on ALL netherite items in your inventory."));
         tooltip.add(new StringTextComponent(""));
-        tooltip.add(new StringTextComponent(ColorText.GOLD + "Piece Bonus: Heavy"));
+        tooltip.add(new StringTextComponent(ColorText.GOLD + "Piece Property: Heavy"));
         tooltip.add(new StringTextComponent(ColorText.GRAY + "Fall damage is added by " + ColorText.BLUE + "+25%" + ColorText.GRAY + " per piece; Max: " + ColorText.BLUE + "+100%"));
+        tooltip.add(new StringTextComponent(ColorText.GRAY + "Lose " + ColorText.RED + "-" + ColorText.WHITE + "1 Speed"));
+        tooltip.add(new StringTextComponent(ColorText.GOLD + "Piece Property: Headcrush"));
+        tooltip.add(new StringTextComponent(ColorText.GRAY + "Exponentially increase " + ColorText.RED + "mana loss per second" + ColorText.GRAY + " the longer you have the helmet on."));
         tooltip.add(new StringTextComponent(""));
         tooltip.add(new StringTextComponent("\u00A77" + "This item can be reforged!"));
         tooltip.add(new StringTextComponent(rarity + "HELMET"));
